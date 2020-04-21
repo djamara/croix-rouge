@@ -5,8 +5,8 @@
 
 <section class="content">
     <header class="content__title">
-        <h1>Dashboard</h1>
-        <small>Welcome to the unique SuperAdmin web app experience!</small>
+        <h1>Tableau de bord</h1>
+        <small>Bienvenue dans le système de gestion intégré de la croix Rouge</small>
 
         <div class="actions">
             <a href="#" class="actions__item zmdi zmdi-trending-up"></a>
@@ -27,8 +27,8 @@
         <div class="col-sm-6 col-md-3">
             <div class="quick-stats__item">
                 <div class="quick-stats__info">
-                    <h2>987,459</h2>
-                    <small>Total Leads Recieved</small>
+                    <h2>10.000</h2>
+                    <small>Total Volontaire</small>
                 </div>
 
                 <div class="quick-stats__chart peity-bar">6,4,8,6,5,6,7,8,3,5,9</div>
@@ -38,8 +38,8 @@
         <div class="col-sm-6 col-md-3">
             <div class="quick-stats__item">
                 <div class="quick-stats__info">
-                    <h2>356,785K</h2>
-                    <small>Total Website Clicks</small>
+                    <h2>3.786</h2>
+                    <small>Nombre de femmes</small>
                 </div>
 
                 <div class="quick-stats__chart peity-bar">4,7,6,2,5,3,8,6,6,4,8</div>
@@ -49,8 +49,8 @@
         <div class="col-sm-6 col-md-3">
             <div class="quick-stats__item">
                 <div class="quick-stats__info">
-                    <h2>$58,778</h2>
-                    <small>Total Sales Orders</small>
+                    <h2>6.214</h2>
+                    <small>Nombre d'hommes</small>
                 </div>
 
                 <div class="quick-stats__chart peity-bar">9,4,6,5,6,4,5,7,9,3,6</div>
@@ -61,7 +61,7 @@
             <div class="quick-stats__item">
                 <div class="quick-stats__info">
                     <h2>214</h2>
-                    <small>Total Support Tickets</small>
+                    <small>Nombre de comités</small>
                 </div>
 
                 <div class="quick-stats__chart peity-bar">5,6,3,9,7,5,4,6,5,6,4</div>
@@ -73,8 +73,8 @@
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Sales Statistics</h4>
-                    <h6 class="card-subtitle">Vestibulum purus quam scelerisque, mollis nonummy metus</h6>
+                    <h4 class="card-title">Statistiques</h4>
+                    <h6 class="card-subtitle">Courbe des representatifs des volontaire par année</h6>
 
                     <div class="flot-chart flot-curved-line"></div>
                     <div class="flot-chart-legends flot-chart-legends--curved"></div>
@@ -85,8 +85,8 @@
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Growth Rate</h4>
-                    <h6 class="card-subtitle">Commodo luctus nisi erat porttitor ligula eget lacinia odio semnec</h6>
+                    <h4 class="card-title">Statistiques</h4>
+                    <h6 class="card-subtitle">Evolution des actions ménés par la croix rouge selon par années</h6>
 
                     <div class="flot-chart flot-line"></div>
                     <div class="flot-chart-legends flot-chart-legends--line"></div>

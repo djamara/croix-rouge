@@ -12,7 +12,7 @@
     </body>
     <footer>
         @section('footer')
-            @include('footer')
+            
         @show
     </footer>
 </html>

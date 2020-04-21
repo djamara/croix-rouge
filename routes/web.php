@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('accueil');
 });
 
+Route::get('/slide', function () {
+    return view('slide');
+});
+
 Route::get('/admin', function () {
     return view('admin/index');
 });
@@ -22,7 +26,13 @@ Route::get('/admin', function () {
 /*Route::get('/insertVolonteer', function () {
     return view('admin/insererVolontaire');
 });*/
-Route::get('/insertVolonteer', 'PersonneControler@afficherVue');
+Route::get('/formulaire_volontaire', 'PersonneControler@afficherVue');
+
+Route::get('/Liste_Volontaire', 'PersonneControler@afficherListerVolontaire');
+
+Route::post('/inserer_Volontaire', 'PersonneControler@insererVolontaire');
+
+Route::get('/insertHistoVolontaire', 'InsertHistoVolontaire@afficheHistorique');
 
 Route::get('/gallerie', function () {
     return view('admin/photo-gallery');

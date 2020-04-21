@@ -1,4 +1,4 @@
-<header class="header">
+0<header class="header">
     <div class="navigation-trigger hidden-xl-up" data-sa-action="aside-open" data-sa-target=".sidebar">
         <i class="zmdi zmdi-menu"></i>
     </div>
@@ -34,61 +34,14 @@
 
                         <div class="listview__content">
                             <div class="listview__heading">
-                                David Belle <small>12:01 PM</small>
+                                Idriss Coulibaly <small>12:01 </small>
                             </div>
-                            <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
+                            <p>Pour vous rappeler le point de presse MR le president</p>
                         </div>
                     </a>
 
-                    <a href="#" class="listview__item">
-                        <img src="demo/img/profile-pics/2.jpg" class="listview__img" alt="">
 
-                        <div class="listview__content">
-                            <div class="listview__heading">
-                                Jonathan Morris
-                                <small>02:45 PM</small>
-                            </div>
-                            <p>Nunc quis diam diamurabitur at dolor elementum, dictum turpis vel</p>
-                        </div>
-                    </a>
-
-                    <a href="#" class="listview__item">
-                        <img src="demo/img/profile-pics/3.jpg" class="listview__img" alt="">
-
-                        <div class="listview__content">
-                            <div class="listview__heading">
-                                Fredric Mitchell Jr.
-                                <small>08:21 PM</small>
-                            </div>
-                            <p>Phasellus a ante et est ornare accumsan at vel magnauis blandit turpis at augue ultricies</p>
-                        </div>
-                    </a>
-
-                    <a href="#" class="listview__item">
-                        <img src="demo/img/profile-pics/4.jpg" class="listview__img" alt="">
-
-                        <div class="listview__content">
-                            <div class="listview__heading">
-                                Glenn Jecobs
-                                <small>08:43 PM</small>
-                            </div>
-                            <p>Ut vitae lacus sem ellentesque maximus, nunc sit amet varius dignissim, dui est consectetur neque</p>
-                        </div>
-                    </a>
-
-                    <a href="#" class="listview__item">
-                        <img src="demo/img/profile-pics/5.jpg" class="listview__img" alt="">
-
-                        <div class="listview__content">
-                            <div class="listview__heading">
-                                Bill Phillips
-                                <small>11:32 PM</small>
-                            </div>
-                            <p>Proin laoreet commodo eros id faucibus. Donec ligula quam, imperdiet vel ante placerat</p>
-                        </div>
-                    </a>
-
-                    <a href="#" class="view-more">View all messages</a>
+                    <a href="#" class="view-more">Voir tous les messages</a>
                 </div>
             </div>
         </li>
@@ -298,6 +251,7 @@
 
     <div class="clock hidden-md-down">
         <div class="time">
+            {{date("d:m:Y")." | "}}
             <span class="time__hours"></span>
             <span class="time__min"></span>
             <span class="time__sec"></span>
@@ -311,15 +265,15 @@
             <div class="user__info" data-toggle="dropdown">
                 <img class="user__img" src="demo/img/profile-pics/8.jpg" alt="">
                 <div>
-                    <div class="user__name">Malinda Hollaway</div>
-                    <div class="user__email">malinda-h@gmail.com</div>
+                    <div class="user__name">Idriss Coulibaly</div>
+                    <div class="user__email">idrisseCoul@gmail.com</div>
                 </div>
             </div>
 
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">View Profile</a>
-                <a class="dropdown-item" href="#">Settings</a>
-                <a class="dropdown-item" href="/">Logout</a>
+                <a class="dropdown-item" href="#">Voir le Profile</a>
+                <a class="dropdown-item" href="#">Parametre</a>
+                <a class="dropdown-item" href="/">Deconnexion</a>
             </div>
         </div>
 
@@ -330,8 +284,9 @@
                 <a href="#"><i class="zmdi zmdi-view-week"></i>Ressources humaines</a>
 
                 <ul>
-                    <li><a href="insertVolonteer">Inserer un volontaire</a></li>
-                    <li><a href="boxed-layout.html">Liste des volontaires</a></li>
+                    <li><a href="formulaire_volontaire">Enregistrer un volontaire</a></li>
+                    <li><a href="boxed-layout.html">Historique des volontaires</a></li>
+                    <li><a href="Liste_Volontaire">Liste des volontaires</a></li>
                     <li><a href="hidden-sidebar-boxed-layout.html">Affectation de volontaire</a></li>
                 </ul>
             </li>
@@ -363,10 +318,13 @@
                     <li><a href="data-table.html">Etat de la caisse</a></li>
                 </ul>
             </li>
+            <li class="navigation__sub">
+                <a href="#"><i class="zmdi zmdi-view-list"></i>Archivage numerique</a>
+            </li>
 
-            <li><a href="calendar.html"><i class="zmdi zmdi-calendar"></i> Calendar</a></li>
+            <li><a href="calendar.html"><i class="zmdi zmdi-calendar"></i> Calendrier d'évènements</a></li>
 
-            <li><a href="gallerie"><i class="zmdi zmdi-image"></i> Photo Gallery</a></li>
+            <li><a href="gallerie"><i class="zmdi zmdi-image"></i> Gallerie Photo </a></li>
 
         </ul>
     </div>

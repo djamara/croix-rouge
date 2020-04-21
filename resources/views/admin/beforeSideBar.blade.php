@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>e-Croix Rouge 2.0 / Admin</title>
-        
+        <link rel="icon" type="image/png" href="images/logoCroix.jpg" />
         <!-- Vendor styles -->
         <link rel="stylesheet" href="{{asset('vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css')}}">
         <link rel="stylesheet" href="{{asset('vendors/bower_components/animate.css/animate.min.css')}}">

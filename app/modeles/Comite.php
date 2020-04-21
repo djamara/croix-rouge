@@ -8,7 +8,7 @@ class Comite extends Model
 {
     //
     protected $table = "comite";
-    protected $primarykey = 'personne_immat';
+    protected $primarykey = 'idcomite';
     protected $keyType = 'string';
     public $incrementing = true;
     public $timestamp = false;
