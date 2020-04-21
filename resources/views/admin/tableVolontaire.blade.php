@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
         <link rel="stylesheet" href="vendors/bower_components/animate.css/animate.min.css">
         <link rel="stylesheet" href="vendors/bower_components/jquery.scrollbar/jquery.scrollbar.css">
+        <link rel="stylesheet" href="vendors/bower_components/select2/dist/css/select2.min.css">
 
         <!-- App styles -->
         <link rel="stylesheet" href="css/app.min.css">
@@ -28,7 +29,7 @@
             @include('admin/sidebar')
             <section class="content">
                 <header class="content__title">
-                    <h1>DATA TABLES</h1>
+                    <h1>LISTE DES VOLONTAIRES</h1>
 
                     <div class="actions">
                             <a href="#" class="actions__item zmdi zmdi-trending-up"></a>
@@ -49,12 +50,27 @@
                     <div class="card-body">
 <!--                        <h4 class="card-title">Basic example</h4>
                         <h6 class="card-subtitle">DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool, based upon the foundations of progressive enhancement, and will add advanced interaction controls to any HTML table.</h6>-->
+                        <h5><strong></strong></h5>
                         <div class="row col-lg-12">
-                            <div>
+                            <div class="col-sm-8 form-group">
+                                <label>La valeur recherchée</label>
+                                <input type="text" placeholder="Entrez la valeur recherchée" class="form-control">
+                            </div>
+                            <div class="col-sm-4 form-group">
+                                <label>Option de recherche</label>
+                                <select class="select2" data-minimum-results-for-search="Infinity">
+                                    <option>comite local</option>
+                                    <option>date de naissance</option>
+                                    <option>profession</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row col-lg-12">
+                            <div class="form-group">
                                 <button class="btn btn-info btn-circle">SUPRIMER<span class="fa fa-plus"></span></button>
                             </div>
                             <br>
-                            <div>
+                            <div class="form-group">
                                 <button class="btn btn-danger btn-circle">MODOFIER<span class="fa fa-linux"></span></button>
                             </div>
                         </div>
@@ -64,24 +80,30 @@
                                     <tr>
                                         
                                         <th>Matricule</th>
+                                        <th>Comité Local</th>
                                         <th>Nom</th>
                                         <th>Prenom</th>
-                                        <th>Comité Local</th>
                                         <th>Age</th>
                                         <th>Profession</th>
                                         <th>Lieu Habitation</th>
+                                        <th>
+                                            <input type="checkbox" value="" name="" class="">
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($personnes as $personne)
                                     <tr>
                                         <td>{{$personne->personne_immat}}</td>
+                                        <td>{{$personne->comiteLocal}}</td>
                                         <td>{{$personne->personne_nom}}</td>
                                         <td>{{$personne->personne_prenom}}</td>
-                                        <td>{{$personne->personne_date_naiss}}</td>
                                         <td><?php echo date_format(new DateTime($personne->personne_date_naiss), 'd/m/Y')?></td>
                                         <td>{{$personne->profession}}</td>
                                         <td>{{$personne->ville_habita."/".$personne->communeHabitation}}</td>
+                                        <td>
+                                            <input type="checkbox" value="" name="diplomes[]" class="">
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -157,6 +179,7 @@
         <script src="vendors/bower_components/datatables.net-buttons/js/buttons.print.min.js"></script>
         <script src="vendors/bower_components/jszip/dist/jszip.min.js"></script>
         <script src="vendors/bower_components/datatables.net-buttons/js/buttons.html5.min.js"></script>
+        <script src="{{asset('vendors/bower_components/select2/dist/js/select2.full.min.js')}}"></script>
 
         <!-- App functions and actions -->
         <script src="js/app.min.js"></script>

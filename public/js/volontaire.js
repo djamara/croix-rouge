@@ -8,6 +8,10 @@ $(function () {
      closeBtn: true,
      timer: 0
      });*/
+
+
+   //addVolontaire();
+
 //    $.notify("Hello World");
     toastr.options = {
         "closeButton": true,
@@ -20,7 +24,7 @@ $(function () {
         "hideDuration": "4000"
     }
 
-    toastr.success('Bienvenue dans l\'interface de création de volontaire' , 'BIENVENUE'); //le test du plugin de l'alerte
+    toastr.success('Bienvenue dans l\'interface de création de volontaire', 'BIENVENUE'); //le test du plugin de l'alerte
 
     hideZoneVilCommune();
 
@@ -122,7 +126,17 @@ $(function () {
                         message: "Veuillez svp saisir le contact de la personne d'urgence"
                     }
                 }
-            }
+            },
+            /*imageVolontaire: {
+                message: "Veuillez svp joindre le contact de la personne d'urgence",
+                feedbackIcons: true,
+                trigger: 'keyup',
+                validators: {
+                    notEmpty: {
+                        message: "Veuillez svp saisir le contact de la personne d'urgence"
+                    }
+                }
+            }*/
 
 
 
@@ -179,7 +193,7 @@ $(function () {
                         "showMethod": "fadeIn",
                         "hideMethod": "fadeOut",
                         "onHidden": function () {
-                            window.location.href = '';
+                            addVolontaire();
                         }
                     },
                             toastr.success('Enregistrement effectué avec succès', 'ACTUALISATION DES DONNÉES');
@@ -205,7 +219,7 @@ $(function () {
 
                         }
                     },
-                        toastr.danger('Have fun storming the castle!', 'Miracle Max Says');
+                            toastr.danger('Have fun storming the castle!', 'Miracle Max Says');
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -218,9 +232,9 @@ $(function () {
                     "positionClass": "toast-top-right",
                     "onclick": null,
                     /*"showDuration": "400",
-                    "hideDuration": "1000",
-                    "timeOut": "7000",
-                    "extendedTimeOut": "1000",*/
+                     "hideDuration": "1000",
+                     "timeOut": "7000",
+                     "extendedTimeOut": "1000",*/
                     "showEasing": "swing",
                     "hideEasing": "linear",
                     "showMethod": "fadeIn",
@@ -229,7 +243,7 @@ $(function () {
 
                     }
                 },
-                    toastr.warning('Un problème est survenue sur le serveurn contacter l\'administrateur', 'ALERTE');
+                        toastr.warning('Un problème est survenue sur le serveurn contacter l\'administrateur', 'ALERTE');
 
             }
 
@@ -239,6 +253,34 @@ $(function () {
 
 })
 
+function addVolontaire(){
+    
+     $.confirm({
+        title: '<p style="color: #c40b4c"><Strong>ALERTE</strong></p>!',
+        content: '<p style="color:#056365"> Voulez vous saisir un autre volontaire ?</p>',
+        type:'green',
+        buttons: {
+            confirm: {
+                    text:'Saisir à nouveau',
+                    btnClass:'btn-success',
+                    action: function () {
+                        window.location.href = '';
+                    }
+            },
+            /*cancel: function () {
+                $.alert('Canceled!');
+            },*/
+            cancel: {
+                text: 'Annuler',
+                btnClass: 'btn-blue',
+                keys: ['enter', 'shift'],
+                action: function () {
+                    window.location.href = '/Liste_Volontaire';
+                }
+            }
+        }
+    });
+}
 
 function addTabHistorique() {
 

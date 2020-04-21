@@ -36,6 +36,7 @@
         <link rel="stylesheet" href="css/app.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
         
 <!--        <script src="js/jquery.min.js"></script>
 <script src="js/bootstrapValidator.min.js"></script>-->
@@ -75,7 +76,7 @@
                 </header>
 
                 <div class="card">
-                    <form name="insererVolontaire" id="formVolontaire" method="POST" action="inserer_Volontaire">
+                    <form name="insererVolontaire" id="formVolontaire" method="POST" action="inserer_Volontaire" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
 
@@ -388,6 +389,14 @@
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
+                                            <h5>Image du volontaire</h5>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label>Joindre une image </label>
+                                                    <input type="file" class="form-control form-control-md" name="imageVolontaire" placeholder="Enregistrer la photo du contact">
+                                                    <i class="form-group__bar"></i>
+                                                </div>
+                                            </div>
 
                                             <br>
 
@@ -400,7 +409,7 @@
                                         <input type="hidden">
                                     </div>
                                     <div class="col-lg-8">
-                                        <input type="submit" class="btn btn-info btn-lg" value="Soumettre le formulaire">
+                                        <input type="submit" class="btn btn-info btn-lg" accept=".jpg" value="Soumettre le formulaire">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -477,6 +486,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
 <!--<script src="{{asset('vendors/bower_components/jquery/dist/jquery.min.js')}}"></script>-->
         <script src="{{asset('vendors/bower_components/popper.js/dist/umd/popper.min.js')}}"></script>

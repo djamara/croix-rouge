@@ -208,6 +208,12 @@ class PersonneControler extends Controller {
                                     ->from('profession')
                                     ->whereColumn('idprofession','profession_idprofession');
                             
+                        },
+                        'comiteLocal'=>function($comite){
+                            $comite->select('comite_libelle')
+                                    ->from('comite')
+                                    ->whereColumn('idcomite','comiteActuel');
+                            
                         }
                        ])->get();
         
