@@ -68,18 +68,20 @@
                                             <a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a>
                                         </div>
                                         or
-                                        <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                                        <form class="form" role="form" method="post" action="Login" accept-charset="UTF-8" id="login-nav">
+                                            @csrf
                                             <div class="form-group">
                                                 <label class="sr-only" for="login">Email address</label>
-                                                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="login" required>
+                                                <input type="text" name="login" class="form-control" id="exampleInputEmail2" placeholder="login" required>
                                             </div>
                                             <div class="form-group">
                                                 <label class="sr-only" for="exampleInputPassword2">Password</label>
-                                                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="mot de passe" required>
+                                                <input type="password" class="form-control" id="exampleInputPassword2" name="password" placeholder="mot de passe" required>
                                                 <div class="help-block text-right"><a href="">Mot de passe oublié ?</a></div>
                                             </div>
                                             <div class="form-group">
-                                                <a href="admin" class="btn btn-primary btn-block">Connexion</a>
+                                                <!--<a href="admin" class="btn btn-primary btn-block">Connexion</a>-->
+                                                <button class="btn btn-primary btn-block" type="submit">Connexion</button>
                                             </div>
                                             <div class="checkbox">
                                                 <label>

@@ -28,6 +28,8 @@ Route::get('/admin', function () {
 });*/
 Route::get('/formulaire_volontaire', 'PersonneControler@afficherVue');
 
+Route::post('/Login', 'UserLoginController@authenticate');
+
 Route::get('/Liste_Volontaire', 'PersonneControler@afficherListerVolontaire');
 
 Route::post('/inserer_Volontaire', 'PersonneControler@insererVolontaire');
