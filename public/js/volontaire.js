@@ -219,7 +219,7 @@ $(function () {
 
                         }
                     },
-                            toastr.danger('Have fun storming the castle!', 'Miracle Max Says');
+                            toastr.warning('Have fun storming the castle!', 'Miracle Max Says');
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {

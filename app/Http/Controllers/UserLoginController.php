@@ -21,10 +21,12 @@ class UserLoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             // Authentication passed...
-            return redirect()->intended('admin');
+            ///return redirect()->intended('admin');
+            echo 'succes';
+            
         }else{
             
-            echo "Vous n'etes pas rentrés dans la boucle \n le pass hashed :". password_hash($credentials['password'],PASSWORD_DEFAULT);
+            echo 'pasdedonnees';
         }
     }
 }
