@@ -88,7 +88,7 @@ function login(){
                              //window.location.href = '/';
                         }
                     },
-                      toastr.warning('Données sont incorrectes ! Accès refusé ', 'VERIFICATION DES DONNÉES'); 
+                      toastr.warning('Données incorrectes ! Accès refusé ', 'VERIFICATION DES DONNÉES'); 
             }
             else{
                 

@@ -35,6 +35,7 @@ class PersonneControler extends Controller {
         $pays = \App\modeles\Pays::all();
         $affections = \App\modeles\MaladieChronique::all();
         $comites = \App\modeles\Comite::all();
+        $fonctionCR = \App\modeles\Fonction::all();
         /* foreach ($allComites as $comite) {
 
 
@@ -42,11 +43,11 @@ class PersonneControler extends Controller {
           } */
 
         //$this->Matricule = $this->genererMatricule("RAF");
-        return view('admin/insererVolontaire', ["comites" => $allComites, "Matricule" => $this->Matricule,
+        return view('admin/insererVolontaire', ["comites" => $allComites,"fonctionCR"=>$fonctionCR, "Matricule" => $this->Matricule,
             "villes" => $allvilles,
             "paysNaiss" => $pays, "communes" => $communes, 'paysNat' => $pays, "comites" => $comites,
             "typePiece" => $TypePieces, "groupesanguin" => $groupeSanguin, "affections" => $affections,
-            "profession" => $profession, "diplomes" => $diplomes, "groupesanguin" => $groupeSanguin]);
+            "profession" => $profession, "diplomes" => $diplomes, "groupesanguin" => $groupeSanguin] );
     }
 
     public function insererVolontaire(Request $request) {
@@ -58,6 +59,7 @@ class PersonneControler extends Controller {
         $personne = new \App\modeles\Personne;
         $this->Matricule = $this->genererMatricule($comite); //
 
+        $personne->comiteActuel = $comite; //inserer le comité
         $personne->personne_civilite = $civilite; //inserer les civilités
         $personne->personne_nom = $nomVolontaire; // inserer le nom
         $personne->personne_prenom = $prenomVolontaire; //inserer le prenom
@@ -80,7 +82,7 @@ class PersonneControler extends Controller {
         $personne->personne_email = $emailVolontaire; //email
         //
         
-        $personne->fonctionCR_idfonctionCR = 1;
+        $personne->fonctionCR_idfonctionCR = $fonctionCR;
         $personne->profession_idprofession = $profVolontaire; //profession
         if (!empty($groupeSanguin))
             $personne->groupeSanguin = $groupeSanguin; //groupe sanguin
@@ -127,29 +129,7 @@ class PersonneControler extends Controller {
         }
     }
 
-    public function insertInfoGeneral(Request $request) {
-
-        extract($request->all());
-
-        $personne = new \App\modeles\Personne;
-
-        $personne->personne_civilite = $civilite;
-        $personne->personne_nom = $nomVolontaire;
-        $personne->personne_prenom = $prenomVolontaire;
-        $personne->personne_date_naiss = $dateNaissVolontaire;
-        $personne->personne_pays_naiss = $paysNaiss;
-        $personne->personne_pays_nationalite = $nationalite;
-        $personne->personne_ville_naiss = $vilNaiss;
-        $personne->personne_commune_naiss = $comNaiss;
-        $personne->personne_ville_habitation = $vilHabitVolontaire;
-        $personne->personne_commune_habitation = $comHabitVolontaire;
-        $personne->personne_affection = $maladieVolontaire;
-        $personne->fonctionCR_idfonctionCR = $maladieVolontaire;
-        $personne->profession_idprofession = $profVolontaire;
-
-
-        $personne->save();
-    }
+  
 
     public function afficherListerVolontaire() {
 
@@ -218,36 +198,32 @@ class PersonneControler extends Controller {
                        ])->get();
         
         return view('admin/tableVolontaire', ["personnes" => $personnes]);
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
     }
+    
+      public function insertInfoGeneral(Request $request) {
+
+        extract($request->all());
+
+        $personne = new \App\modeles\Personne;
+
+        $personne->personne_civilite = $civilite;
+        $personne->personne_nom = $nomVolontaire;
+        $personne->personne_prenom = $prenomVolontaire;
+        $personne->personne_date_naiss = $dateNaissVolontaire;
+        $personne->personne_pays_naiss = $paysNaiss;
+        $personne->personne_pays_nationalite = $nationalite;
+        $personne->personne_ville_naiss = $vilNaiss;
+        $personne->personne_commune_naiss = $comNaiss;
+        $personne->personne_ville_habitation = $vilHabitVolontaire;
+        $personne->personne_commune_habitation = $comHabitVolontaire;
+        $personne->personne_affection = $maladieVolontaire;
+        $personne->fonctionCR_idfonctionCR = $fonctionCR;
+        $personne->profession_idprofession = $profVolontaire;
+
+
+        $personne->save();
+    }
+    
 
 }

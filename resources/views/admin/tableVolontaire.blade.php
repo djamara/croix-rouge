@@ -58,9 +58,8 @@
                             </div>
                             <div class="col-sm-4 form-group">
                                 <label>Option de recherche</label>
-                                <select class="select2" data-minimum-results-for-search="Infinity">
+                                <select class="select2" name="optionRecherche" data-minimum-results-for-search="Infinity">
                                     <option>comite local</option>
-                                    <option>date de naissance</option>
                                     <option>profession</option>
                                 </select>
                             </div>
@@ -88,13 +87,14 @@
                                         <th>Lieu Habitation</th>
                                         <th>
                                             <input type="checkbox" value="" name="" class="">
+                                            <label>Tout cocher</label>
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tbodyTabVolont">
                                     @foreach($personnes as $personne)
-                                    <tr>
-                                        <td>{{$personne->personne_immat}}</td>
+                                    <tr id="trTabVolont">
+                                        <td id="immatVol">{{$personne->personne_immat}}</td>
                                         <td>{{$personne->comiteLocal}}</td>
                                         <td>{{$personne->personne_nom}}</td>
                                         <td>{{$personne->personne_prenom}}</td>

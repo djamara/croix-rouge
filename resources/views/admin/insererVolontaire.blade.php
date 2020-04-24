@@ -101,12 +101,22 @@
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12">
+                                            <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Comite local</label>
                                                     <select class="select2" name="comite">
                                                         @foreach($comites as $comite)
                                                         <option value="{{$comite->idcomite}}">{{$comite->comite_libelle}}</option>
+                                                        @endForeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Fonction du volontaire</label>
+                                                    <select class="select2" name="fonctionCR">
+                                                        @foreach($fonctionCR as $fonctionCR)
+                                                        <option value="{{$fonctionCR->idfonctionCR}}">{{$fonctionCR->fonctionCR_libelle}}</option>
                                                         @endForeach
                                                     </select>
                                                 </div>
