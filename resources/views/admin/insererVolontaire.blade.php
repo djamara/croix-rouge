@@ -407,6 +407,13 @@
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label>Joindre une image de pièce fournie </label>
+                                                    <input type="file" class="form-control form-control-md" name="imagePieceVolontaire" placeholder="Enregistrer le scan de la piece d'identité">
+                                                    <i class="form-group__bar"></i>
+                                                </div>
+                                            </div>
 
                                             <br>
 
