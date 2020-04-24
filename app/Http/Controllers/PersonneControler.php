@@ -56,6 +56,8 @@ class PersonneControler extends Controller {
         //echo json_encode($request->all());
 //        extract($request->all());
 
+        var_dump($imageVolontaire);
+        
         $personne = new \App\modeles\Personne;
         $this->Matricule = $this->genererMatricule($comite); //
 

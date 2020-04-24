@@ -166,7 +166,8 @@ $(function () {
          // ... Process the result ...
          }, 'json');*/
 
-        //alert($form.serialize());
+        alert($form.serialize());
+        
         $.ajax({
             url: $form.attr('action'),
             data: $form.serialize(),
