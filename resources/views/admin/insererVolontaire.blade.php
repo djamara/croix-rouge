@@ -99,23 +99,7 @@
                                         <div class="row col-lg-12">
 
                                             <!-- {{$Matricule}}-->
-                                             {{$lastPersonnInsert->personne_immat}}
-                                            
-                                            <h5>Image du volontaire</h5>
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label>Joindre une image </label>
-                                                    <input type="file" class="form-control form-control-md" id="imageVolontaire" name="imageVolontaire" placeholder="Enregistrer la photo du contact">
-                                                    <i class="form-group__bar"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label>Joindre une image de pièce fournie </label>
-                                                    <input type="file" class="form-control form-control-md" id="imagePieceVolontaire" name="imagePieceVolontaire" placeholder="Enregistrer le scan de la piece d'identité">
-                                                    <i class="form-group__bar"></i>
-                                                </div>
-                                            </div>
+                                             <!--{{$lastPersonnInsert->personne_immat}}-->
                                             <h5>Généralité</h5>
                                             <div class="col-sm-10">
                                                 <div class="form-group">
@@ -422,6 +406,21 @@
                                                 </div>
                                             </div>
                                             <br>
+                                            <h5>Image du volontaire</h5>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label>Joindre une photo numerique </label>
+                                                    <input type="file" class="form-control form-control-md" id="imageVolontaire" name="imageVolontaire" placeholder="Enregistrer la photo du contact">
+                                                    <i class="form-group__bar"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label>Joindre une image de pièce fournie </label>
+                                                    <input type="file" class="form-control form-control-md" id="imagePieceVolontaire" name="imagePieceVolontaire" placeholder="Enregistrer le scan de la piece d'identité">
+                                                    <i class="form-group__bar"></i>
+                                                </div>
+                                            </div>
 
                                         </div>
 

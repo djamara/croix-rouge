@@ -88,6 +88,8 @@ class PersonneControler extends Controller {
         $personne->personne_telephone_2 = $tel2Volontaire; //telephone 2
         $personne->personne_email = $emailVolontaire; //email
         //
+        $personne->TypePiece = $typePiece; //type de la piece 
+        $personne->NumerPiece = $numPieceVolontaire; //numero de la piece 
         
         $personne->fonctionCR_idfonctionCR = $fonctionCR;
         $personne->profession_idprofession = $profVolontaire; //profession
@@ -159,10 +161,12 @@ class PersonneControler extends Controller {
         $image = new \App\modeles\Images();
         $image->image_libelle = $ImageVolontaire->getClientOriginalName();
         $image->personne_idpersonne = $lastMatricule;
+        $image->image_legende = "PHOTOVOLONTAIRE";
         
         $image2 = new \App\modeles\Images();
         $image2->image_libelle = $ImagePieceVolontaire->getClientOriginalName();
         $image2->personne_idpersonne = $lastMatricule;
+        $image2->image_legende = "COPIEDELAPIECE";
         
         if($ImageVolontaire->move($destinationPath, $ImageVolontaire->getClientOriginalName()) &&
            $ImagePieceVolontaire->move($destinationPath, $ImagePieceVolontaire->getClientOriginalName()) &&

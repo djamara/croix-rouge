@@ -182,7 +182,7 @@ $(function () {
         inseretData();
         inseretFileData();
     });
-    ;
+    
 })
 
 function inseretData() {

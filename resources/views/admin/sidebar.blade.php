@@ -285,18 +285,18 @@
 
                 <ul>
                     <li><a href="formulaire_volontaire">Enregistrer un volontaire</a></li>
-                    <li><a href="boxed-layout.html">Historique des volontaires</a></li>
+                    <!--<li><a href="boxed-layout.html">Historique des volontaires</a></li>-->
                     <li><a href="Liste_Volontaire">Liste des volontaires</a></li>
-                    <li><a href="hidden-sidebar-boxed-layout.html">Affectation de volontaire</a></li>
+                    <!--<li><a href="hidden-sidebar-boxed-layout.html">Affectation de volontaire</a></li>-->
                 </ul>
             </li>
 
             <li class="navigation__sub">
                 <a href="#"><i class="zmdi zmdi-format-underlined"></i>Missions</a>
                 <ul>
-                    <li><a href="insertVolonteer">Enregistrer un nouvelle mission</a></li>
-                    <li><a href="boxed-layout.html">Liste des missions</a></li>
-                    <li><a href="hidden-sidebar-boxed-layout.html">Affectation de volontaire</a></li>
+                    <li><a href="#">Enregistrer un nouvelle mission</a></li>
+                    <li><a href="#">Liste des missions</a></li>
+                    <li><a href="#">Affectation de volontaire</a></li>
                 </ul>
             </li>
 
@@ -304,18 +304,18 @@
                 <a href="#"><i class="zmdi zmdi-view-list"></i>Caisse</a>
 
                 <ul>
-                    <li><a href="html-table.html">Saisir paiement</a></li>
-                    <li><a href="html-table.html">Cotisations en cours</a></li>
-                    <li><a href="data-table.html">Etat de la caisse</a></li>
+                    <li><a href="#">Saisir paiement</a></li>
+                    <li><a href="#">Cotisations en cours</a></li>
+                    <li><a href="#">Etat de la caisse</a></li>
                 </ul>
             </li>
             <li class="navigation__sub">
                 <a href="#"><i class="zmdi zmdi-view-list"></i>Comités local</a>
 
                 <ul>
-                    <li><a href="html-table.html">Inserer un comité local</a></li>
-                    <li><a href="html-table.html">Liste des comités locaux</a></li>
-                    <li><a href="data-table.html">Etat de la caisse</a></li>
+                    <!--<li><a href="html-table.html">Inserer un comité local</a></li>-->
+                    <li><a href="Liste_Comite">Liste des comités locaux</a></li>
+                    <!--<li><a href="data-table.html">Etat de la caisse</a></li>-->
                 </ul>
             </li>
             <li class="navigation__sub">
