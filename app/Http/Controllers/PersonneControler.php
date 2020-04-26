@@ -19,7 +19,7 @@ class PersonneControler extends Controller {
         $id = \App\modeles\Personne::max('idpersonne');
 //      $personne = DB::table('personne')->latest()->first();
         $id = $id + 1;
-        $this->Matricule = "CRCI/" . date("Y") . "/C" . $comite . "/" . $id;
+        $this->Matricule = "CRCI-" . date("Y") . "-C" . $comite . "-" . $id;
         return $this->Matricule;
     }
 
@@ -36,28 +36,33 @@ class PersonneControler extends Controller {
         $affections = \App\modeles\MaladieChronique::all();
         $comites = \App\modeles\Comite::all();
         $fonctionCR = \App\modeles\Fonction::all();
+        $lastPersonnInsert = \App\modeles\Personne::latest()->first(); // recuperer le dernier inssert dans personne
+        
         /* foreach ($allComites as $comite) {
-
-
           echo $comite->comite_libelle ."<br>";
           } */
-
         //$this->Matricule = $this->genererMatricule("RAF");
-        return view('admin/insererVolontaire', ["comites" => $allComites,"fonctionCR"=>$fonctionCR, "Matricule" => $this->Matricule,
-            "villes" => $allvilles,
+
+        return view('admin/insererVolontaire', ["comites" => $allComites, "fonctionCR" => $fonctionCR, "Matricule" => $this->Matricule,
+            "villes" => $allvilles, "lastPersonnInsert" => $lastPersonnInsert,
             "paysNaiss" => $pays, "communes" => $communes, 'paysNat' => $pays, "comites" => $comites,
             "typePiece" => $TypePieces, "groupesanguin" => $groupeSanguin, "affections" => $affections,
-            "profession" => $profession, "diplomes" => $diplomes, "groupesanguin" => $groupeSanguin] );
+            "profession" => $profession, "diplomes" => $diplomes, "groupesanguin" => $groupeSanguin]);
     }
 
     public function insererVolontaire(Request $request) {
 
+        //if (!isset($request->input('ImageVolontaire')) && !isset($request->input('ImagePieceVolontaire'))) {
         extract($request->all());
+        //var_dump($request->input('donnees'));
+        //$parametre = $request->all();
         //echo json_encode($request->all());
 //        extract($request->all());
+        //var_dump($parametre);
+//        var_dump($parametre['ImageVolontaire']);
+        //$donnees = $parametre['donnees'];
 
-        var_dump($imageVolontaire);
-        
+
         $personne = new \App\modeles\Personne;
         $this->Matricule = $this->genererMatricule($comite); //
 
@@ -126,12 +131,48 @@ class PersonneControler extends Controller {
 
         if ($retour == true) {
             echo "succes";
+            //var_dump($request->file('ImageVolontaire'));
         } else {
             echo "echec";
         }
     }
 
-  
+    public function uplaodFile(Request $request) {
+
+        $lastPersonnInsert = \App\modeles\Personne::latest()->first(); // recuperer le dernier inssert dans personne
+        //$ImageVolontaire = $request->input('ImageVolontaire');
+        //$ImagePieceVolontaire = $request->input('ImagePieceVolontaire');
+        $lastMatricule = $lastPersonnInsert->personne_immat; //recuperer le matricule
+
+        //$nameDossier = str_replace("/", "-", $lastPersonnInsert); // remplacer les "/" par "-"
+        if(!is_dir('uploads')){
+            mkdir('uploads');
+        }
+        if (!is_dir($lastMatricule)) {
+            mkdir('uploads/'.$lastMatricule);
+        }
+
+        $ImageVolontaire = $request->file('ImageVolontaire');
+        $ImagePieceVolontaire = $request->file('ImagePieceVolontaire');
+        //Move Uploaded File
+        $destinationPath = 'uploads/'.$lastMatricule;
+        $image = new \App\modeles\Images();
+        $image->image_libelle = $ImageVolontaire->getClientOriginalName();
+        $image->personne_idpersonne = $lastMatricule;
+        
+        $image2 = new \App\modeles\Images();
+        $image2->image_libelle = $ImagePieceVolontaire->getClientOriginalName();
+        $image2->personne_idpersonne = $lastMatricule;
+        
+        if($ImageVolontaire->move($destinationPath, $ImageVolontaire->getClientOriginalName()) &&
+           $ImagePieceVolontaire->move($destinationPath, $ImagePieceVolontaire->getClientOriginalName()) &&
+           $image->save()&& $image2->save() ){
+            
+            echo 'succes';
+        }else{
+            echo 'echec';
+        }
+    }
 
     public function afficherListerVolontaire() {
 
@@ -140,70 +181,63 @@ class PersonneControler extends Controller {
                (SELECT commune.commune_libelle FROM commune WHERE personne.personne_commune_habitation = commune.idcommune) AS communehabitation
                FROM personne";
 
-        /*$personnes = \Illuminate\Support\Facades\DB::table('personne')
-                        ->select(\Illuminate\Support\Facades\DB::Raw($req))
-                        ->get();
-        */
-        
+        /* $personnes = \Illuminate\Support\Facades\DB::table('personne')
+          ->select(\Illuminate\Support\Facades\DB::Raw($req))
+          ->get();
+         */
+
         $personnes = \App\modeles\Personne::addSelect([
-            
-                        'ville_naiss'=>function($query){
+                    'ville_naiss' => function($query) {
                         $query->select('VIL_NOM')
                                 ->from('villes')
-                                ->whereColumn('VIL_IDENTIFIANT','personne_ville_naiss');
-                        },
-                        'ville_habita'=>function($join){  
+                                ->whereColumn('VIL_IDENTIFIANT', 'personne_ville_naiss');
+                    },
+                    'ville_habita' => function($join) {
                         $join->select('VIL_NOM')
-                             ->from('villes')
-                             ->whereColumn('VIL_IDENTIFIANT','personne_ville_habitation');
-                        },
-                        'pays_naissance'=>function($pays){
-                           $pays->select("PAYS_NOM")
+                                ->from('villes')
+                                ->whereColumn('VIL_IDENTIFIANT', 'personne_ville_habitation');
+                    },
+                    'pays_naissance' => function($pays) {
+                        $pays->select("PAYS_NOM")
                                 ->from("pays_nationalite")
-                                ->whereColumn('PAYS_CODE','personne_pays_naiss');
-                        },
-                        'pays_habitation'=>function($paysi){
-                           $paysi->select("PAYS_NOM")
+                                ->whereColumn('PAYS_CODE', 'personne_pays_naiss');
+                    },
+                    'pays_habitation' => function($paysi) {
+                        $paysi->select("PAYS_NOM")
                                 ->from("pays_nationalite")
-                                ->whereColumn('PAYS_CODE','personne_pays_nationalite');
-                        },
-                        'profession'=>function($profession){
-                            $profession->select('profession_libelle')
-                                    ->from('profession')
-                                    ->whereColumn('idprofession','profession_idprofession');
-                            
-                        },
-                        'communeNaiss'=>function($communeNaiss){
-                           $communeNaiss->select('commune_libelle')
-                                    ->from('commune')
-                                    ->whereColumn('idcommune','personne_commune_naiss');
-                            
-                        },
-                        'communeHabitation'=>function($communeHabitation){
-                           $communeHabitation->select('commune_libelle')
-                                    ->from('commune')
-                                    ->whereColumn('idcommune','personne_commune_habitation');
-                            
-                        },
-                        'profession'=>function($profession){
-                            $profession->select('profession_libelle')
-                                    ->from('profession')
-                                    ->whereColumn('idprofession','profession_idprofession');
-                            
-                        },
-                        'comiteLocal'=>function($comite){
-                            $comite->select('comite_libelle')
-                                    ->from('comite')
-                                    ->whereColumn('idcomite','comiteActuel');
-                            
-                        }
-                       ])->get();
-        
-        return view('admin/tableVolontaire', ["personnes" => $personnes]);
+                                ->whereColumn('PAYS_CODE', 'personne_pays_nationalite');
+                    },
+                    'profession' => function($profession) {
+                        $profession->select('profession_libelle')
+                                ->from('profession')
+                                ->whereColumn('idprofession', 'profession_idprofession');
+                    },
+                    'communeNaiss' => function($communeNaiss) {
+                        $communeNaiss->select('commune_libelle')
+                                ->from('commune')
+                                ->whereColumn('idcommune', 'personne_commune_naiss');
+                    },
+                    'communeHabitation' => function($communeHabitation) {
+                        $communeHabitation->select('commune_libelle')
+                                ->from('commune')
+                                ->whereColumn('idcommune', 'personne_commune_habitation');
+                    },
+                    'profession' => function($profession) {
+                        $profession->select('profession_libelle')
+                                ->from('profession')
+                                ->whereColumn('idprofession', 'profession_idprofession');
+                    },
+                    'comiteLocal' => function($comite) {
+                        $comite->select('comite_libelle')
+                                ->from('comite')
+                                ->whereColumn('idcomite', 'comiteActuel');
+                    }
+                ])->get();
 
+        return view('admin/tableVolontaire', ["personnes" => $personnes]);
     }
-    
-      public function insertInfoGeneral(Request $request) {
+
+    public function insertInfoGeneral(Request $request) {
 
         extract($request->all());
 
@@ -226,6 +260,5 @@ class PersonneControler extends Controller {
 
         $personne->save();
     }
-    
 
 }

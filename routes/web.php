@@ -34,6 +34,8 @@ Route::get('/Liste_Volontaire', 'PersonneControler@afficherListerVolontaire');
 
 Route::post('/inserer_Volontaire', 'PersonneControler@insererVolontaire');
 
+Route::post('/FileVolontaire', 'PersonneControler@uplaodFile');
+
 Route::get('/insertHistoVolontaire', 'InsertHistoVolontaire@afficheHistorique');
 
 Route::get('/gallerie', function () {

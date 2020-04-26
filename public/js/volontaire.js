@@ -10,7 +10,7 @@ $(function () {
      });*/
 
 
-   //addVolontaire();
+//addVolontaire();
 
 //    $.notify("Hello World");
     toastr.options = {
@@ -27,7 +27,6 @@ $(function () {
     toastr.success('Bienvenue dans l\'interface de création de volontaire', 'BIENVENUE'); //le test du plugin de l'alerte
 
     hideZoneVilCommune();
-
     $('#formVolontaire').bootstrapValidator({
 
         message: 'This value is not valid',
@@ -128,15 +127,15 @@ $(function () {
                 }
             },
             /*imageVolontaire: {
-                message: "Veuillez svp joindre le contact de la personne d'urgence",
-                feedbackIcons: true,
-                trigger: 'keyup',
-                validators: {
-                    notEmpty: {
-                        message: "Veuillez svp saisir le contact de la personne d'urgence"
-                    }
-                }
-            }*/
+             message: "Veuillez svp joindre le contact de la personne d'urgence",
+             feedbackIcons: true,
+             trigger: 'keyup',
+             validators: {
+             notEmpty: {
+             message: "Veuillez svp saisir le contact de la personne d'urgence"
+             }
+             }
+             }*/
 
 
 
@@ -152,78 +151,61 @@ $(function () {
              }*/
         }
     }).on('success.form.bv', function (e) {
-        // Prevent form submission
+// Prevent form submission
         e.preventDefault();
-
         // Get the form instance
         var $form = $(e.target);
-
         // Get the BootstrapValidator instance
         var bv = $form.data('bootstrapValidator');
-
         // Use Ajax to submit form data
         /*$.post($form.attr('action'), $form.serialize(), function(result) {
          // ... Process the result ...
          }, 'json');*/
 
-        alert($form.serialize());
-        
-        $.ajax({
-            url: $form.attr('action'),
-            data: $form.serialize(),
-            type: 'POST',
+        //alert($form.serialize());
+        //console.log($form.serialize());
+        console.log("le fichier est :" + $('#imageVolontaire').prop('files'));
+//        var form = $('#formVolontaire')[0];
+//        var data = new formData(form);
+        var File1 = $('#imageVolontaire').prop('files');
+        var File2 = $('#imagePieceVolontaire').prop('files');
 
-            success: function (data, textStatus, jqXHR) {
+//        var data = new FormData();
+//        var tabVar = new Array($form.serialize());
+//
+//        data.append("ImageVolontaire", $('#imageVolontaire')[0].files[0] );
+//        data.append("ImagePieceVolontaire", $('#imagePieceVolontaire')[0].files[0]);
+//        data.append("donnees", tabVar);
 
-                console.log(JSON.stringify(data));
-                if (data == "succes") {
+        //alert($(':input').val());
 
-                    toastr.options = {
-                        "closeButton": true,
-                        "debug": false,
-                        "progressBar": true,
-                        "preventDuplicates": false,
-                        "positionClass": "toast-top-right",
-                        "onclick": null,
-                        "showDuration": "400",
-                        "hideDuration": "1000",
-                        "timeOut": "7000",
-                        "extendedTimeOut": "1000",
-                        "showEasing": "swing",
-                        "hideEasing": "linear",
-                        "showMethod": "fadeIn",
-                        "hideMethod": "fadeOut",
-                        "onHidden": function () {
-                            addVolontaire();
-                        }
-                    },
-                            toastr.success('Enregistrement effectué avec succès', 'ACTUALISATION DES DONNÉES');
+        inseretData();
+        inseretFileData();
+    });
+    ;
+})
 
-                } else {
+function inseretData() {
 
-                    toastr.options = {
-                        "closeButton": true,
-                        "debug": false,
-                        "progressBar": true,
-                        "preventDuplicates": false,
-                        "positionClass": "toast-top-right",
-                        "onclick": null,
-                        "showDuration": "400",
-                        "hideDuration": "1000",
-                        "timeOut": "7000",
-                        "extendedTimeOut": "1000",
-                        "showEasing": "swing",
-                        "hideEasing": "linear",
-                        "showMethod": "fadeIn",
-                        "hideMethod": "fadeOut",
-                        "onHidden": function () {
+    /*$.ajaxSetup({
+     headers: {
+     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+     }
+     });*/
+    $.ajax({
+        url: $('#formVolontaire').attr('action'),
+//          url: $('$form').attr('action'),
+        type: 'POST',
+        data: $('#formVolontaire').serialize(),
+        /*mimeType: "multipart/form-data",
+         cache: false,
+         contentType: false,
+         processData: false,*/
 
-                        }
-                    },
-                            toastr.warning('Have fun storming the castle!', 'Miracle Max Says');
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
+        success: function (data, textStatus, jqXHR) {
+
+            //console.log(JSON.stringify(data));
+            if (data == "succes") {
 
                 toastr.options = {
                     "closeButton": true,
@@ -232,10 +214,32 @@ $(function () {
                     "preventDuplicates": false,
                     "positionClass": "toast-top-right",
                     "onclick": null,
-                    /*"showDuration": "400",
-                     "hideDuration": "1000",
-                     "timeOut": "7000",
-                     "extendedTimeOut": "1000",*/
+                    "showDuration": "400",
+                    "hideDuration": "1000",
+                    "timeOut": "7000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut",
+                    "onHidden": function () {
+                        addVolontaire();
+                    }
+                },
+                        toastr.success('Enregistrement effectué avec succès', 'ACTUALISATION DES DONNÉES');
+            } else {
+
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "progressBar": true,
+                    "preventDuplicates": false,
+                    "positionClass": "toast-top-right",
+                    "onclick": null,
+                    "showDuration": "400",
+                    "hideDuration": "1000",
+                    "timeOut": "7000",
+                    "extendedTimeOut": "1000",
                     "showEasing": "swing",
                     "hideEasing": "linear",
                     "showMethod": "fadeIn",
@@ -244,33 +248,155 @@ $(function () {
 
                     }
                 },
-                        toastr.warning('Un problème est survenue sur le serveurn contacter l\'administrateur', 'ALERTE');
-
+                        toastr.warning('Have fun storming the castle!', 'Miracle Max Says');
             }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
 
-        })
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "progressBar": true,
+                "preventDuplicates": false,
+                "positionClass": "toast-top-right",
+                "onclick": null,
+                /*"showDuration": "400",
+                 "hideDuration": "1000",
+                 "timeOut": "7000",
+                 "extendedTimeOut": "1000",*/
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut",
+                "onHidden": function () {
+
+                }
+            },
+                    toastr.error('Un problème est survenue sur le serveurn contacter l\'administrateur', 'ALERTE');
+        }
+
+    })
+}
+
+function inseretFileData() {
+
+    var File1 = $('#imageVolontaire').prop('files');
+    var File2 = $('#imagePieceVolontaire').prop('files');
+
+    var data = new FormData();
+    data.append("ImageVolontaire", $('#imageVolontaire')[0].files[0]);
+    data.append("ImagePieceVolontaire", $('#imagePieceVolontaire')[0].files[0]);
+
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
-    ;
+    $.ajax({
 
-})
+//        url: $('#formVolontaire').attr('action'),
+        url: '/FileVolontaire',
+        type: 'POST',
+        data: data,
+        mimeType: "multipart/form-data",
+        cache: false,
+        contentType: false,
+        processData: false,
 
-function addVolontaire(){
-    
-     $.confirm({
+        success: function (data, textStatus, jqXHR) {
+
+            //console.log(JSON.stringify(data));
+            if (data == "succes") {
+
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "progressBar": true,
+                    "preventDuplicates": false,
+                    "positionClass": "toast-top-left",
+                    "onclick": null,
+                    "showDuration": "400",
+                    "hideDuration": "1000",
+                    "timeOut": "7000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut",
+                    "onHidden": function () {
+                        //addVolontaire();
+                    }
+                },
+                    toastr.success('Enregistrement effectué avec succès', 'AJOUT DE FICHIERS');
+            } else {
+
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "progressBar": true,
+                    "preventDuplicates": false,
+                    "positionClass": "toast-top-left",
+                    "onclick": null,
+                    "showDuration": "400",
+                    "hideDuration": "1000",
+                    "timeOut": "7000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut",
+                    "onHidden": function () {
+
+                    }
+                },
+                    toastr.error('Echec de l\'enregistrement des fichier sur le serveur', 'AJOUT DE FICHIERS');
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "progressBar": true,
+                "preventDuplicates": false,
+                "positionClass": "toast-top-left",
+                "onclick": null,
+                /*"showDuration": "400",
+                 "hideDuration": "1000",
+                 "timeOut": "7000",
+                 "extendedTimeOut": "1000",*/
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut",
+                "onHidden": function () {
+
+                }
+            },
+                toastr.warning('Un problème est survenue sur le serveurn contacter l\'administrateur', 'ALERTE');
+        }
+
+    })
+}
+
+function addVolontaire() {
+
+    $.confirm({
         title: '<p style="color: #c40b4c"><Strong>ALERTE</strong></p>!',
         content: '<p style="color:#056365"> Voulez vous saisir un autre volontaire ?</p>',
-        type:'green',
+        type: 'green',
         buttons: {
             confirm: {
-                    text:'Saisir à nouveau',
-                    btnClass:'btn-success',
-                    action: function () {
-                        window.location.href = '';
-                    }
+                text: 'Saisir à nouveau',
+                btnClass: 'btn-success',
+                action: function () {
+                    window.location.href = '';
+                }
             },
             /*cancel: function () {
-                $.alert('Canceled!');
-            },*/
+             $.alert('Canceled!');
+             },*/
             cancel: {
                 text: 'Annuler',
                 btnClass: 'btn-blue',

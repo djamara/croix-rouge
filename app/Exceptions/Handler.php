@@ -5,15 +5,15 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
-class Handler extends ExceptionHandler
-{
+class Handler extends ExceptionHandler {
+
     /**
      * A list of the exception types that are not reported.
      *
      * @var array
      */
     protected $dontReport = [
-        //
+            //
     ];
 
     /**
@@ -34,8 +34,7 @@ class Handler extends ExceptionHandler
      *
      * @throws \Exception
      */
-    public function report(Exception $exception)
-    {
+    public function report(Exception $exception) {
         parent::report($exception);
     }
 
@@ -48,8 +47,17 @@ class Handler extends ExceptionHandler
      *
      * @throws \Exception
      */
-    public function render($request, Exception $exception)
-    {
+    public function render($request, Exception $exception) {
+
+        /*if (str_contains($exception->getMessage(), 'unserialize')) {
+            $cookie1 = \Cookie::forget('laravel_session');
+            $cookie2 = \Cookie::forget('XSRF-TOKEN');
+
+            return redirect()->to('/')
+                            ->withCookie($cookie1)
+                            ->withCookie($cookie2);
+        }*/
         return parent::render($request, $exception);
     }
+
 }
