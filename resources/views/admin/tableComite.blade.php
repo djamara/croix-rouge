@@ -14,9 +14,14 @@
 
         <!-- App styles -->
         <link rel="stylesheet" href="css/app.min.css">
-        
-        <link rel="stylesheet" href="{{asset('js/special/toastr.css')}}"/>
+
+        <!--        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+                <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+        -->
+
         <link rel="stylesheet" href="{{asset('js/special/bootstrapValidator.min.css')}}"/>
+        <link rel="stylesheet" href="{{asset('js/special/toastr.css')}}"/>
         <link rel="stylesheet" href="{{asset('js/special/confirm.min.css')}}">
     </head>
 
@@ -55,7 +60,8 @@
                         <!--                        <h4 class="card-title">Basic example</h4>
                                                 <h6 class="card-subtitle">DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool, based upon the foundations of progressive enhancement, and will add advanced interaction controls to any HTML table.</h6>-->
                         <h5><strong></strong></h5>
-                        <form action="insertComite" method="POST" id="formComite">
+                        <form method="POST" action="insertComite" id="formComite">
+                           @csrf
                             <div class="row col-lg-12">
                                 <div class="col-sm-3 form-group">
                                     <label>Saisir le nom du comité local</label>
@@ -63,7 +69,7 @@
                                 </div>
                                 <div class="col-sm-3 form-group">
                                     <label>La ville du comité</label>
-                                    <select class="select2" name="villeComite" data-minimum-results-for-search="Infinity">
+                                    <select class="select2" name="villeComite">
                                         @foreach($villes as $ville)
                                         <option value="{{$ville->VIL_IDENTIFIANT}}">{{$ville->VIL_NOM}}</option>
                                         @endforeach
@@ -71,14 +77,14 @@
                                 </div>
                                 <div class="col-sm-3 form-group">
                                     <label>La commune du comité</label>
-                                    <select class="select2" name="communeComite" data-minimum-results-for-search="Infinity">
+                                    <select class="select2" name="communeComite">
                                         @foreach($communes as $commune)
                                         <option value="{{$commune->idcommune}}">{{$commune->commune_libelle}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="col-sm-3 form-group">
-                                    <input type="submit" class="btn btn-primary" onclick="validerformulaire()" value="ajouter comité">
+                                    <button class="btn btn-info" onclick="validerformulaire()"><span class="fa fa-plus"></span>Ajouter</button>
                                 </div>
                             </div>
                         </form>
@@ -128,8 +134,8 @@
                                     <tr id="trTabVolont">
                                         <td id="idComite">{{$comite->idcomite}}</td>
                                         <td>{{$comite->comite_libelle}}</td>
-                                        <td>{{$comite->comite_ville}}</td>
-                                        <td>{{$comite->comite_commune}}</td>
+                                        <td>{{$comite->ville}}</td>
+                                        <td>{{$comite->commune}}</td>
                                         <td>{{count($comites)}}</td>
                                         <td><?php echo date_format(new DateTime($comite->created_at), 'd/m/Y') ?></td>
 
@@ -198,9 +204,16 @@
         <![endif]-->
 
         <!-- Javascript -->
+<!--        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-        <script type="text/javascript" src="{{asset('js/bootstrapValidator.min.js')}}"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+        -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
         <script src="{{asset('js/special/taostr.js')}}"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
+    <!--<script type="text/javascript" src="{{asset('js/special/bootstrapValidator.min.js')}}"></script>-->
         <script src="{{asset('js/special/confirm.min.js')}}"></script>
         <!-- Vendors -->
         <script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>

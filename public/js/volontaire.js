@@ -248,7 +248,7 @@ function inseretData() {
 
                     }
                 },
-                        toastr.warning('Have fun storming the castle!', 'Miracle Max Says');
+                    toastr.warning('Un erreur est survenue au moment de l\'enregistrement', 'ACTUALISATION DES DONNÉES');
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
