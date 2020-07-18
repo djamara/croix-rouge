@@ -49,6 +49,35 @@ class PersonneControler extends Controller {
             "typePiece" => $TypePieces, "groupesanguin" => $groupeSanguin, "affections" => $affections,
             "profession" => $profession, "diplomes" => $diplomes, "groupesanguin" => $groupeSanguin]);
     }
+    
+    public function afficherVueModif($îd) {
+
+        $allComites = \App\modeles\Comite::all();
+        $allvilles = \App\modeles\Ville::all();
+        $communes = \App\modeles\Commune::all();
+        $TypePieces = \App\modeles\TypePiece::all();
+        $groupeSanguin = \App\modeles\GroupeSanguin::all();
+        $profession = \App\modeles\Profession::all();
+        $diplomes = \App\modeles\Diplome::all();
+        $pays = \App\modeles\Pays::all();
+        $affections = \App\modeles\MaladieChronique::all();
+        $comites = \App\modeles\Comite::all();
+        $fonctionCR = \App\modeles\Fonction::all();
+        $lastPersonnInsert = \App\modeles\Personne::latest()->first(); // recuperer le dernier inssert dans personne
+        $volontaire = \App\modeles\Personne::where("idpersonne", $îd)->first();
+        
+        /* foreach ($allComites as $comite) {
+          echo $comite->comite_libelle ."<br>";
+          } */
+        //$this->Matricule = $this->genererMatricule("RAF");
+
+        return view('admin/modifierVolontaire', ["comites" => $allComites, "fonctionCR" => $fonctionCR, "Matricule" => $this->Matricule,
+            "villes" => $allvilles, "lastPersonnInsert" => $lastPersonnInsert,
+            "paysNaiss" => $pays, "communes" => $communes, 'paysNat' => $pays, "comites" => $comites,
+            "typePiece" => $TypePieces, "groupesanguin" => $groupeSanguin, "affections" => $affections,
+            "profession" => $profession, "diplomes" => $diplomes, 
+            "groupesanguin" => $groupeSanguin,"volontaire"=>$volontaire]);
+    }
 
     public function insererVolontaire(Request $request) {
 

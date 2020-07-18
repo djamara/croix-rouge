@@ -7,7 +7,14 @@
 @section('content')
 <div class="container">
 
-    
+    <?php
+    /*    try {
+        DB::connection()->getPdo();
+        } catch (\Exception $e) {
+        die("Could not connect to the database.  Please check your configuration. error:" . $e);
+    }*/
+    $pdo = DB::connection()->getPdo();
+    ?>
     <div class="jumbotron" style="opacity: 0.5">
         <h2 class="h2">BIENVENUE DANS <h1><strong>LE MANAGER</strong></h1> </h2>
 

@@ -13,12 +13,12 @@ $(function(){
 
 function selectRow(){
     
-    $('#tbodyTabVolont tr').click(function(){
+    /*$('#tbodyTabVolont tr').click(function(){
         
 //        $(this).css("background-color","red");
 
         $('#tbodyTabVolont tr').css("background-color","");
         $(this).css("background-color","red");
         alert($('this #immatVol'));
-    })
+    })*/
 }

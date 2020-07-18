@@ -28,6 +28,8 @@ Route::get('/admin', 'Accueil@accueil');
 });*/
 Route::get('/formulaire_volontaire', 'PersonneControler@afficherVue');
 
+Route::get('/formulaire_modif_volontaire/{id}', 'PersonneControler@afficherVueModif');
+
 Route::post('/Login', 'UserLoginController@authenticate');
 
 Route::get('/Liste_Volontaire', 'PersonneControler@afficherListerVolontaire');
@@ -35,6 +37,8 @@ Route::get('/Liste_Volontaire', 'PersonneControler@afficherListerVolontaire');
 Route::get('/Liste_Comite', 'ComiteController@AfficherComite');
 
 Route::post('/inserer_Volontaire', 'PersonneControler@insererVolontaire');
+
+Route::get('/inserer_Volontaire/{idVol}', 'PersonneControler@insererVolontaire');
 
 Route::post('/FileVolontaire', 'PersonneControler@uplaodFile');
 

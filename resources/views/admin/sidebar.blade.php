@@ -1,4 +1,4 @@
-0<header class="header">
+<header class="header">
     <div class="navigation-trigger hidden-xl-up" data-sa-action="aside-open" data-sa-target=".sidebar">
         <i class="zmdi zmdi-menu"></i>
     </div>
@@ -30,7 +30,7 @@
 
                 <div class="listview listview--hover">
                     <a href="#" class="listview__item">
-                        <img src="demo/img/profile-pics/1.jpg" class="listview__img" alt="">
+                        <img src="{{asset('demo/img/profile-pics/1.jpg')}}" class="listview__img" alt="">
 
                         <div class="listview__content">
                             <div class="listview__heading">
@@ -284,9 +284,9 @@
                 <a href="#"><i class="zmdi zmdi-view-week"></i>Ressources humaines</a>
 
                 <ul>
-                    <li><a href="formulaire_volontaire">Enregistrer un volontaire</a></li>
+                    <li><a href="/formulaire_volontaire">Enregistrer un volontaire</a></li>
                     <!--<li><a href="boxed-layout.html">Historique des volontaires</a></li>-->
-                    <li><a href="Liste_Volontaire">Liste des volontaires</a></li>
+                    <li><a href="/Liste_Volontaire">Liste des volontaires</a></li>
                     <!--<li><a href="hidden-sidebar-boxed-layout.html">Affectation de volontaire</a></li>-->
                 </ul>
             </li>

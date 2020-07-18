@@ -6,21 +6,21 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>e-Croix Rouge 2.0 / Inserer volontaire</title>
+        <title>e-Croix Rouge 2.0 / Modifier volontaire</title>
         <link rel="stylesheet" href="{{asset('css/bootstrapValidator.css')}}"/>
         <link rel="stylesheet" href="{{asset('css/bootstrapValidator.min.css')}}"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"/>
         <!-- Vendor styles -->
-        <link rel="stylesheet" href="vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
-        <link rel="stylesheet" href="vendors/bower_components/animate.css/animate.min.css">
-        <link rel="stylesheet" href="vendors/bower_components/jquery.scrollbar/jquery.scrollbar.css">
-        <link rel="stylesheet" href="vendors/bower_components/select2/dist/css/select2.min.css">
-        <link rel="stylesheet" href="vendors/bower_components/dropzone/dist/dropzone.css">
-        <link rel="stylesheet" href="vendors/bower_components/flatpickr/dist/flatpickr.min.css" />
-        <link rel="stylesheet" href="vendors/bower_components/nouislider/distribute/nouislider.min.css">
-        <link rel="stylesheet" href="vendors/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.css">
-        <link rel="stylesheet" href="vendors/bower_components/trumbowyg/dist/ui/trumbowyg.min.css">
-        <link rel="stylesheet" href="vendors/bower_components/rateYo/min/jquery.rateyo.min.css">
+        <link rel="stylesheet" href="{{asset('vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css')}}">
+        <link rel="stylesheet" href="{{asset('vendors/bower_components/animate.css/animate.min.css')}}">
+        <link rel="stylesheet" href="{{asset('vendors/bower_components/jquery.scrollbar/jquery.scrollbar.css')}}">
+        <link rel="stylesheet" href="{{asset('vendors/bower_components/select2/dist/css/select2.min.css')}}">
+        <link rel="stylesheet" href="{{asset('vendors/bower_components/dropzone/dist/dropzone.css')}}">
+        <link rel="stylesheet" href="{{asset('vendors/bower_components/flatpickr/dist/flatpickr.min.css')}}" />
+        <link rel="stylesheet" href="{{asset('vendors/bower_components/nouislider/distribute/nouislider.min.css')}}">
+        <link rel="stylesheet" href="{{asset('vendors/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.css')}}">
+        <link rel="stylesheet" href="{{asset('vendors/bower_components/trumbowyg/dist/ui/trumbowyg.min.css')}}">
+        <link rel="stylesheet" href="{{asset('vendors/bower_components/rateYo/min/jquery.rateyo.min.css')}}">
 
         <!--Nifty Stylesheet [ REQUIRED ]-->
         <link rel="stylesheet" href="{{asset('demo/css/nifty.min.css')}}" />
@@ -34,7 +34,7 @@
 
 
         <!-- App styles -->
-        <link rel="stylesheet" href="css/app.min.css">
+        <link rel="stylesheet" href="{{asset('css/app.min.css')}}">
 <!--        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
@@ -79,7 +79,6 @@
                         </div>
                     </div>
                 </header>
-
                 <div class="card">
                     <form name="insererVolontaire" id="formVolontaire" method="POST" action="inserer_Volontaire" enctype="multipart/form-data" >
                         @csrf
@@ -110,7 +109,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Comite local</label>
-                                                    <select class="select2" name="comite">
+                                                    <select class="select2" name="comite" >
                                                         @foreach($comites as $comite)
                                                         <option value="{{$comite->idcomite}}">{{$comite->comite_libelle}}</option>
                                                         @endForeach
@@ -146,7 +145,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Nom</label>
-                                                    <input type="text" class="form-control form-cont                                                rol-md" name="nomVolontaire" placeholder="Entrez le nom" required="">
+                                                    <input type="text" class="form-control form-control-md" name="nomVolontaire" value="{{$volontaire->personne_nom}}" placeholder="Entrez le nom" required="">
                                                     <i class="form-group__bar"></i>
                                                     </di                                                                                                                                                                             v>
                                                 </div>
@@ -154,14 +153,14 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Prenom</label>
-                                                    <input type="text" class="form-control form-control-md" name="prenomVolontaire" placeholder="Entrez le prenom" required="">
+                                                    <input type="text" class="form-control form-control-md" name="prenomVolontaire" value="{{$volontaire->personne_prenom}}" placeholder="Entrez le prenom" required="">
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Date de naissance</label>
-                                                    <input type="date" class="form-control form-control-md" name="dateNaissVolontaire" placeholder="Entrez la date de naissance" required="">
+                                                    <input type="date" class="form-control form-control-md" name="dateNaissVolontaire" value="{{$volontaire->personne_date_naiss}}" placeholder="Entrez la date de naissance" required="">
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
@@ -234,7 +233,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>numero de la pièce</label>
-                                                    <input type="text" class="form-control form-control-md" name="numPieceVolontaire" placeholder="Entrez le numero de la pièce" required="">
+                                                    <input type="text" class="form-control form-control-md" value="{{$volontaire->NumerPiece}}" name="numPieceVolontaire"  placeholder="Entrez le numero de la pièce" required="">
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
@@ -279,14 +278,14 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Qualification professionnelle</label>
-                                                    <input type="text" class="form-control form-control-md" placeholder="Entrez la qualification" name="qualifVolontaire">
+                                                    <input type="text" class="form-control form-control-md" placeholder="Entrez la qualification" value="{{$volontaire->personne_qualification}}" name="qualifVolontaire">
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Activité</label>
-                                                    <input type="text" class="form-control form-control-md" name="activiteVolontaire" placeholder="Entrez l'activité" >
+                                                    <input type="text" class="form-control form-control-md" name="activiteVolontaire" value="{{$volontaire->personne_activite}}" placeholder="Entrez l'activité" >
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
@@ -320,7 +319,7 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Antécédent médicale du volontaire: (Pour chaque detail, veuillez passer à la ligne svp)</label>
-                                                    <textarea  class="form-control form-control-md" name="antecMedicVolont" placeholder="Entrez vos antécedents médicaux"></textarea>
+                                                    <textarea  class="form-control form-control-md" name="antecMedicVolont" placeholder="Entrez vos antécedents médicaux">{{$volontaire->personne_antecedent_medic}}</textarea>
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
@@ -354,47 +353,47 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Telephone 1:</label>
-                                                    <input type="text" class="form-control form-control-md" name="tel1Volontaire" placeholder="Entrez le numero" required="">
+                                                    <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_telephone_1}}" name="tel1Volontaire" placeholder="Entrez le numero" required="">
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Telephone 2:</label>
-                                                    <input type="text" class="form-control form-control-md" name="tel2Volontaire" placeholder="Entrez le numero">
+                                                    <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_telephone_2}}" name="tel2Volontaire" placeholder="Entrez le numero">
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Email du volontaire:</label>
-                                                    <input type="email" class="form-control form-control-md" name="emailVolontaire" placeholder="Entrez le email">
+                                                    <input type="email" class="form-control form-control-md" value="{{$volontaire->personne_email}}" name="emailVolontaire" placeholder="Entrez le email">
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
                                             <h5>Personne à contacter en cas d'urgences</h5>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <input type="hidden" class="form-control form-control-md" placeholder="">
+                                                    <input type="hidden" class="form-control form-control-md"   placeholder="">
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Nom:</label>
-                                                    <input type="text" class="form-control form-control-md" name="nomPersUrgence" placeholder="Entrez le nom du contact" required="">
+                                                    <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_nom_urgence}}" name="nomPersUrgence" placeholder="Entrez le nom du contact" required="">
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Prenom:</label>
-                                                    <input type="text" class="form-control form-control-md" name="prenomPersUrgence" placeholder="Entrez le prenom du contact" required="">
+                                                    <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_tel_urgence}}"  name="prenomPersUrgence" placeholder="Entrez le prenom du contact" required="">
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Contacts:</label>
-                                                    <input type="text" class="form-control form-control-md" name="telPersUrgence" placeholder="Entrez le numero du contact" required="">
+                                                    <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_email_urgence}}" name="telPersUrgence" placeholder="Entrez le numero du contact" required="">
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
