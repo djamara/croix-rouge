@@ -22,12 +22,10 @@
             <div class="dropdown-menu dropdown-menu-right dropdown-menu--block">
                 <div class="dropdown-header">
                     Messages
-
                     <div class="actions">
                         <a href="messages.html" class="actions__item zmdi zmdi-plus"></a>
                     </div>
                 </div>
-
                 <div class="listview listview--hover">
                     <a href="#" class="listview__item">
                         <img src="{{asset('demo/img/profile-pics/1.jpg')}}" class="listview__img" alt="">
@@ -39,8 +37,6 @@
                             <p>Pour vous rappeler le point de presse MR le president</p>
                         </div>
                     </a>
-
-
                     <a href="#" class="view-more">Voir tous les messages</a>
                 </div>
             </div>
@@ -244,9 +240,9 @@
             </div>
         </li>
 
-<!--        <li class="hidden-xs-down">
+        <li class="hidden-xs-down">
             <a href="#" class="top-nav__themes" data-sa-action="aside-open" data-sa-target=".themes"><i class="zmdi zmdi-palette"></i></a>
-        </li>-->
+        </li>
     </ul>
 
     <div class="clock hidden-md-down">

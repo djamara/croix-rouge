@@ -16,6 +16,7 @@
 
         <!-- App styles -->
         <link rel="stylesheet" href="{{asset('css/app.min.css')}}">
+        <link rel="stylesheet" href="{{asset('css/style.css')}}">
     </head>
 
     <body data-sa-theme="1">
