@@ -240,9 +240,9 @@
             </div>
         </li>
 
-        <li class="hidden-xs-down">
+<!--        <li class="hidden-xs-down">
             <a href="#" class="top-nav__themes" data-sa-action="aside-open" data-sa-target=".themes"><i class="zmdi zmdi-palette"></i></a>
-        </li>
+        </li>-->
     </ul>
 
     <div class="clock hidden-md-down">
@@ -287,16 +287,16 @@
                 </ul>
             </li>
 
-            <li class="navigation__sub">
+<!--            <li class="navigation__sub">
                 <a href="#"><i class="zmdi zmdi-format-underlined"></i>Missions</a>
                 <ul>
                     <li><a href="#">Enregistrer un nouvelle mission</a></li>
                     <li><a href="#">Liste des missions</a></li>
                     <li><a href="#">Affectation de volontaire</a></li>
                 </ul>
-            </li>
+            </li>-->
 
-            <li class="navigation__sub">
+<!--            <li class="navigation__sub">
                 <a href="#"><i class="zmdi zmdi-view-list"></i>Caisse</a>
 
                 <ul>
@@ -304,7 +304,7 @@
                     <li><a href="#">Cotisations en cours</a></li>
                     <li><a href="#">Etat de la caisse</a></li>
                 </ul>
-            </li>
+            </li>-->
             <li class="navigation__sub">
                 <a href="#"><i class="zmdi zmdi-view-list"></i>Comités local</a>
 
@@ -314,13 +314,13 @@
                     <!--<li><a href="data-table.html">Etat de la caisse</a></li>-->
                 </ul>
             </li>
-            <li class="navigation__sub">
+<!--            <li class="navigation__sub">
                 <a href="#"><i class="zmdi zmdi-view-list"></i>Archivage numerique</a>
-            </li>
+            </li>-->
 
-            <li><a href="calendar.html"><i class="zmdi zmdi-calendar"></i> Calendrier d'évènements</a></li>
+            <!--<li><a href="calendar.html"><i class="zmdi zmdi-calendar"></i> Calendrier d'évènements</a></li>-->
 
-            <li><a href="gallerie"><i class="zmdi zmdi-image"></i> Gallerie Photo </a></li>
+            <!--<li><a href="gallerie"><i class="zmdi zmdi-image"></i> Gallerie Photo </a></li>-->
 
         </ul>
     </div>
