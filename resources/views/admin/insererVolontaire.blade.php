@@ -100,7 +100,7 @@
 
                                             <!-- {{$Matricule}}-->
                                              <!--{{$lastPersonnInsert->personne_immat}}-->
-                                            <h5>Généralité</h5>
+                                            <h5>Généralité {{ "- " .env("API_URL1"). "inserer_Volontaire"}} </h5>
                                             <div class="col-sm-10">
                                                 <div class="form-group">
                                                     <input type="hidden" class="form-control form-control-md" placeholder="Entrez l'activité ">
@@ -146,7 +146,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Nom</label>
-                                                    <input type="text" class="form-control form-cont                                                rol-md" name="nomVolontaire" placeholder="Entrez le nom" required="">
+                                                    <input type="text" class="form-control form-control-md" name="nomVolontaire" placeholder="Entrez le nom" required="">
                                                     <i class="form-group__bar"></i>
                                                     </di                                                                                                                                                                             v>
                                                 </div>

@@ -138,7 +138,6 @@
                                         <td>{{$comite->commune}}</td>
                                         <td>{{count($comites)}}</td>
                                         <td><?php echo date_format(new DateTime($comite->created_at), 'd/m/Y') ?></td>
-
                                         <td>
                                             <input type="checkbox" value="" name="diplomes[]" class="">
                                         </td>

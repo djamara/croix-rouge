@@ -259,7 +259,7 @@
 
         <div class="user">
             <div class="user__info" data-toggle="dropdown">
-                <img class="user__img" src="demo/img/profile-pics/8.jpg" alt="">
+                <img class="user__img" src="{{asset('demo/img/profile-pics/8.jpg')}}" alt="">
                 <div>
                     <div class="user__name">Idriss Coulibaly</div>
                     <div class="user__email">idrisseCoul@gmail.com</div>

@@ -80,11 +80,11 @@
                                     <tr>
 
                                         <th>Matricule</th>
-                                        <th>Comité Local</th>
+                                        <!--<th>Comité Local</th>-->
                                         <th>Nom</th>
                                         <th>Prenom</th>
-                                        <th>Date de naissance</th>
-                                        <!--<th>Profession</th>-->
+                                        <!--<th>Date de naissance</th>-->
+                                        <th>Profession</th>
                                         <th>Lieu Habitation</th>
                                         <th>Action</th>
                                         <th>
@@ -97,11 +97,11 @@
                                     @foreach($personnes as $personne)
                                     <tr id="trTabVolont">
                                         <td id="immatVol">{{$personne->personne_immat}}</td>
-                                        <td>{{$personne->comiteLocal}}</td>
-                                        <td>{{$personne->personne_nom}}</td>
-                                        <td>{{$personne->personne_prenom}}</td>
-                                        <td><?php echo date_format(new DateTime($personne->personne_date_naiss), 'd/m/Y') ?></td>
-                                        <!--<td>{{$personne->profession}}</td>-->
+                                        <!--<td>{{$personne->comiteLocal}}</td>-->
+                                        <td><?php echo strtoupper($personne->personne_nom) ?></td>
+                                        <td><?php echo ucfirst($personne->personne_prenom) ?></td>
+                                        <!--<td><?php echo date_format(new DateTime($personne->personne_date_naiss), 'd/m/Y') ?></td>-->
+                                        <td>{{$personne->profession}}</td>
                                         <td>{{$personne->ville_habita."/".$personne->communeHabitation}}</td>
                                         <td>
                                             <a href="formulaire_modif_volontaire/{{$personne->idpersonne}}" title="modifier volontaire"  style="font-size:15px"><i class="fa fa-edit" style="color: #E7CE56"></i></a>

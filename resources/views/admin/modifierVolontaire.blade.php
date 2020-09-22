@@ -63,7 +63,7 @@
             <section class="content">
                 <header class="content__title">
                     <h1>RESSOURCES HUMAINES</h1>
-                    <small>A cette page vous inserer un nouveau volontaire</small>
+                    <small>A cette page vous modifiez les information sur un volontaire</small>
 
                     <div class="actions">
                         <a href="#" class="actions__item zmdi zmdi-trending-up"></a>
