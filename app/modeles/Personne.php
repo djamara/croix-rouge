@@ -8,8 +8,8 @@ class Personne extends Model
 {
     //
     protected $table = "personne";
-//    protected $primarykey = 'idpersonne';
-    protected $primarykey = 'personne_immat';
+    protected $primarykey = 'idpersonne';
+//    protected $primarykey = 'personne_immat';
     //public $incrementing = true;
     public $timestamp = false;
     protected $guarded = ['updated_at','created_at'];

@@ -65,12 +65,13 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row col-lg-12">
-                            <div class="form-group">
-                                <button class="btn btn-info btn-circle">SUPRIMER<i class="fa fa-minus-circle"></i></button>
+                        <div class="row col-sm-6">
+                            <div class="col-sm-4 form-group">
+                                <button class="btn btn-info btn-circle">SUPRIMER<span></span><i class="fa fa-eraser"></i></button>
                             </div>
                             <br>
-                            <div class="form-group">
+                            <br>
+                            <div class="col-sm-2 form-group">
                                 <button class="btn btn-danger btn-circle">MODOFIER<i class="fa fa-linux"></i></button>
                             </div>
                         </div>
@@ -105,6 +106,7 @@
                                         <td>{{$personne->ville_habita."/".$personne->communeHabitation}}</td>
                                         <td>
                                             <a href="formulaire_modif_volontaire/{{$personne->idpersonne}}" title="modifier volontaire"  style="font-size:15px"><i class="fa fa-edit" style="color: #E7CE56"></i></a>
+                                            <a title="supprimer volontaire"  style="font-size:15px"><i class="fa fa-close" style="color: #AA3333"></i></a>
                                         </td>
                                         <td>
                                             <input type="checkbox" value="" name="volontaire[]" class="">

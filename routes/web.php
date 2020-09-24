@@ -38,6 +38,8 @@ Route::get('/Liste_Comite', 'ComiteController@AfficherComite');
 
 Route::post('/inserer_Volontaire', 'PersonneControler@insererVolontaire');
 
+Route::post('/modifier_Volontaire', 'PersonneControler@modifier_Volontaire');
+
 Route::get('/inserer_Volontaire/{idVol}', 'PersonneControler@insererVolontaire');
 
 Route::post('/FileVolontaire', 'PersonneControler@uplaodFile');

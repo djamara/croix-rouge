@@ -65,6 +65,25 @@ class PersonneControler extends Controller {
         $fonctionCR = \App\modeles\Fonction::all();
         $lastPersonnInsert = \App\modeles\Personne::latest()->first(); // recuperer le dernier inssert dans personne
         $volontaire = \App\modeles\Personne::where("idpersonne", $îd)->first();
+        /*$diplomes_personne = \App\modeles\Personne::addSelect([
+                    'personne_diplome' => function($query) {
+                        $query->select('diplome_iddiplome')
+                                ->from('personne_diplome')
+                                ->whereColumn('persImmat', 'personne_immat');
+                    }
+        ])->get();*/
+        
+        //var_dump($volontaire->personne_immat);
+        
+        $diplomes_personne = \App\modeles\personneDiplome::select('diplome_iddiplome')->where("persImmat",$volontaire->personne_immat)->get()->toArray();
+        $diplomesVolontaire = array();
+        
+        //var_dump($diplomes_personne);
+        
+        foreach ($diplomes_personne as $diplome){
+            //var_dump($diplome);
+            array_push($diplomesVolontaire, $diplome['diplome_iddiplome']);
+        }
         
         /* foreach ($allComites as $comite) {
           echo $comite->comite_libelle ."<br>";
@@ -76,7 +95,7 @@ class PersonneControler extends Controller {
             "paysNaiss" => $pays, "communes" => $communes, 'paysNat' => $pays, "comites" => $comites,
             "typePiece" => $TypePieces, "groupesanguin" => $groupeSanguin, "affections" => $affections,
             "profession" => $profession, "diplomes" => $diplomes, 
-            "groupesanguin" => $groupeSanguin,"volontaire"=>$volontaire]);
+            "groupesanguin" => $groupeSanguin,"volontaire"=>$volontaire , "diplomes_personne"=>$diplomesVolontaire]);
     }
 
     public function insererVolontaire(Request $request) {
@@ -107,7 +126,8 @@ class PersonneControler extends Controller {
         $personne->personne_commune_naiss = $comNaiss; //commune de naissance
         $personne->personne_ville_habitation = $vilHabitVolontaire; //ville habitation
         $personne->personne_commune_habitation = $comHabitVolontaire; //commune habitattion
-
+        $personne->lieuDeNaissance = $lieuDeNaissance; // lieu d'habitation
+        
         $personne->personne_antecedent_medic = $antecMedicVolont; //antecedent medicaux
 
         $personne->personne_qualification = $qualifVolontaire; //qualification
@@ -126,8 +146,9 @@ class PersonneControler extends Controller {
             $personne->groupeSanguin = $groupeSanguin; //groupe sanguin
 
         $personne->personne_nom_urgence = $nomPersUrgence; //nom urgence
-        $personne->personne_tel_urgence = $prenomPersUrgence; //prenom urgence
-        $personne->personne_email_urgence = $telPersUrgence; //email urgence
+        $personne->personne_prenom_urgence = $prenomPersUrgence; //prenom urgence
+        $personne->personne_tel_urgence = $telPersUrgence; //telephone urgence
+        $personne->personne_email_urgence = $emailPersUrgence; //email urgence
         //personne->personne_profil = 1; //profil volontaire
 
         $retour = $personne->save();
@@ -292,6 +313,105 @@ class PersonneControler extends Controller {
 
 
         $personne->save();
+    }
+    
+    public function modifier_Volontaire(Request $request) {
+
+        //if (!isset($request->input('ImageVolontaire')) && !isset($request->input('ImagePieceVolontaire'))) {
+        extract($request->all());
+        //var_dump($request->input('donnees'));
+        //$parametre = $request->all();
+        //echo json_encode($request->all());
+//        extract($request->all());
+        //var_dump($parametre);
+//        var_dump($parametre['ImageVolontaire']);
+        //$donnees = $parametre['donnees'];
+
+
+        $personne = new \App\modeles\Personne;
+//        $this->Matricule = $this->genererMatricule($comite); 
+        $personne = $personne->all()->where("personne_immat" , $personne_immat)->first() ;
+        
+        //var_dump($personne);
+
+        $personne->comiteActuel = $comite; //inserer le comité
+        $personne->personne_civilite = $civilite; //inserer les civilités
+        $personne->personne_nom = $nomVolontaire; // inserer le nom
+        $personne->personne_prenom = $prenomVolontaire; //inserer le prenom
+        //$personne->personne_immat = $this->Matricule; //random_int(1000, 2000); //inserer immat
+        $personne->personne_date_naiss = $dateNaissVolontaire; //date de naissance
+        $personne->personne_pays_naiss = $paysNaiss; //pays_de_naissance
+        $personne->personne_pays_nationalite = $nationalite; //pays_de_nationalite
+        $personne->personne_ville_naiss = $vilNaiss; //ville de naissance
+        $personne->personne_commune_naiss = $comNaiss; //commune de naissance
+        $personne->personne_ville_habitation = $vilHabitVolontaire; //ville habitation
+        $personne->personne_commune_habitation = $comHabitVolontaire; //commune habitattion
+        $personne->lieuDeNaissance = $lieuDeNaissance; // lieu d'habitation
+        
+        $personne->personne_antecedent_medic = $antecMedicVolont; //antecedent medicaux
+
+        $personne->personne_qualification = $qualifVolontaire; //qualification
+        $personne->personne_activite = $activiteVolontaire; //activite
+
+        $personne->personne_telephone_1 = $tel1Volontaire; //telephone 1
+        $personne->personne_telephone_2 = $tel2Volontaire; //telephone 2
+        $personne->personne_email = $emailVolontaire; //email
+        //
+        $personne->TypePiece = $typePiece; //type de la piece 
+        $personne->NumerPiece = $numPieceVolontaire; //numero de la piece 
+        
+        $personne->fonctionCR_idfonctionCR = $fonctionCR;
+        $personne->profession_idprofession = $profVolontaire; //profession
+        if (!empty($groupeSanguin))
+            $personne->groupeSanguin = $groupeSanguin; //groupe sanguin
+
+        $personne->personne_nom_urgence = $nomPersUrgence; //nom urgence
+        $personne->personne_prenom_urgence = $prenomPersUrgence; //prenom urgence
+        $personne->personne_tel_urgence = $telPersUrgence; //telephone urgence
+        $personne->personne_email_urgence = $emailPersUrgence; //email urgence
+        //personne->personne_profil = 1; //profil volontaire
+
+//        $retour = $personne->update(["personne_immat"=>$personne_immat]);
+        $retour = $personne->where("personne_immat",$personne_immat)->update($personne->toArray());
+
+        // UPDATE MALADIE
+        //$personne->personne_affection = $maladieVolontaire;// inserer maladie
+
+        /*if (!empty($maladieVolontaire)) {
+
+            foreach ($maladieVolontaire as $maladie) {
+
+                $personneAffection = new \App\modeles\personneAffection();
+                $personneAffection->personneImmat = $personne_immat;
+                $personneAffection->idaffection = $maladie;
+                $retour = $personneAffection->save();
+            }
+        }*/
+
+        //UPDATE DIPLOME
+        /*SUPPRIMER LES DIPLOMES INSCRIS PRECEDEMENT*/
+        $personneDiplome = new \App\modeles\personneDiplome();
+        $retour = $personneDiplome->where("persImmat",$personne_immat)->delete($personneDiplome->toArray());
+        
+        if (!empty($diplomes)) {
+
+            foreach ($diplomes as $diplome) {
+
+                $personneDiplome = new \App\modeles\personneDiplome();
+                $personneDiplome->persImmat = $personne_immat;
+                $personneDiplome->diplome_iddiplome = $diplome;
+                $retour = $personneDiplome->save();
+            }
+        }
+        //dd($personne);
+
+
+        if ($retour == true) {
+            echo "succes";
+            //var_dump($request->file('ImageVolontaire'));
+        } else {
+            echo "echec";
+        }
     }
 
 }

@@ -180,7 +180,9 @@ $(function () {
         //alert($(':input').val());
 
         inseretData();
-        inseretFileData();
+        if($('#formVolontaire').attr('action') === "/inserer_Volontaire"){
+            inseretFileData();
+        }
     });
     
 })
@@ -223,7 +225,11 @@ function inseretData() {
                     "showMethod": "fadeIn",
                     "hideMethod": "fadeOut",
                     "onHidden": function () {
-                        addVolontaire();
+                        if($('#formVolontaire').attr('action') === "/inserer_Volontaire"){
+                            addVolontaire();
+                        }else{
+                            window.location.href = '/Liste_Volontaire';
+                        }
                     }
                 },
                         toastr.success('Enregistrement effectué avec succès', 'ACTUALISATION DES DONNÉES');

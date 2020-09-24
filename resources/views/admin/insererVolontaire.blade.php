@@ -81,7 +81,7 @@
                 </header>
 
                 <div class="card">
-                    <form name="insererVolontaire" id="formVolontaire" method="POST" action="inserer_Volontaire" enctype="multipart/form-data" >
+                    <form name="insererVolontaire" id="formVolontaire" method="POST" action="/inserer_Volontaire" enctype="multipart/form-data" >
                         @csrf
                         <div class="card-body">
 
@@ -185,14 +185,19 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6 zoneVilCommune">
-                                                <div class="form-group">
+                                            <div class="row col-sm-6 zoneVilCommune">
+                                                <div class=" col-sm-4 form-group">
                                                     <label>Ville de naissance</label>
                                                     <select class="select2" name="vilNaiss" id="vilNaiss">
                                                         @foreach($villes as $ville)
                                                         <option value="{{$ville->VIL_IDENTIFIANT}}">{{$ville->VIL_NOM}}</option>
                                                         @endforeach
                                                     </select>
+                                                </div>
+                                                <div class="col-sm-8 form-group">
+                                                    <label>Lieu de naissance</label>
+                                                    <input type="text" class="form-control form-control-md" name="lieuDeNaissance" placeholder="Entrez la précision sur le lieu de naissance" >
+                                                    <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6 zoneVilCommune">

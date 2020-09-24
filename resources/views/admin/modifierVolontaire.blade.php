@@ -80,7 +80,7 @@
                     </div>
                 </header>
                 <div class="card">
-                    <form name="insererVolontaire" id="formVolontaire" method="POST" action="inserer_Volontaire" enctype="multipart/form-data" >
+                    <form name="insererVolontaire" id="formVolontaire" method="POST" action="/modifier_Volontaire" enctype="multipart/form-data" >
                         @csrf
                         <div class="card-body">
 
@@ -92,7 +92,6 @@
                                     <!-- <li class="nav-item">  <a class="nav-link" data-toggle="tab" href="#profile-2" role="tab">Informations relatives à croix-rouge</a>
                                                                                                                                                                                                         </li>-->
                                 </ul>
-
                                 <div class="tab-content">
                                     <div class="tab-pane active fade show" id="home-2" role="tabpanel">
                                         <div class="row col-lg-12">
@@ -111,7 +110,7 @@
                                                     <label>Comite local</label>
                                                     <select class="select2" name="comite" >
                                                         @foreach($comites as $comite)
-                                                        <option value="{{$comite->idcomite}}">{{$comite->comite_libelle}}</option>
+                                                        <option value="{{$comite->idcomite}}" <?php if($volontaire->comiteActuel == $comite->idcomite) echo "selected" ?> >{{$comite->comite_libelle}}</option>
                                                         @endForeach
                                                     </select>
                                                 </div>
@@ -121,7 +120,7 @@
                                                     <label>Fonction du volontaire</label>
                                                     <select class="select2" name="fonctionCR">
                                                         @foreach($fonctionCR as $fonctionCR)
-                                                        <option value="{{$fonctionCR->idfonctionCR}}">{{$fonctionCR->fonctionCR_libelle}}</option>
+                                                        <option value="{{$fonctionCR->idfonctionCR}}" <?php if($volontaire->fonctionCR_idfonctionCR == $fonctionCR->idfonctionCR) echo "selected" ?>>{{$fonctionCR->fonctionCR_libelle}}</option>
                                                         @endForeach
                                                     </select>
                                                 </div>
@@ -136,9 +135,9 @@
                                                 <div class="form-group">
                                                     <label>Civilité</label>
                                                     <select class="select2" name="civilite">
-                                                        <option>Mr</option>
-                                                        <option>Mlle</option>                                                                                                                                                                                            
-                                                        <option>Mme</option>
+                                                        <option <?php if($volontaire->personne_civilite == 'Mr') echo "selected" ?>  >Mr</option>
+                                                        <option <?php if($volontaire->personne_civilite == 'Mlle') echo "selected" ?>>Mlle</option>                                                                                                                                                                                        
+                                                        <option <?php if($volontaire->personne_civilite == 'Mme') echo "selected" ?>>Mme</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -146,8 +145,10 @@
                                                 <div class="form-group">
                                                     <label>Nom</label>
                                                     <input type="text" class="form-control form-control-md" name="nomVolontaire" value="{{$volontaire->personne_nom}}" placeholder="Entrez le nom" required="">
+                                                    <input type="hidden" class="form-control form-control-md" name="idpersonne" value="{{$volontaire->idpersonne}}" placeholder="Entrez le nom">
+                                                    <input type="hidden" class="form-control form-control-md" name="personne_immat" value="{{$volontaire->personne_immat}}" placeholder="Entrez le nom">
                                                     <i class="form-group__bar"></i>
-                                                    </di                                                                                                                                                                             v>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
@@ -179,19 +180,24 @@
                                                     <label>Pays de naissance</label>
                                                     <select class="select2" name="paysNaiss" id="paysNaiss" onchange="hideZoneVilCommune()">
                                                         @foreach($paysNaiss as $pays)
-                                                        <option value="{{$pays->PAYS_CODE}}">{{$pays->PAYS_NOM}}</option>
+                                                        <option value="{{$pays->PAYS_CODE}}" <?php if($volontaire->personne_pays_naiss == $pays->PAYS_CODE) echo "selected" ?> >{{$pays->PAYS_NOM}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6 zoneVilCommune">
-                                                <div class="form-group">
+                                            <div class="row col-sm-6 zoneVilCommune">
+                                                <div class="col-sm-4 form-group">
                                                     <label>Ville de naissance</label>
                                                     <select class="select2" name="vilNaiss" id="vilNaiss">
                                                         @foreach($villes as $ville)
-                                                        <option value="{{$ville->VIL_IDENTIFIANT}}">{{$ville->VIL_NOM}}</option>
+                                                        <option value="{{$ville->VIL_IDENTIFIANT}}" <?php if($volontaire->personne_ville_naiss == $ville->VIL_IDENTIFIANT) echo "selected" ?> >{{$ville->VIL_NOM}}</option>
                                                         @endforeach
                                                     </select>
+                                                </div>
+                                                <div class="col-sm-8 form-group">
+                                                    <label>Lieu de naissance</label>
+                                                    <input type="text" class="form-control form-control-md" value="{{$volontaire->lieuDeNaissance}}" name="lieuDeNaissance" placeholder="Entrez la précision sur le lieu de naissance" >
+                                                    <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6 zoneVilCommune">
@@ -199,7 +205,7 @@
                                                     <label>Commune de naissance</label>
                                                     <select class="select2" name="comNaiss" id="comNaiss">
                                                         @foreach($communes as $commune)
-                                                        <option value="{{$commune->idcommune}}">{{$commune->commune_libelle}}</option>
+                                                        <option value="{{$commune->idcommune}}" <?php if($volontaire->personne_commune_naiss == $commune->idcommune) echo "selected" ?> >{{$commune->commune_libelle}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -209,7 +215,7 @@
                                                     <label>Pays de nationalite</label>
                                                     <select class="select2" name="nationalite">
                                                         @foreach($paysNat as $pays)
-                                                        <option value="{{$pays->PAYS_CODE}}">{{$pays->PAYS_NOM}}</option>
+                                                        <option value="{{$pays->PAYS_CODE}}" <?php if($volontaire->personne_pays_nationalite == $pays->PAYS_CODE) echo "selected" ?> >{{$pays->PAYS_NOM}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -225,7 +231,7 @@
                                                     <label>Type de pièces</label>
                                                     <select class="select2" name="typePiece">
                                                         @foreach($typePiece as $typePiece)
-                                                        <option value="{{$typePiece->idTypePiece}}">{{$typePiece->libelleTypePiece}}</option>
+                                                        <option value="{{$typePiece->idTypePiece}}" <?php if($volontaire->TypePiece == $typePiece->idTypePiece) echo "selected" ?>>{{$typePiece->libelleTypePiece}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -246,19 +252,19 @@
                                             <h5>Education</h5>
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <input type="hidden" class="form-control form-control-md" placeholder="Entrez l'activité ">
+                                                    <input type="hidden" class="form-control form-control-lg" placeholder="Entrez l'activité ">
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <label>Diplomes</label>
                                                 <div class="form-group">
-                                                    @foreach($diplomes as $diplome)
-                                                    <label class="custom-control custom-checkbox">
-                                                        <input id="radio1" type="checkbox" value="{{$diplome->iddiplome}}" name="diplomes[]" class="custom-control-input">
+                                                    @foreach($diplomes as $diplome)   
+                                                    <label class="">
+                                                        <input id="radio1" type="checkbox" value="{{$diplome->iddiplome}}" <?php if( in_array($diplome->iddiplome , $diplomes_personne) == true) echo "checked"  ?> name="diplomes[]" class="custom-control custom-checkbox" > 
                                                         <span class="custom-control-indicator"></span>
                                                         <span class="custom-control-description">{{$diplome->diplome_libelle}}</span>
-                                                    </label>
+                                                    </label>                                    
 
                                                     <div class="clearfix mb-2"></div>
                                                     @endforeach
@@ -270,7 +276,7 @@
                                                     <label>Profession</label>
                                                     <select class="select2" name="profVolontaire">
                                                         @foreach($profession as $profession)
-                                                        <option value="{{$profession->idprofession}}">{{$profession->profession_libelle}}</option>
+                                                        <option value="{{$profession->idprofession}}" <?php if($volontaire->profession_idprofession == $profession->idprofession) echo "selected" ?> >{{$profession->profession_libelle}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -386,21 +392,21 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Prenom:</label>
-                                                    <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_tel_urgence}}"  name="prenomPersUrgence" placeholder="Entrez le prenom du contact" required="">
+                                                    <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_prenom}}"  name="prenomPersUrgence" placeholder="Entrez le prenom du contact" required="">
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Contacts:</label>
-                                                    <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_email_urgence}}" name="telPersUrgence" placeholder="Entrez le numero du contact" required="">
+                                                    <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_tel_urgence}}" name="telPersUrgence" placeholder="Entrez le numero du contact" required="">
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Email:</label>
-                                                    <input type="email" class="form-control form-control-md" name="emailPersUrgence" placeholder="Entrez le email du contact">
+                                                    <input type="email" class="form-control form-control-md" value="{{$volontaire->personne_email_urgence}}" name="emailPersUrgence" placeholder="Entrez le email du contact">
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
