@@ -7,6 +7,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Vendor styles -->
+        <link rel="stylesheet" href="{{asset('js/special/toastr.css')}}"/>
+        <link rel="stylesheet" href="{{asset('js/special/confirm.min.css')}}">
         <link rel="stylesheet" href="vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
         <link rel="stylesheet" href="vendors/bower_components/animate.css/animate.min.css">
         <link rel="stylesheet" href="vendors/bower_components/jquery.scrollbar/jquery.scrollbar.css">
@@ -106,7 +108,7 @@
                                         <td>{{$personne->ville_habita."/".$personne->communeHabitation}}</td>
                                         <td>
                                             <a href="formulaire_modif_volontaire/{{$personne->idpersonne}}" title="modifier volontaire"  style="font-size:15px"><i class="fa fa-edit" style="color: #E7CE56"></i></a>
-                                            <a title="supprimer volontaire"  style="font-size:15px"><i class="fa fa-close" style="color: #AA3333"></i></a>
+                                            <a title="supprimer volontaire"  style="font-size:15px" onclick="addVolontaire(<?php echo $personne->idpersonne ?>)"><i class="fa fa-close" style="color: #AA3333"></i></a>
                                         </td>
                                         <td>
                                             <input type="checkbox" value="" name="volontaire[]" class="">
@@ -179,6 +181,8 @@
         <script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="vendors/bower_components/jquery.scrollbar/jquery.scrollbar.min.js"></script>
         <script src="vendors/bower_components/jquery-scrollLock/jquery-scrollLock.min.js"></script>
+        <script src="{{asset('js/special/taostr.js')}}"></script>
+        <script src="{{asset('js/special/confirm.min.js')}}"></script>
 
         <!-- Vendors: Data tables -->
         <script src="vendors/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>

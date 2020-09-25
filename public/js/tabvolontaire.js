@@ -9,6 +9,19 @@ $(function(){
     
     //alert("bonjour");
     selectRow();
+    
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "progressBar": true,
+        "preventDuplicates": false,
+        "positionClass": "toast-top-left",
+        "onclick": null,
+        "showDuration": "40000",
+        "hideDuration": "4000"
+    }
+
+    toastr.success('Bienvenue dans l\'interface de création de volontaire', 'BIENVENUE'); //le test du plugin de l'alerte
 })
 
 function selectRow(){
@@ -22,3 +35,37 @@ function selectRow(){
         alert($('this #immatVol'));
     })*/
 }
+
+
+function addVolontaire(persnumat) {
+
+    $.confirm({
+//        title: '<p style="color: #c40b4c"><Strong>ALERTE</strong></p>!',
+//        content: '<p style="color:#056365"> Voulez vous saisir un autre volontaire ?</p>',
+        type: 'red',
+        title: 'ALERTE',
+        content:'Voulez vous vraiment supprimer ce volontaire ?',
+        icon: 'fa fa-warning',
+        theme:'modern',
+        buttons: {
+            confirm: {
+                text: 'OUI',
+                btnClass: 'btn-danger',
+                action: function () {
+                    alert(persnumat);
+                }
+            },
+            /*cancel: function () {
+             $.alert('Canceled!');
+             },*/
+            cancel: {
+                text: 'NON',
+                btnClass: 'btn-blue',
+                keys: ['enter', 'shift'],
+                action: function () {
+                    //window.location.href = '/Liste_Volontaire';
+                }
+            }
+        }
+        });
+    }
