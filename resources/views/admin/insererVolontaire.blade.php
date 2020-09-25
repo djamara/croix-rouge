@@ -256,7 +256,7 @@
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-12">
                                                 <label>Diplomes</label>
                                                 <div class="form-group">
                                                     @foreach($diplomes as $diplome)
@@ -375,6 +375,83 @@
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
+                                            
+                                            <h5>Filiation</h5>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <input type="hidden" class="form-control form-control-md" placeholder="">
+                                                    <i class="form-group__bar"></i>
+                                                </div>
+                                            </div>
+                                            <div class="row col-sm-6">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Nom du père:</label>
+                                                        <input type="text" class="form-control form-control-md" name="nomPersUrgence" placeholder="Entrez le nom du contact" required="">
+                                                        <i class="form-group__bar"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Prenom du père:</label>
+                                                        <input type="text" class="form-control form-control-md" name="prenomPersUrgence" placeholder="Entrez le prenom du contact" required="">
+                                                        <i class="form-group__bar"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Pays de nationalite du père</label>
+                                                        <select class="select2" name="nationalite">
+                                                            @foreach($paysNat as $pays)
+                                                            <option value="{{$pays->PAYS_CODE}}">{{$pays->PAYS_NOM}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class="custom-control custom-checkbox">
+                                                            <input id="radio1" type="checkbox" value="en_vie" name="diplomes[]" class="custom-control-input">
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">Si décédé, cochez svp</span>
+                                                    </label>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="row col-sm-6">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Nom de la mère:</label>
+                                                        <input type="text" class="form-control form-control-md" name="nomPersUrgence" placeholder="Entrez le nom du contact" required="">
+                                                        <i class="form-group__bar"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Prenom de la mère:</label>
+                                                        <input type="text" class="form-control form-control-md" name="prenomPersUrgence" placeholder="Entrez le prenom du contact" required="">
+                                                        <i class="form-group__bar"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Pays de nationalite de la mère</label>
+                                                        <select class="select2" name="nationalite">
+                                                            @foreach($paysNat as $pays)
+                                                            <option value="{{$pays->PAYS_CODE}}">{{$pays->PAYS_NOM}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class="custom-control custom-checkbox">
+                                                            <input id="radio1" type="checkbox" value="en_vie" name="diplomes[]" class="custom-control-input">
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">Si décédé, cochez svp</span>
+                                                    </label>
+                                                    
+                                                </div>
+                                            </div>
+                                            
                                             <h5>Personne à contacter en cas d'urgences</h5>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
