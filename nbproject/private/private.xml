@@ -3,22 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/config/cors.php</file>
-            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/app/Http/Middleware/Cors.php</file>
             <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/resources/views/admin/modifierVolontaire.blade.php</file>
-            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/resources/views/admin/insererVolontaire.blade.php</file>
-            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/resources/views/admin/tableComite.blade.php</file>
-            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/routes/web.php</file>
-            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/resources/views/admin/css/app.min.css</file>
-            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/.env</file>
-            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/resources/views/admin/sidebar.blade.php</file>
             <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/bootstrap/app.php</file>
-            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/app/Http/Controllers/UserLoginController.php</file>
-            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/app/Http/Kernel.php</file>
-            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/app/Providers/RouteServiceProvider.php</file>
-            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/app/Http/Controllers/ComiteController.php</file>
+            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/public/js/tabvolontaire.js</file>
+            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/resources/views/admin/insererVolontaire.blade.php</file>
+            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/public/js/volontaire.js</file>
+            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/resources/views/admin/tableComite.blade.php</file>
             <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/resources/views/admin/tableVolontaire.blade.php</file>
-            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/.htaccess</file>
+            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/routes/web.php</file>
+            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/resources/views/admin/sidebar.blade.php</file>
         </group>
     </open-files>
 </project-private>

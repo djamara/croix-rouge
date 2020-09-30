@@ -213,7 +213,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Pays de nationalite</label>
-                                                    <select class="select2" name="nationalite">
+                                                    <select class="select2" name="nationalite" id="paysNationalite" onchange="selectPiece()">
                                                         @foreach($paysNat as $pays)
                                                         <option value="{{$pays->PAYS_CODE}}">{{$pays->PAYS_NOM}}</option>
                                                         @endforeach
@@ -229,7 +229,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Type de pièces</label>
-                                                    <select class="select2" name="typePiece">
+                                                    <select class="select2" name="typePiece" id="idTypepiece" >
                                                         @foreach($typePiece as $typePiece)
                                                         <option value="{{$typePiece->idTypePiece}}">{{$typePiece->libelleTypePiece}}</option>
                                                         @endforeach
@@ -291,8 +291,32 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Activité</label>
-                                                    <input type="text" class="form-control form-control-md" name="activiteVolontaire" placeholder="Entrez l'activité" >
+                                                    <input type="text" class="form-control form-control-md" name="activiteVolontaire" >
                                                     <i class="form-group__bar"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label>Avez vous un permis de conduire ?</label>
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1">Oui</label>
+                                                    <input type="checkbox" value="OUI" class="custom-checkbox" name="AvoirPermis" id="idAvoirPermis" onclick="activerZonePermis()">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <label>Entrez le numero svp</label>
+                                                    <input type="text" class="form-control form-control-md" name="numeroPermis" placeholder="Entrez l'activité" id="idnumeroPermis" >
+                                                    <i class="form-group__bar"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Catégorie du permis</label>
+                                                    <select class="select2" multiple data-minimum-results-for-search="Infinity" name="categoriePermis[]" id="idcategoriePermis">
+                                                        @foreach($categoriePermis as $categoriePermis)
+                                                        <option value="{{$categoriePermis['idCategorie']}}">{{$categoriePermis['categorie_libelle']}}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                             <h5>Santé</h5>
@@ -387,21 +411,21 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Nom du père:</label>
-                                                        <input type="text" class="form-control form-control-md" name="nomPersUrgence" placeholder="Entrez le nom du contact" required="">
+                                                        <input type="text" class="form-control form-control-md" name="nomPereVolontaire" placeholder="Entrez le nom du contact" required="">
                                                         <i class="form-group__bar"></i>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Prenom du père:</label>
-                                                        <input type="text" class="form-control form-control-md" name="prenomPersUrgence" placeholder="Entrez le prenom du contact" required="">
+                                                        <input type="text" class="form-control form-control-md" name="prenomPereVolontaire" placeholder="Entrez le prenom du contact" required="">
                                                         <i class="form-group__bar"></i>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Pays de nationalite du père</label>
-                                                        <select class="select2" name="nationalite">
+                                                        <select class="select2" name="nationalitePere" id="nationalitePere">
                                                             @foreach($paysNat as $pays)
                                                             <option value="{{$pays->PAYS_CODE}}">{{$pays->PAYS_NOM}}</option>
                                                             @endforeach
@@ -410,7 +434,7 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label class="custom-control custom-checkbox">
-                                                            <input id="radio1" type="checkbox" value="en_vie" name="diplomes[]" class="custom-control-input">
+                                                            <input id="radio1" type="checkbox" value="decede" name="etatPere" class="custom-control-input">
                                                             <span class="custom-control-indicator"></span>
                                                             <span class="custom-control-description">Si décédé, cochez svp</span>
                                                     </label>
@@ -421,21 +445,21 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Nom de la mère:</label>
-                                                        <input type="text" class="form-control form-control-md" name="nomPersUrgence" placeholder="Entrez le nom du contact" required="">
+                                                        <input type="text" class="form-control form-control-md" name="nomMereVolontaire" placeholder="Entrez le nom du contact" required="">
                                                         <i class="form-group__bar"></i>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Prenom de la mère:</label>
-                                                        <input type="text" class="form-control form-control-md" name="prenomPersUrgence" placeholder="Entrez le prenom du contact" required="">
+                                                        <input type="text" class="form-control form-control-md" name="prenomMereVolontaire" placeholder="Entrez le prenom du contact" required="">
                                                         <i class="form-group__bar"></i>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Pays de nationalite de la mère</label>
-                                                        <select class="select2" name="nationalite">
+                                                        <select class="select2" name="nationaliteMere" id="nationaliteMere">
                                                             @foreach($paysNat as $pays)
                                                             <option value="{{$pays->PAYS_CODE}}">{{$pays->PAYS_NOM}}</option>
                                                             @endforeach
@@ -444,7 +468,7 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label class="custom-control custom-checkbox">
-                                                            <input id="radio1" type="checkbox" value="en_vie" name="diplomes[]" class="custom-control-input">
+                                                            <input id="radio1" type="checkbox" value="decede" name="etatMere" class="custom-control-input">
                                                             <span class="custom-control-indicator"></span>
                                                             <span class="custom-control-description">Si décédé, cochez svp</span>
                                                     </label>

@@ -295,6 +295,30 @@
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
+                                            <div class="col-sm-3">
+                                                <label>Avez vous un permis de conduire ?</label>
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="exampleCheck1">Oui</label>
+                                                    <input type="checkbox" value="OUI" <?php if($volontaire->personne_avoir_permis == "OUI") echo "checked" ?> class="custom-checkbox" name="AvoirPermis" id="idAvoirPermis" onclick="activerZonePermis()">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <label>Entrez le numero svp</label>
+                                                    <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_numero_permis}}" name="numeroPermis" placeholder="Entrez l'activité" id="idnumeroPermis" >
+                                                    <i class="form-group__bar"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Catégorie du permis</label>
+                                                    <select class="select2" multiple data-minimum-results-for-search="Infinity" name="categoriePermis[]" id="idcategoriePermis">
+                                                        @foreach($categoriePermis as $categoriePermis)
+                                                        <option value="{{$categoriePermis['idCategorie']}}" <?php if($personneCategorie["idcategorie"] == $categoriePermis['idCategorie']) echo "selected" ?> >{{$categoriePermis['categorie_libelle']}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <h5>Santé</h5>
                                             <div class="col-sm-10">
                                                 <div class="form-group">
@@ -373,6 +397,81 @@
                                                     <label>Email du volontaire:</label>
                                                     <input type="email" class="form-control form-control-md" value="{{$volontaire->personne_email}}" name="emailVolontaire" placeholder="Entrez le email">
                                                     <i class="form-group__bar"></i>
+                                                </div>
+                                            </div>
+                                            <h5>Filiation</h5>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <input type="hidden" class="form-control form-control-md" placeholder="">
+                                                    <i class="form-group__bar"></i>
+                                                </div>
+                                            </div>
+                                            <div class="row col-sm-6">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Nom du père:</label>
+                                                        <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_nom_pere}}" name="nomPereVolontaire" placeholder="Entrez le nom du contact" required="">
+                                                        <i class="form-group__bar"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Prenom du père:</label>
+                                                        <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_prenom_pere}}" name="prenomPereVolontaire" placeholder="Entrez le prenom du contact" required="">
+                                                        <i class="form-group__bar"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Pays de nationalite du père</label>
+                                                        <select class="select2" name="nationalitePere" id="nationalitePere">
+                                                            @foreach($paysNat as $pays)
+                                                                <option value="{{$pays->PAYS_CODE}}" <?php if($volontaire->personne_nationalite_pere == $pays->PAYS_CODE) echo "selected" ?> >{{$pays->PAYS_NOM}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class="custom-control custom-checkbox">
+                                                            <input id="radio1" type="checkbox" value="decede" <?php if($volontaire->personne_etat_pere == "decede") echo "checked" ?> name="etatPere" class="custom-control-input">
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">Si décédé, cochez svp</span>
+                                                    </label>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="row col-sm-6">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Nom de la mère:</label>
+                                                        <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_nom_mere}}" name="nomMereVolontaire" placeholder="Entrez le nom du contact" required="">
+                                                        <i class="form-group__bar"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Prenom de la mère:</label>
+                                                        <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_prenom_mere}}" name="prenomMereVolontaire" placeholder="Entrez le prenom du contact" required="">
+                                                        <i class="form-group__bar"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Pays de nationalite de la mère</label>
+                                                        <select class="select2" name="nationaliteMere" id="nationaliteMere">
+                                                            @foreach($paysNat as $pays)
+                                                            <option value="{{$pays->PAYS_CODE}}" <?php if($volontaire->personne_nationalite_mere == $pays->PAYS_CODE) echo "selected" ?>>{{$pays->PAYS_NOM}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class="custom-control custom-checkbox">
+                                                            <input id="radio1" type="checkbox" value="decede" <?php if($volontaire->personne_etat_mere == "decede") echo "checked" ?> name="etatMere" class="custom-control-input">
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">Si décédé, cochez svp</span>
+                                                    </label>
+                                                    
                                                 </div>
                                             </div>
                                             <h5>Personne à contacter en cas d'urgences</h5>

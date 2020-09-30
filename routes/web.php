@@ -48,6 +48,8 @@ Route::get('/insertHistoVolontaire', 'InsertHistoVolontaire@afficheHistorique');
 
 Route::post('/insertComite', 'ComiteController@InsererComite');
 
+Route::get('/token', 'PersonneControler@getToken');
+
 Route::get('/gallerie', function () {
     return view('admin/photo-gallery');
 });

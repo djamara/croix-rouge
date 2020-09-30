@@ -8,8 +8,12 @@ $(function () {
      closeBtn: true,
      timer: 0
      });*/
+$("#paysNaiss").val('CIV');
+$("#paysNationalite").val('CIV');
+$("#nationaliteMere").val('CIV');
+$("#nationalitePere").val('CIV');
 
-
+activerZonePermis();
 //addVolontaire();
 
 //    $.notify("Hello World");
@@ -439,6 +443,7 @@ function addTabHistorique() {
 
 function hideZoneVilCommune() {
 
+    
     if ($('#paysNaiss').val() != 'CIV') {
 
         $('.zoneVilCommune').hide();
@@ -448,5 +453,25 @@ function hideZoneVilCommune() {
         $('.zoneVilCommune').show();
 //        $('#vilNaiss').prop('.disabled',false);
 //        $('#comNaiss').prop('.disabled',false);
+    }
+}
+
+function selectPiece(){
+    
+    if($('#paysNationalite').val()!='CIV'){
+        $('#idTypepiece').val(4);
+        $('.nationalite').val("CARTE CONSULAIRE");
+    }
+}
+
+function activerZonePermis(){
+    
+    if(! $("#idAvoirPermis").is(':Checked')){
+        $('#idnumeroPermis').val("");
+        $('#idnumeroPermis').attr('disabled',true);
+        $('#idcategoriePermis').attr('disabled',true);
+    }else{
+        $('#idnumeroPermis').attr('disabled',false);
+        $('#idcategoriePermis').attr('disabled',false);
     }
 }

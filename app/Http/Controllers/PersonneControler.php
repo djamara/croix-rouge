@@ -36,6 +36,7 @@ class PersonneControler extends Controller {
         $affections = \App\modeles\MaladieChronique::all();
         $comites = \App\modeles\Comite::all();
         $fonctionCR = \App\modeles\Fonction::all();
+        $categoriePermis = \App\modeles\CategPermis::all();
         $lastPersonnInsert = \App\modeles\Personne::latest()->first(); // recuperer le dernier inssert dans personne
         
         /* foreach ($allComites as $comite) {
@@ -47,7 +48,8 @@ class PersonneControler extends Controller {
             "villes" => $allvilles, "lastPersonnInsert" => $lastPersonnInsert,
             "paysNaiss" => $pays, "communes" => $communes, 'paysNat' => $pays, "comites" => $comites,
             "typePiece" => $TypePieces, "groupesanguin" => $groupeSanguin, "affections" => $affections,
-            "profession" => $profession, "diplomes" => $diplomes, "groupesanguin" => $groupeSanguin]);
+            "profession" => $profession, "diplomes" => $diplomes, "groupesanguin" => $groupeSanguin , 
+            'categoriePermis'=>$categoriePermis]);
     }
     
     public function afficherVueModif($îd) {
@@ -63,6 +65,7 @@ class PersonneControler extends Controller {
         $affections = \App\modeles\MaladieChronique::all();
         $comites = \App\modeles\Comite::all();
         $fonctionCR = \App\modeles\Fonction::all();
+        $categoriePermis = \App\modeles\CategPermis::all();
         $lastPersonnInsert = \App\modeles\Personne::latest()->first(); // recuperer le dernier inssert dans personne
         $volontaire = \App\modeles\Personne::where("idpersonne", $îd)->first();
         /*$diplomes_personne = \App\modeles\Personne::addSelect([
@@ -77,6 +80,11 @@ class PersonneControler extends Controller {
         
         $diplomes_personne = \App\modeles\personneDiplome::select('diplome_iddiplome')->where("persImmat",$volontaire->personne_immat)->get()->toArray();
         $diplomesVolontaire = array();
+        
+        $personneCategorie = new \App\modeles\personneCategPermis();
+        $perscategoriesArray = $personneCategorie->select('idcategorie')->where("personne_immat",$volontaire->personne_immat)->get()->toArray();
+        
+        //dd($perscategoriesArray);
         
         //var_dump($diplomes_personne);
         
@@ -95,7 +103,8 @@ class PersonneControler extends Controller {
             "paysNaiss" => $pays, "communes" => $communes, 'paysNat' => $pays, "comites" => $comites,
             "typePiece" => $TypePieces, "groupesanguin" => $groupeSanguin, "affections" => $affections,
             "profession" => $profession, "diplomes" => $diplomes, 
-            "groupesanguin" => $groupeSanguin,"volontaire"=>$volontaire , "diplomes_personne"=>$diplomesVolontaire]);
+            "groupesanguin" => $groupeSanguin,"volontaire"=>$volontaire , "diplomes_personne"=>$diplomesVolontaire,
+            'categoriePermis'=>$categoriePermis,'personneCategorie'=>$perscategoriesArray]);
     }
 
     public function insererVolontaire(Request $request) {
@@ -150,6 +159,16 @@ class PersonneControler extends Controller {
         $personne->personne_tel_urgence = $telPersUrgence; //telephone urgence
         $personne->personne_email_urgence = $emailPersUrgence; //email urgence
         //personne->personne_profil = 1; //profil volontaire
+        $personne->personne_avoir_permis = $AvoirPermis;
+        $personne->personne_numero_permis = $numeroPermis;
+        $personne->personne_nom_pere = $nomPereVolontaire;
+        $personne->personne_prenom_pere = $prenomPereVolontaire;
+        $personne->personne_nationalite_pere = $nationalitePere;
+        $personne->personne_etat_pere = $etatPere;
+        $personne->personne_nom_mere = $nomMereVolontaire;
+        $personne->personne_prenom_mere = $prenomMereVolontaire;
+        $personne->personne_nationalite_mere = $nationaliteMere;
+        $personne->personne_etat_mere = $etatMere;
 
         $retour = $personne->save();
 
@@ -164,6 +183,18 @@ class PersonneControler extends Controller {
                 $personneAffection->personneImmat = $this->Matricule;
                 $personneAffection->idaffection = $maladie;
                 $retour = $personneAffection->save();
+            }
+        }
+        
+        //INSERER DANS CATEGORIE PERMIS
+        if ($AvoirPermis == "OUI" && !empty($categoriePermis)) {
+
+            foreach ($categoriePermis as $categorie) {
+
+                $personneCategorie = new \App\modeles\personneCategPermis();
+                $personneCategorie->personne_immat = $this->Matricule;
+                $personneCategorie->idcategorie = $categorie;
+                $retour = $personneCategorie->save();
             }
         }
 
@@ -370,6 +401,17 @@ class PersonneControler extends Controller {
         $personne->personne_tel_urgence = $telPersUrgence; //telephone urgence
         $personne->personne_email_urgence = $emailPersUrgence; //email urgence
         //personne->personne_profil = 1; //profil volontaire
+        
+        $personne->personne_avoir_permis = $AvoirPermis;
+        $personne->personne_numero_permis = $numeroPermis;
+        $personne->personne_nom_pere = $nomPereVolontaire;
+        $personne->personne_prenom_pere = $prenomPereVolontaire;
+        $personne->personne_nationalite_pere = $nationalitePere;
+        $personne->personne_etat_pere = $etatPere;
+        $personne->personne_nom_mere = $nomMereVolontaire;
+        $personne->personne_prenom_mere = $prenomMereVolontaire;
+        $personne->personne_nationalite_mere = $nationaliteMere;
+        $personne->personne_etat_mere = $etatMere;
 
 //        $retour = $personne->update(["personne_immat"=>$personne_immat]);
         $retour = $personne->where("personne_immat",$personne_immat)->update($personne->toArray());
@@ -387,7 +429,21 @@ class PersonneControler extends Controller {
                 $retour = $personneAffection->save();
             }
         }*/
+        
+        //SUPPRIMER LES CATEGOERIES DE PERMIS
+        $personneCategorie = new \App\modeles\personneCategPermis();
+        $retour = $personneCategorie->where("personne_immat",$personne_immat)->delete($personneCategorie->toArray());
+        //INSERER DANS CATEGORIE PERMIS
+        if ($AvoirPermis == "OUI" && !empty($categoriePermis)) {
 
+            foreach ($categoriePermis as $categorie) {
+
+                $personneCategorie = new \App\modeles\personneCategPermis();
+                $personneCategorie->personne_immat = $this->Matricule;
+                $personneCategorie->idcategorie = $categorie;
+                $retour = $personneCategorie->save();
+            }
+        }
         //UPDATE DIPLOME
         /*SUPPRIMER LES DIPLOMES INSCRIS PRECEDEMENT*/
         $personneDiplome = new \App\modeles\personneDiplome();
@@ -414,4 +470,9 @@ class PersonneControler extends Controller {
         }
     }
 
+    public function getToken(){
+        
+        $tokenArray = ["cle"=>csrf_token()];
+        echo json_encode($tokenArray);
+    }
 }
