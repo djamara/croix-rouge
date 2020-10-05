@@ -107,8 +107,9 @@
                                         <td>{{$personne->profession}}</td>
                                         <td>{{$personne->ville_habita."/".$personne->communeHabitation}}</td>
                                         <td>
+                                            <a href="generateRapport/{{$personne->personne_immat}}" target="_blank" title="voir fiche volontaire" style="font-size:15px"><i class="fa fa-vcard" style="color: #fff5f3"></i></a>
                                             <a href="formulaire_modif_volontaire/{{$personne->idpersonne}}" title="modifier volontaire"  style="font-size:15px"><i class="fa fa-edit" style="color: #E7CE56"></i></a>
-                                            <a title="supprimer volontaire"  style="font-size:15px" onclick="addVolontaire(<?php echo $personne->idpersonne ?>)"><i class="fa fa-close" style="color: #AA3333"></i></a>
+                                            <a title="supprimer volontaire"  style="font-size:15px" onclick="removeVolontaire(<?php echo $personne->idpersonne ?>)"><i class="fa fa-close" style="color: #AA3333"></i></a>
                                         </td>
                                         <td>
                                             <input type="checkbox" value="" name="volontaire[]" class="">

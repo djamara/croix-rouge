@@ -169,9 +169,9 @@
                                                 <div class="form-group">
                                                     <label>Situation matrimoniale</label>
                                                     <select class="select2" name="situaMat">
-                                                        <option>Celibataire</option>                                            
-                                                        <option>Marié(e)</option>
-                                                        <option>Veuf(ve)</option>
+                                                        @foreach($situationMatrimoniale as $sitMat)
+                                                        <option value="{{$sitMat->idSitMat}}">{{$sitMat->libelle_SitMat}}</option>  
+                                                        @endForeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -313,9 +313,7 @@
                                                 <div class="form-group">
                                                     <label>Catégorie du permis</label>
                                                     <select class="select2" multiple data-minimum-results-for-search="Infinity" name="categoriePermis[]" id="idcategoriePermis">
-                                                        @foreach($categoriePermis as $categoriePermis)
-                                                        <option value="{{$categoriePermis['idCategorie']}}" <?php if($personneCategorie["idcategorie"] == $categoriePermis['idCategorie']) echo "selected" ?> >{{$categoriePermis['categorie_libelle']}}</option>
-                                                        @endforeach
+                                                        
                                                     </select>
                                                 </div>
                                             </div>

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fiche_croix_rouge_2" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="41b0847a-ef4a-425c-b450-778dd2950642">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="adpater1"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="254"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="739"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="imageSource" class="java.lang.String">
+		<defaultValueExpression><![CDATA["/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="numMat" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT personne.personne_immat AS numMat, personne.personne_nom, personne.personne_prenom, DATE_FORMAT(personne.personne_date_naiss,'%d/%m/%Y') as personne_date_naiss,
+	personne.personne_pays_naiss, villes.VIL_NOM AS personne_ville_naiss, commune.commune_libelle AS personne_commune_naiss, personne.personne_civilite, typepiece.libelleTypePiece, personne.NumerPiece, personne.personne_ville_habitation, personne.personne_commune_habitation, groupesanguin.libelleGroupeSanguin, personne.personne_telephone_1 AS numWhatsApp, personne.personne_telephone_2 AS numTel, personne.personne_email, 
+	(SELECT GROUP_CONCAT(diplome.diplome_libelle)  FROM diplome, personne_diplome
+WHERE diplome.iddiplome=personne_diplome.diplome_iddiplome AND personne_diplome.persImmat=numMat) AS diplomes,
+personne.personne_niveau_etude, personne.personne_qualification, personne.personne_activite, personne.personne_numero_permis, (SELECT GROUP_CONCAT(categoriepermis.categorie_libelle)  FROM categoriepermis, personne_categoriepermis
+WHERE categoriepermis.idCategorie=personne_categoriepermis.idcategorie AND personne_categoriepermis.personne_immat =numMat) AS permis, personne.personne_nom_urgence, personne.personne_prenom_urgence, personne.personne_tel_urgence, personne.personne_email_urgence, personne.personne_ville_urgence, personne.personne_commune_urgence, personne.personne_quartier_urgence,
+(SELECT pays_nationalite.PAYS_NOM FROM pays_nationalite, personne WHERE pays_nationalite.PAYS_CODE=personne.personne_pays_nationalite AND personne.personne_immat =numMat) AS nationnalite,
+(SELECT commune.commune_libelle FROM commune, personne WHERE commune.idcommune=personne.personne_commune_habitation AND personne.personne_immat=numMat) AS communeHabitation,
+(SELECT villes.VIL_NOM FROM villes, personne WHERE villes.VIL_IDENTIFIANT=personne.personne_ville_habitation AND personne.personne_immat=numMat) AS villeHabitation,
+comite.comite_libelle
+
+from personne
+left join pays_nationalite ON pays_nationalite.PAYS_CODE=personne.personne_pays_naiss
+LEFT JOIN groupesanguin ON groupesanguin.idGroupeSanguin=personne.groupeSanguin
+LEFT JOIN commune ON commune.idcommune=personne.personne_commune_naiss
+LEFT JOIN typepiece ON typepiece.idTypePiece=personne.TypePiece
+LEFT JOIN villes ON villes.VIL_IDENTIFIANT=personne.personne_ville_naiss
+LEFT JOIN comite ON comite.idcomite=personne.comiteActuel
+WHERE personne.personne_immat= $P{numMat}]]>
+	</queryString>
+	<field name="numMat" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="numMat"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_nom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_nom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_prenom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_prenom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_date_naiss" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_date_naiss"/>
+	</field>
+	<field name="personne_pays_naiss" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_pays_naiss"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_ville_naiss" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_ville_naiss"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="villes"/>
+	</field>
+	<field name="personne_commune_naiss" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_commune_naiss"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="commune"/>
+	</field>
+	<field name="personne_civilite" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_civilite"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="libelleTypePiece" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="libelleTypePiece"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="typepiece"/>
+	</field>
+	<field name="NumerPiece" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NumerPiece"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_ville_habitation" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="personne_ville_habitation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_commune_habitation" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="personne_commune_habitation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="libelleGroupeSanguin" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="libelleGroupeSanguin"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="groupesanguin"/>
+	</field>
+	<field name="numWhatsApp" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="numWhatsApp"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="numTel" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="numTel"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="diplomes" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="diplomes"/>
+	</field>
+	<field name="personne_niveau_etude" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_niveau_etude"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_qualification" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_qualification"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_activite" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_activite"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_numero_permis" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_numero_permis"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="permis" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="permis"/>
+	</field>
+	<field name="personne_nom_urgence" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_nom_urgence"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_prenom_urgence" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_prenom_urgence"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_tel_urgence" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_tel_urgence"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_email_urgence" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_email_urgence"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_ville_urgence" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="personne_ville_urgence"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_commune_urgence" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="personne_commune_urgence"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_quartier_urgence" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_quartier_urgence"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="nationnalite" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nationnalite"/>
+	</field>
+	<field name="communeHabitation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="communeHabitation"/>
+	</field>
+	<field name="villeHabitation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="villeHabitation"/>
+	</field>
+	<field name="comite_libelle" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="comite_libelle"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comite"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="360" splitType="Stretch">
+			<frame>
+				<reportElement x="5" y="5" width="420" height="290" uuid="936d0b62-a555-4292-926b-d92589fdc495"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+					<reportElement x="0" y="0" width="420" height="290" uuid="0bfc527f-a017-497c-9ac1-c4b373ae878f"/>
+					<imageExpression><![CDATA[$P{imageSource}+"Arriere-plan croix rouge_bg.png"]]></imageExpression>
+				</image>
+				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+					<reportElement x="11" y="8" width="70" height="61" uuid="93a7a8d7-e1f0-4110-a8ea-47186f24d54e"/>
+					<imageExpression><![CDATA[$P{imageSource}+"logo.png"]]></imageExpression>
+				</image>
+				<textField isBlankWhenNull="true">
+					<reportElement x="10" y="80" width="260" height="18" uuid="b10220a5-b98e-47fb-8a2a-e9edeff78a1a"/>
+					<textElement markup="html">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Nom : <b>"+$F{personne_nom}.toUpperCase()+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="10" y="98" width="260" height="18" uuid="cce93eb9-8d48-47b1-a5a5-f58602ccb614"/>
+					<textElement markup="html">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Prénom : <b>"+$F{personne_prenom}.toUpperCase()+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="10" y="117" width="260" height="18" uuid="5c1d3f23-7387-40d1-9b2b-37c001ca578e"/>
+					<textElement markup="html">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Comité local : <b>"+$F{comite_libelle}+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="10" y="136" width="260" height="18" uuid="582f3f30-b896-49a7-884e-e4bba7aace33"/>
+					<textElement markup="html">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Fonction CL / CR : <b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="10" y="193" width="260" height="18" uuid="3cd3e5f6-ff2b-4282-a7c6-14db668e39c9"/>
+					<textElement markup="html">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Groupe sanguin : <b>"+$F{libelleGroupeSanguin}+"</b>"]]></textFieldExpression>
+				</textField>
+				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+					<reportElement x="221" y="235" width="51" height="50" uuid="e467e2c0-ac3a-4178-ada5-8e954a13c7fe"/>
+					<imageExpression><![CDATA[$P{imageSource}+"qrcode1.svg"]]></imageExpression>
+				</image>
+				<textField>
+					<reportElement x="21" y="255" width="186" height="28" forecolor="#F20B07" backcolor="#BDB5B5" uuid="28d4af0d-f364-4dcb-a086-492b25376400">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Calibri" size="17" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{numMat}]]></textFieldExpression>
+				</textField>
+				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+					<reportElement x="311" y="6" width="70" height="61" uuid="6a7befa5-505c-48fb-888b-55144f0590a7"/>
+					<imageExpression><![CDATA[$P{imageSource}+"movement-logo-fr_reduit.png"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="77" y="11" width="95" height="39" forecolor="#FF0400" uuid="d8a09b30-f008-4967-86d7-bcd0597b68d2"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="30" isBold="true"/>
+					</textElement>
+					<text><![CDATA[2021]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="19" y="237" width="189" height="18" uuid="ce5df9df-83d8-4185-9298-4632c3435b04"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<b>N° Matricule : </b>"]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="270" y="67" width="150" height="170" uuid="1217e16f-c705-43ef-b953-3b107196e776">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<imageExpression><![CDATA[$P{imageSource}+"Coulibaly.jpeg"]]></imageExpression>
+				</image>
+				<textField isBlankWhenNull="true">
+					<reportElement x="9" y="174" width="260" height="18" uuid="54167b3c-d47b-4d72-8de7-1452e1412c46"/>
+					<textElement markup="html">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Profession : <b>"+$F{personne_qualification}.toUpperCase()+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="9" y="154" width="260" height="18" uuid="903254de-eba4-4ae9-b910-6e3adc1eaab5"/>
+					<textElement markup="html">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA["N° CNI/Passport : <b>"+$F{NumerPiece}+"</b>"]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

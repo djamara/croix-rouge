@@ -169,9 +169,9 @@
                                                 <div class="form-group">
                                                     <label>Situation matrimoniale</label>
                                                     <select class="select2" name="situaMat">
-                                                        <option>Celibataire</option>                                            
-                                                        <option>Marié(e)</option>
-                                                        <option>Veuf(ve)</option>
+                                                        @foreach($situationMatrimoniale as $sitMat)
+                                                        <option value="{{$sitMat->idSitMat}}">{{$sitMat->libelle_SitMat}}</option>  
+                                                        @endForeach
                                                     </select>
                                                 </div>
                                             </div>

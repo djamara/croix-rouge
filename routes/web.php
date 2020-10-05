@@ -38,6 +38,8 @@ Route::get('/Liste_Comite', 'ComiteController@AfficherComite');
 
 Route::post('/inserer_Volontaire', 'PersonneControler@insererVolontaire');
 
+Route::post('/insererFormVolontaire', 'PersonneControler@insererFomrVolontaire');
+
 Route::post('/modifier_Volontaire', 'PersonneControler@modifier_Volontaire');
 
 Route::get('/inserer_Volontaire/{idVol}', 'PersonneControler@insererVolontaire');
@@ -53,6 +55,21 @@ Route::get('/token', 'PersonneControler@getToken');
 Route::get('/gallerie', function () {
     return view('admin/photo-gallery');
 });
+
+
+Route::get('/generateQR', function () {
+  
+    \QrCode::size(500)
+            ->format('svg')
+            ->generate('www.7itmind.com/rapport/idrisse.pdf', public_path('images/qrcode1.svg'));
+   
+  return view('qrCode');
+    
+});
+
+Route::get('/generateRapport/{id}','PersonneControler@generateRapport');
+
+Route::post('/removeVolontaire','PersonneControler@removeVolontaire');
 
 Route::get('/home',function(){
     return View('welcome');

@@ -4,14 +4,19 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/resources/views/admin/modifierVolontaire.blade.php</file>
-            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/bootstrap/app.php</file>
-            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/public/js/tabvolontaire.js</file>
             <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/resources/views/admin/insererVolontaire.blade.php</file>
+            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/app/Http/Controllers/PersonneControler.php</file>
+            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/config/database.php</file>
             <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/public/js/volontaire.js</file>
             <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/resources/views/admin/tableComite.blade.php</file>
-            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/resources/views/admin/tableVolontaire.blade.php</file>
+            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/resources/views/view.blade.php</file>
             <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/routes/web.php</file>
+            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/.env</file>
             <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/resources/views/admin/sidebar.blade.php</file>
+            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/bootstrap/app.php</file>
+            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/public/js/tabvolontaire.js</file>
+            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/resources/views/admin/success.blade.php</file>
+            <file>file:/C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/resources/views/admin/tableVolontaire.blade.php</file>
         </group>
     </open-files>
 </project-private>

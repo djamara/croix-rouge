@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fiche_croix_rouge" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="03008fee-c605-440c-a171-e1864cc9c1dd">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="adpater1"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="272"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="716"/>
+	<parameter name="imageSource" class="java.lang.String">
+		<defaultValueExpression><![CDATA["/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="numMat" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT personne.personne_immat AS numMat, personne.personne_nom, personne.personne_prenom, DATE_FORMAT(personne.personne_date_naiss,'%d/%m/%Y') as personne_date_naiss,
+	personne.personne_pays_naiss, villes.VIL_NOM AS personne_ville_naiss, commune.commune_libelle AS personne_commune_naiss, personne.personne_civilite, typepiece.libelleTypePiece, personne.NumerPiece, personne.personne_ville_habitation, personne.personne_commune_habitation, groupesanguin.libelleGroupeSanguin, personne.personne_telephone_1 AS numWhatsApp, personne.personne_telephone_2 AS numTel, personne.personne_email, 
+	(SELECT GROUP_CONCAT(diplome.diplome_libelle)  FROM diplome, personne_diplome
+WHERE diplome.iddiplome=personne_diplome.diplome_iddiplome AND personne_diplome.persImmat=numMat) AS diplomes,
+personne.personne_niveau_etude, personne.personne_qualification, personne.personne_activite, personne.personne_numero_permis, (SELECT GROUP_CONCAT(categoriepermis.categorie_libelle)  FROM categoriepermis, personne_categoriepermis
+WHERE categoriepermis.idCategorie=personne_categoriepermis.idcategorie AND personne_categoriepermis.personne_immat =numMat) AS permis, personne.personne_nom_urgence, personne.personne_prenom_urgence, personne.personne_tel_urgence, personne.personne_email_urgence, personne.personne_ville_urgence, personne.personne_commune_urgence, personne.personne_quartier_urgence,
+(SELECT pays_nationalite.PAYS_NOM FROM pays_nationalite, personne WHERE pays_nationalite.PAYS_CODE=personne.personne_pays_nationalite AND personne.personne_immat =numMat) AS nationnalite,
+(SELECT commune.commune_libelle FROM commune, personne WHERE commune.idcommune=personne.personne_commune_habitation AND personne.personne_immat=numMat) AS communeHabitation,
+(SELECT villes.VIL_NOM FROM villes, personne WHERE villes.VIL_IDENTIFIANT=personne.personne_ville_habitation AND personne.personne_immat=numMat) AS villeHabitation
+
+from personne
+left join pays_nationalite ON pays_nationalite.PAYS_CODE=personne.personne_pays_naiss
+LEFT JOIN groupesanguin ON groupesanguin.idGroupeSanguin=personne.groupeSanguin
+LEFT JOIN commune ON commune.idcommune=personne.personne_commune_naiss
+LEFT JOIN typepiece ON typepiece.idTypePiece=personne.TypePiece
+LEFT JOIN villes ON villes.VIL_IDENTIFIANT=personne.personne_ville_naiss
+WHERE personne.personne_immat= $P{numMat}]]>
+	</queryString>
+	<field name="numMat" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="numMat"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_nom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_nom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_prenom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_prenom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_date_naiss" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_date_naiss"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_pays_naiss" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_pays_naiss"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_ville_naiss" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_ville_naiss"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="villes"/>
+	</field>
+	<field name="personne_commune_naiss" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_commune_naiss"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="commune"/>
+	</field>
+	<field name="personne_civilite" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_civilite"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="libelleTypePiece" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="libelleTypePiece"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="typepiece"/>
+	</field>
+	<field name="NumerPiece" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NumerPiece"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_ville_habitation" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="personne_ville_habitation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_commune_habitation" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="personne_commune_habitation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="libelleGroupeSanguin" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="libelleGroupeSanguin"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="groupesanguin"/>
+	</field>
+	<field name="numWhatsApp" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="numWhatsApp"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="numTel" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="numTel"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="diplomes" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="diplomes"/>
+	</field>
+	<field name="personne_niveau_etude" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_niveau_etude"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_qualification" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_qualification"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_activite" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_activite"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_numero_permis" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_numero_permis"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="permis" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="permis"/>
+	</field>
+	<field name="personne_nom_urgence" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_nom_urgence"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_prenom_urgence" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_prenom_urgence"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_tel_urgence" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_tel_urgence"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_email_urgence" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_email_urgence"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_ville_urgence" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="personne_ville_urgence"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_commune_urgence" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="personne_commune_urgence"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="personne_quartier_urgence" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="personne_quartier_urgence"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personne"/>
+	</field>
+	<field name="nationnalite" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nationnalite"/>
+	</field>
+	<field name="communeHabitation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="communeHabitation"/>
+	</field>
+	<field name="villeHabitation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="villeHabitation"/>
+	</field>
+	<background>
+		<band height="802">
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Bottom">
+				<reportElement x="-20" y="708" width="595" height="94" uuid="4874182e-7953-41d5-853a-2367f2c4300e"/>
+				<imageExpression><![CDATA[$P{imageSource}+"arriere_plan.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Transparent" x="531" y="620" width="20" height="79" forecolor="#FCF5F5" uuid="cead4af3-ab14-4f32-b483-50b381061b5e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Texte Statique]]></text>
+			</staticText>
+		</band>
+	</background>
+	<detail>
+		<band height="604">
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+				<reportElement x="0" y="1" width="70" height="54" uuid="1806f058-b556-49d9-9ac7-24d7ba09bbf6"/>
+				<imageExpression><![CDATA[$P{imageSource}+"logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="85" y="2" width="365" height="30" uuid="fc394cf8-3fe7-4749-9f44-f56b97b805ee"/>
+				<box>
+					<pen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FICHE D'IDENTIFICATION INDIVIDUELLE 2021]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="440" y="78" width="115" height="112" uuid="f89626bb-8965-4f37-9733-611a4481a822"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="86" width="430" height="18" uuid="5b38fde5-2ad6-48e3-9ee7-5144f6019cbc"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ETAT CIVIL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="302" width="430" height="18" uuid="bce3cefd-ce41-49ac-894c-2fc1c5cb4986"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ADRESSE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="363" width="430" height="18" uuid="f19eb6d1-fd98-4454-8769-c1470fd8be9b"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INFOS PERSONNELLES]]></text>
+			</staticText>
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+				<reportElement x="470" y="319" width="70" height="70" uuid="5b0b1475-6722-483e-8a42-9e3c72684f00"/>
+				<imageExpression><![CDATA[$P{imageSource}+"qrcode1.svg"]]></imageExpression>
+			</image>
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+				<reportElement x="467" y="-1" width="81" height="74" uuid="688486ad-ffd9-4a18-98ae-08ef99a30bf3"/>
+				<imageExpression><![CDATA[$P{imageSource}+"movement-logo-fr_reduit.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="110" y="36" width="270" height="18" uuid="751dab2d-0d87-4390-9553-b43724f417e7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CROIX-ROUGE CÔTE D'IVOIRE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="55" width="270" height="31" uuid="a832fafe-f5c5-4e6f-bb94-e912cfd431bc"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["ASSOCIATION RECONNUE D'UTILITE PUBLIQUE SELON LE DECRET N°63-169 DU 18 AVRIL 1969 "]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="0" y="519" width="430" height="72" uuid="6faa59fd-ea86-410c-a9ab-cd85ab162d40"/>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="430" height="16" uuid="d7c014b3-907a-4451-a4ae-2b1103cbd780"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Nom & Prénom(s)  : <b>"+($F{personne_nom_urgence} != null ? ($F{personne_nom_urgence}) : "")+" "+($F{personne_prenom_urgence}!=null ? $F{personne_prenom_urgence} : "")+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="18" width="200" height="16" uuid="6d96c845-520e-4746-acc0-7f514dc5be95"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["ville d'habitation: <b>"+($F{personne_ville_urgence} != null ? $F{personne_ville_urgence} : "")+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="36" width="430" height="16" uuid="151eaa32-641d-4e23-926d-6c342d6a7942"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Code postal : "]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="56" width="210" height="16" uuid="d81d8eb4-a241-43fb-a2f4-4ae63cbc41bb"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Téléphone 1: <b>"+($F{personne_tel_urgence} != null ? $F{personne_tel_urgence} : "")+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="216" y="56" width="214" height="16" uuid="045281d1-e6ca-47c3-936a-bdec252a5c38"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Téléphone 2: "]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="210" y="18" width="219" height="16" uuid="c7c821c2-a0f8-45bf-800b-c685585e3cc4"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Commune et quartier d'habitation: <b>"+($F{communeHabitation} != null ? $F{communeHabitation} : "")+"</b>"]]></textFieldExpression>
+				</textField>
+			</frame>
+			<staticText>
+				<reportElement x="0" y="496" width="430" height="18" uuid="a33c812e-d032-47f9-b887-e1d1a72921b4"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PERSONNE A CONTACTER EN CAS D'URGENCE]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="0" y="386" width="430" height="104" uuid="cf145bfb-a81c-417b-9827-62c16f456e90"/>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="19" width="430" height="16" uuid="cd3fcd71-11ce-4312-b5e9-7bd2366dc715"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Niveau d'étude : <b>"+($F{personne_niveau_etude}!=null ? $F{personne_niveau_etude} : "")+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="36" width="430" height="16" uuid="70f4e7b4-0d6d-4c0d-aeb1-862314962985"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Qualification professionnelle : <b>"+$F{personne_qualification}+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="236" y="52" width="193" height="16" uuid="62e6b836-b094-41fd-bac6-030d9bf8e8f9"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Si OUI précisez svp : <b>"+$F{personne_activite}+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="430" height="16" uuid="629e014b-1db9-4ca6-9835-236706b00830"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Quels diplômes avez vous ? <b>"+$F{diplomes}+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="1" y="52" width="235" height="16" uuid="17a823bc-21e8-42e2-b68c-99b2f8ccfa6f"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Êtes vous présentement en activité ? : <b>"+($F{personne_activite}!=null ? "OUI" : "NON")+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="230" y="71" width="198" height="16" uuid="fdf5ef72-1cba-40c0-b3f7-933b63f207ba"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Si OUI renseignez le numéro svp : <b>"+$F{personne_numero_permis}+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="1" y="71" width="230" height="16" uuid="4eb4839c-71c1-4aee-81d0-6d3a423338cb"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Avez vous un permis de conduire ? : <b>"+($F{personne_numero_permis}.equalsIgnoreCase( "non" ) ? "NON":"OUI")+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="1" y="88" width="429" height="16" uuid="ecec2fdd-6655-4968-951c-5e5d7564a700"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Catégorie ? : <b>"+($F{permis} != null ? $F{permis} : "")+"</b>"]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="0" y="324" width="430" height="33" uuid="38ef3bec-eed2-4a81-9752-4cca666fc51e"/>
+				<textField isBlankWhenNull="true">
+					<reportElement x="210" y="0" width="220" height="16" uuid="3c47411d-d979-4fec-9332-cd8fb1f59cd7"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Email : <b>"+($F{personne_email}!=null ? $F{personne_email} : "")+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="200" height="16" uuid="59ee581b-8b7d-4ec9-b7f1-c345d699eb3f"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Téléphone fixe : <b>"+($F{numTel}!=null ? $F{numTel} : "")+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="16" width="200" height="16" uuid="29ed857b-f232-426a-984b-ed9e900c0762"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Numéro whatsapp : <b>"+($F{numWhatsApp} !=null ? $F{numWhatsApp}:"")+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="210" y="17" width="219" height="16" uuid="28d9a70a-9846-4f23-a538-8c9ce3c18737"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Téléphone portable :<b>"+($F{numTel}!=null ? $F{numTel} : "")+"</b>"]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="0" y="108" width="431" height="187" uuid="c9965a32-1f3e-45c8-8efa-f3a2db0b58d9"/>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="430" height="16" uuid="8e480a34-2951-407d-983c-f049febdf332"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Matricule : <b>"+$F{numMat}+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="17" width="430" height="16" uuid="6990a4d0-80ad-482d-8c91-75b7140d2e54"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Nom et prénoms : <b>"+$F{personne_nom}.toUpperCase()+" "+$F{personne_prenom}.toUpperCase()+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="33" width="430" height="16" uuid="000ea621-40a8-4ad9-bbeb-6447508892aa"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Date et lieu de naissance : <b>"+$F{personne_date_naiss}+" à "+($F{personne_ville_naiss}!=null ?($F{personne_ville_naiss}+" / "+$F{personne_commune_naiss}+"("+$F{personne_pays_naiss}+")") : ($F{personne_commune_naiss}+"("+$F{personne_pays_naiss}+")"))+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="67" width="430" height="16" uuid="2ed90ec6-8713-497f-a30c-b0618f9f5c70"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Nationalité : <b>"+$F{nationnalite}+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="120" width="100" height="16" uuid="dc88ded3-214f-43d1-8f8e-c072e7845c41"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Lieu d'habitation : "]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="49" width="430" height="16" uuid="849978da-5fc1-4701-bfb3-64b729594125"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Sexe : <b>"+($F{personne_civilite}.toLowerCase().contains( "mr" ) ? "MASCULIN" : "FEMININ")+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="155" width="139" height="16" uuid="e2bbf8bf-c38c-43f7-93db-d3410e4006e9"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Situation matrimoniale : "]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="171" width="430" height="16" uuid="3bda8697-0542-48cb-93dd-e0fa9cff5447"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Groupe sanguin : <b>"+$F{libelleGroupeSanguin}+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="20" y="138" width="144" height="16" uuid="3b1b396f-9060-42b6-b037-0b3582b38680"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Ville : <b>"+$F{villeHabitation}+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="173" y="138" width="258" height="16" uuid="c802a157-c17d-4d08-a8ac-f3f0e589b464"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Commune et quartier : <b>"+$F{communeHabitation} +"</b>"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="164" y="155" width="82" height="16" uuid="781139b0-e1df-4f39-8e7a-cd37712e106d"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[CELIBATAIRE]]></text>
+				</staticText>
+				<image>
+					<reportElement x="144" y="155" width="20" height="16" uuid="2d8b0d69-02b3-429b-9693-b0dbfc55e21e"/>
+					<imageExpression><![CDATA[$P{imageSource}+"checkbox_coche.jpg"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="271" y="156" width="57" height="16" uuid="043c58f8-a469-4fb1-a365-8616005e4af8"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[MARIÉ(E)]]></text>
+				</staticText>
+				<image>
+					<reportElement x="251" y="156" width="16" height="16" uuid="e4986c96-facf-4f4f-bd03-08f2ea54fe32"/>
+					<imageExpression><![CDATA[$P{imageSource}+"checkbox_coche.jpg"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="354" y="157" width="66" height="16" uuid="b5a3e86b-ffdf-486e-b66b-fbbbfeb4c239"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[VEUF(VE)]]></text>
+				</staticText>
+				<image>
+					<reportElement x="334" y="157" width="16" height="16" uuid="7b985bf9-2aca-48b7-8425-2caaa45169d6"/>
+					<imageExpression><![CDATA[$P{imageSource}+"checkbox_coche.jpg"]]></imageExpression>
+				</image>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="104" width="430" height="16" uuid="08566e7a-9560-4e7b-a012-49284be7a4cd"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["N° de la pièce : <b>"+$F{NumerPiece}+"</b>"]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement x="334" y="157" width="15" height="15" uuid="c6f75419-1c84-4ad8-87c5-6cf16d5f38d7"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="144" y="155" width="15" height="15" uuid="2d02a5e3-8da2-4b89-91ed-63f9e2548947"/>
+				</rectangle>
+				<textField isBlankWhenNull="true">
+					<reportElement x="1" y="86" width="430" height="16" uuid="7ff33335-0012-448a-813b-8811c7bd411a"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Type de pièce : <b>"+$F{libelleTypePiece}+"</b>"]]></textFieldExpression>
+				</textField>
+			</frame>
+			<image>
+				<reportElement positionType="FixRelativeToBottom" x="454" y="78" width="115" height="111" uuid="c0ab3af8-5761-46ca-9d4d-ce8d4ea8e7d3"/>
+				<imageExpression><![CDATA[$P{imageSource}+"Coulibaly.jpeg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="455" y="207" width="100" height="90" uuid="03117569-465b-4d81-b6e2-65ce9ea406e7"/>
+				<imageExpression><![CDATA[$P{imageSource}+"signature.jpeg"]]></imageExpression>
+			</image>
+		</band>
+		<band height="356">
+			<rectangle>
+				<reportElement x="8" y="63" width="175" height="42" uuid="ec139f7d-7b5d-47de-9423-1940b6ef1a4f"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="7" y="33" width="176" height="20" uuid="c48b2e8b-09a1-4286-ae24-685d1506b38b"/>
+				<textElement verticalAlignment="Justified">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Signature et cachet du volontaire]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="374" y="33" width="182" height="20" uuid="a044eeb3-b9a5-4a10-be16-84c13a31c79c"/>
+				<textElement verticalAlignment="Justified">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Signature et cachet du Président]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="122" y="3" width="289" height="20" uuid="5d2bbe0a-4ed3-4046-813a-ea7ed24ad098"/>
+				<textElement verticalAlignment="Justified">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Fait à...............................le .........................................]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="63">
+			<staticText>
+				<reportElement x="66" y="11" width="400" height="30" uuid="e52339d0-0fd8-42f9-9ac1-3167ef3166b0"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[CROIX ROUGE COTE D'IVOIRE,Association reconnue d'utilité publique selon le decret N°63-169 du 18 Avril 1963]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="38" width="310" height="17" uuid="811433a6-06c0-420b-9c32-a1448455c315"/>
+				<text><![CDATA[01 BP 1244 Abidjan 01 Tel: 20 32 13 35 Fax: 20 22 43 81]]></text>
+			</staticText>
+			<image>
+				<reportElement x="485" y="12" width="61" height="50" uuid="12203a40-2de0-4b49-9e9a-5d326ea3536e"/>
+				<imageExpression><![CDATA[$P{imageSource}+"storeIcon.jpeg"]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>

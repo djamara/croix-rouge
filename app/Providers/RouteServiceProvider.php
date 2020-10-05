@@ -84,7 +84,7 @@ class RouteServiceProvider extends ServiceProvider
 //            'prefix' => 'api',
 //        ]);
         
-        Route::group([
+        /*Route::group([
         'middleware' => ['api', 'cors'],
         'namespace' => $this->namespace,
         'prefix' => 'api',
@@ -92,6 +92,6 @@ class RouteServiceProvider extends ServiceProvider
              //Add you routes here, for example:
              //Route::apiResource('/posts','PostController');
              Route::apiResource('/token','PersonneControler@getToken');
-        });
+        });*/
     }
 }
