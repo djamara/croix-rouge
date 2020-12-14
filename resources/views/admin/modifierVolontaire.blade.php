@@ -35,16 +35,16 @@
 
         <!-- App styles -->
         <link rel="stylesheet" href="{{asset('css/app.min.css')}}">
-<!--        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-        -->
+        <!--        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+                <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+                -->
         <link rel="stylesheet" href="{{asset('js/special/toastr.css')}}"/>
         <link rel="stylesheet" href="{{asset('js/special/bootstrapValidator.min.css')}}"/>
         <link rel="stylesheet" href="{{asset('js/special/confirm.min.css')}}">
 
-<!--        <script src="js/jquery.min.js"></script>
-<script src="js/bootstrapValidator.min.js"></script>-->
+        <!--        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrapValidator.min.js"></script>-->
 
     </head>
 
@@ -63,7 +63,7 @@
             <section class="content">
                 <header class="content__title">
                     <h1>RESSOURCES HUMAINES</h1>
-                    <small>A cette page vous modifiez les information sur un volontaire</small>
+                    <small>A cette page vous inserer un nouveau volontaire</small>
 
                     <div class="actions">
                         <a href="#" class="actions__item zmdi zmdi-trending-up"></a>
@@ -79,6 +79,7 @@
                         </div>
                     </div>
                 </header>
+
                 <div class="card">
                     <form name="insererVolontaire" id="formVolontaire" method="POST" action="/modifier_Volontaire" enctype="multipart/form-data" >
                         @csrf
@@ -92,12 +93,11 @@
                                     <!-- <li class="nav-item">  <a class="nav-link" data-toggle="tab" href="#profile-2" role="tab">Informations relatives à croix-rouge</a>
                                                                                                                                                                                                         </li>-->
                                 </ul>
+
                                 <div class="tab-content">
                                     <div class="tab-pane active fade show" id="home-2" role="tabpanel">
                                         <div class="row col-lg-12">
 
-                                            <!-- {{$Matricule}}-->
-                                             <!--{{$lastPersonnInsert->personne_immat}}-->
                                             <h5>Généralité</h5>
                                             <div class="col-sm-10">
                                                 <div class="form-group">
@@ -110,7 +110,7 @@
                                                     <label>Comite local</label>
                                                     <select class="select2" name="comite" >
                                                         @foreach($comites as $comite)
-                                                        <option value="{{$comite->idcomite}}" <?php if($volontaire->comiteActuel == $comite->idcomite) echo "selected" ?> >{{$comite->comite_libelle}}</option>
+                                                            <option value="{{$comite->idcomite}}" <?php if($volontaire->comiteActuel == $comite->idcomite) echo "selected" ?> >{{$comite->comite_libelle}}</option>
                                                         @endForeach
                                                     </select>
                                                 </div>
@@ -120,7 +120,7 @@
                                                     <label>Fonction du volontaire</label>
                                                     <select class="select2" name="fonctionCR">
                                                         @foreach($fonctionCR as $fonctionCR)
-                                                        <option value="{{$fonctionCR->idfonctionCR}}" <?php if($volontaire->fonctionCR_idfonctionCR == $fonctionCR->idfonctionCR) echo "selected" ?>>{{$fonctionCR->fonctionCR_libelle}}</option>
+                                                            <option value="{{$fonctionCR->idfonctionCR}}" <?php if($volontaire->fonctionCR_idfonctionCR == $fonctionCR->idfonctionCR) echo "selected" ?>>{{$fonctionCR->fonctionCR_libelle}}</option>
                                                         @endForeach
                                                     </select>
                                                 </div>
@@ -131,91 +131,131 @@
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
+                                            <div class="row col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label>Numero de fiche volontaire</label>
+                                                        <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_numero_fiche}}" name="numeroFiche" placeholder="Entrez le numero de la fiche" required="">
+                                                        <i class="form-group__bar"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label>Êtes vous un nouvel adhérent ?</label>
+                                                    <div class="form-group form-check">
+                                                        <label class="form-check-label" for="exampleCheck1">Oui</label>
+                                                        <input type="radio" value="OUI" class="custom-checkbox" name="EtreNouveau" <?php if($volontaire->personne_nouvel_adherent == 'OUI'){echo 'checked' ;} ?> id="idEtreNouveau" onclick="activerZoneMatricule()">
+                                                         <label class="form-check-label" for="exampleCheck1">Non</label>
+                                                        <input type="radio" value="NON" class="custom-checkbox" name="EtreNouveau" <?php if($volontaire->personne_nouvel_adherent == 'NON'){echo 'checked' ;} ?>  onclick="activerZoneMatricule()">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label>Entrez le numero svp</label>
+                                                        <input type="text" class="form-control form-control-md" name="numeroMatricule" value="{{$volontaire->personne_immat}}" placeholder="Entrez le numero matricule" id="idnumeroMatricule" >
+                                                        <i class="form-group__bar"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Civilité</label>
                                                     <select class="select2" name="civilite">
                                                         <option <?php if($volontaire->personne_civilite == 'Mr') echo "selected" ?>  >Mr</option>
-                                                        <option <?php if($volontaire->personne_civilite == 'Mlle') echo "selected" ?>>Mlle</option>                                                                                                                                                                                        
+                                                        <option <?php if($volontaire->personne_civilite == 'Mlle') echo "selected" ?>>Mlle</option>
                                                         <option <?php if($volontaire->personne_civilite == 'Mme') echo "selected" ?>>Mme</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label>Nom</label>
-                                                    <input type="text" class="form-control form-control-md" name="nomVolontaire" value="{{$volontaire->personne_nom}}" placeholder="Entrez le nom" required="">
-                                                    <input type="hidden" class="form-control form-control-md" name="idpersonne" value="{{$volontaire->idpersonne}}" placeholder="Entrez le nom">
-                                                    <input type="hidden" class="form-control form-control-md" name="personne_immat" value="{{$volontaire->personne_immat}}" placeholder="Entrez le nom">
-                                                    <i class="form-group__bar"></i>
-                                                    
+                                            <div class="row col-sm-12">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Nom</label>
+                                                        <input type="text" class="form-control form-control-md" name="nomVolontaire" value="{{$volontaire->personne_nom}}" placeholder="Entrez le nom" required="">
+                                                        <input type="hidden" class="form-control form-control-md" name="idpersonne" value="{{$volontaire->idpersonne}}" placeholder="Entrez le nom">
+                                                        <input type="hidden" class="form-control form-control-md" name="personne_immat" value="{{$volontaire->personne_immat}}" placeholder="Entrez le nom">
+                                                        <i class="form-group__bar"></i>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Prenom</label>
+                                                        <input type="text" class="form-control form-control-md" name="prenomVolontaire" value="{{$volontaire->personne_prenom}}" placeholder="Entrez le prenom" required="">
+                                                        <i class="form-group__bar"></i>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label>Prenom</label>
-                                                    <input type="text" class="form-control form-control-md" name="prenomVolontaire" value="{{$volontaire->personne_prenom}}" placeholder="Entrez le prenom" required="">
-                                                    <i class="form-group__bar"></i>
+                                            <div class="row col-sm-12">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Date de naissance</label>
+                                                        <input type="date" class="form-control form-control-md" name="dateNaissVolontaire" value="{{$volontaire->personne_date_naiss}}" placeholder="Entrez la date de naissance" required="">
+                                                        <i class="form-group__bar"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Situation matrimoniale</label>
+                                                        <select class="select2" name="situaMat">
+                                                            @foreach($situationMatrimoniale as $sitMat)
+                                                                <option value="{{$sitMat->idSitMat}}">{{$sitMat->libelle_SitMat}}</option>
+                                                            @endForeach
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label>Date de naissance</label>
-                                                    <input type="date" class="form-control form-control-md" name="dateNaissVolontaire" value="{{$volontaire->personne_date_naiss}}" placeholder="Entrez la date de naissance" required="">
-                                                    <i class="form-group__bar"></i>
+                                            <div class="row col-sm-12">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Pays de naissance</label>
+                                                        <select class="select2" name="paysNaiss" id="paysNaiss" onchange="hideZoneVilCommune()">
+                                                            @foreach($paysNaiss as $pays)
+                                                                <option value="{{$pays->PAYS_CODE}}" <?php if($volontaire->personne_pays_naiss == $pays->PAYS_CODE) echo "selected" ?> >{{$pays->PAYS_NOM}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row col-sm-6 zoneVilCommune">
+                                                    <div class="col-sm-4 form-group">
+                                                        <label>Ville de naissance</label>
+                                                        <select class="select2" name="vilNaiss" id="vilNaiss">
+                                                            @foreach($villes as $ville)
+                                                                <option value="{{$ville->VIL_IDENTIFIANT}}" <?php if($volontaire->personne_ville_naiss == $ville->VIL_IDENTIFIANT) echo "selected" ?> >{{$ville->VIL_NOM}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-8 form-group">
+                                                        <label>Lieu de naissance</label>
+                                                        <input type="text" class="form-control form-control-md" value="{{$volontaire->lieuDeNaissance}}" name="lieuDeNaissance" placeholder="Entrez la précision sur le lieu de naissance" >
+                                                        <i class="form-group__bar"></i>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label>Situation matrimoniale</label>
-                                                    <select class="select2" name="situaMat">
-                                                        @foreach($situationMatrimoniale as $sitMat)
-                                                        <option value="{{$sitMat->idSitMat}}">{{$sitMat->libelle_SitMat}}</option>  
-                                                        @endForeach
-                                                    </select>
+                                            <div class="row col-sm-12">
+                                                <div class="col-sm-6 zoneVilCommune">
+                                                    <div class="form-group">
+                                                        <label>Commune de naissance</label>
+                                                        <select class="select2" name="comNaiss" id="comNaiss">
+                                                            @foreach($communes as $commune)
+                                                                <option value="{{$commune->idcommune}}" <?php if($volontaire->personne_commune_naiss == $commune->idcommune) echo "selected" ?> >{{$commune->commune_libelle}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <input type="hidden">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label>Pays de naissance</label>
-                                                    <select class="select2" name="paysNaiss" id="paysNaiss" onchange="hideZoneVilCommune()">
-                                                        @foreach($paysNaiss as $pays)
-                                                        <option value="{{$pays->PAYS_CODE}}" <?php if($volontaire->personne_pays_naiss == $pays->PAYS_CODE) echo "selected" ?> >{{$pays->PAYS_NOM}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="row col-sm-6 zoneVilCommune">
-                                                <div class="col-sm-4 form-group">
-                                                    <label>Ville de naissance</label>
-                                                    <select class="select2" name="vilNaiss" id="vilNaiss">
-                                                        @foreach($villes as $ville)
-                                                        <option value="{{$ville->VIL_IDENTIFIANT}}" <?php if($volontaire->personne_ville_naiss == $ville->VIL_IDENTIFIANT) echo "selected" ?> >{{$ville->VIL_NOM}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="col-sm-8 form-group">
-                                                    <label>Lieu de naissance</label>
-                                                    <input type="text" class="form-control form-control-md" value="{{$volontaire->lieuDeNaissance}}" name="lieuDeNaissance" placeholder="Entrez la précision sur le lieu de naissance" >
-                                                    <i class="form-group__bar"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 zoneVilCommune">
-                                                <div class="form-group">
-                                                    <label>Commune de naissance</label>
-                                                    <select class="select2" name="comNaiss" id="comNaiss">
-                                                        @foreach($communes as $commune)
-                                                        <option value="{{$commune->idcommune}}" <?php if($volontaire->personne_commune_naiss == $commune->idcommune) echo "selected" ?> >{{$commune->commune_libelle}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
+
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Pays de nationalite</label>
                                                     <select class="select2" name="nationalite">
                                                         @foreach($paysNat as $pays)
-                                                        <option value="{{$pays->PAYS_CODE}}" <?php if($volontaire->personne_pays_nationalite == $pays->PAYS_CODE) echo "selected" ?> >{{$pays->PAYS_NOM}}</option>
+                                                            <option value="{{$pays->PAYS_CODE}}" <?php if($volontaire->personne_pays_nationalite == $pays->PAYS_CODE) echo "selected" ?> >{{$pays->PAYS_NOM}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -226,23 +266,26 @@
                                             <i class="form-group__bar"></i>
                                             </div>
                                             </div>-->
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label>Type de pièces</label>
-                                                    <select class="select2" name="typePiece">
-                                                        @foreach($typePiece as $typePiece)
-                                                        <option value="{{$typePiece->idTypePiece}}" <?php if($volontaire->TypePiece == $typePiece->idTypePiece) echo "selected" ?>>{{$typePiece->libelleTypePiece}}</option>
-                                                        @endforeach
-                                                    </select>
+                                            <div class="row col-sm-12">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Type de pièces</label>
+                                                        <select class="select2" name="typePiece">
+                                                            @foreach($typePiece as $typePiece)
+                                                                <option value="{{$typePiece->idTypePiece}}" <?php if($volontaire->TypePiece == $typePiece->idTypePiece) echo "selected" ?>>{{$typePiece->libelleTypePiece}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>numero de la pièce</label>
+                                                        <input type="text" class="form-control form-control-md" value="{{$volontaire->NumerPiece}}" name="numPieceVolontaire"  placeholder="Entrez le numero de la pièce" required="">
+                                                        <i class="form-group__bar"></i>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label>numero de la pièce</label>
-                                                    <input type="text" class="form-control form-control-md" value="{{$volontaire->NumerPiece}}" name="numPieceVolontaire"  placeholder="Entrez le numero de la pièce" required="">
-                                                    <i class="form-group__bar"></i>
-                                                </div>
-                                            </div>
+
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <input type="hidden" class="form-control form-control-md" placeholder="Entrez l'activité ">
@@ -252,69 +295,76 @@
                                             <h5>Education</h5>
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <input type="hidden" class="form-control form-control-lg" placeholder="Entrez l'activité ">
+                                                    <input type="hidden" class="form-control form-control-md" placeholder="Entrez l'activité ">
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-12">
                                                 <label>Diplomes</label>
                                                 <div class="form-group">
-                                                    @foreach($diplomes as $diplome)   
-                                                    <label class="">
-                                                        <input id="radio1" type="checkbox" value="{{$diplome->iddiplome}}" <?php if( in_array($diplome->iddiplome , $diplomes_personne) == true) echo "checked"  ?> name="diplomes[]" class="custom-control custom-checkbox" > 
-                                                        <span class="custom-control-indicator"></span>
-                                                        <span class="custom-control-description">{{$diplome->diplome_libelle}}</span>
-                                                    </label>                                    
+                                                    @foreach($diplomes as $diplome)
+                                                        <label class="">
+                                                            <input id="radio1" type="checkbox" value="{{$diplome->iddiplome}}" <?php if( in_array($diplome->iddiplome , $diplomes_personne) == true) echo "checked"  ?> name="diplomes[]" class="custom-control custom-checkbox" >
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">{{$diplome->diplome_libelle}}</span>
+                                                        </label>
 
-                                                    <div class="clearfix mb-2"></div>
+                                                        <div class="clearfix mb-2"></div>
                                                     @endforeach
 
                                                 </div>
                                             </div>
+                                            <div class="row col-sm-12">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Profession</label>
+                                                        <select class="select2" name="profVolontaire">
+                                                            @foreach($profession as $profession)
+                                                                <option value="{{$profession->idprofession}}" <?php if($volontaire->profession_idprofession == $profession->idprofession) echo "selected" ?> >{{$profession->profession_libelle}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Qualification professionnelle</label>
+                                                        <input type="text" class="form-control form-control-md" placeholder="Entrez la qualification" value="{{$volontaire->personne_qualification}}" name="qualifVolontaire">
+                                                        <i class="form-group__bar"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label>Profession</label>
-                                                    <select class="select2" name="profVolontaire">
-                                                        @foreach($profession as $profession)
-                                                        <option value="{{$profession->idprofession}}" <?php if($volontaire->profession_idprofession == $profession->idprofession) echo "selected" ?> >{{$profession->profession_libelle}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label>Qualification professionnelle</label>
-                                                    <input type="text" class="form-control form-control-md" placeholder="Entrez la qualification" value="{{$volontaire->personne_qualification}}" name="qualifVolontaire">
-                                                    <i class="form-group__bar"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Activité</label>
                                                     <input type="text" class="form-control form-control-md" name="activiteVolontaire" value="{{$volontaire->personne_activite}}" placeholder="Entrez l'activité" >
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3">
-                                                <label>Avez vous un permis de conduire ?</label>
-                                                <div class="form-group form-check">
-                                                    <label class="form-check-label" for="exampleCheck1">Oui</label>
-                                                    <input type="checkbox" value="OUI" <?php if($volontaire->personne_avoir_permis == "OUI") echo "checked" ?> class="custom-checkbox" name="AvoirPermis" id="idAvoirPermis" onclick="activerZonePermis()">
+                                            <div class="row col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <label>Avez vous un permis de conduire ?</label>
+                                                    <div class="form-group form-check">
+                                                        <label class="form-check-label" for="exampleCheck1">Oui</label>
+                                                        <input type="checkbox" value="OUI" <?php if($volontaire->personne_avoir_permis == "OUI") echo "checked" ?> class="custom-checkbox" name="AvoirPermis" id="idAvoirPermis" onclick="activerZonePermis()">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-5">
-                                                <div class="form-group">
-                                                    <label>Entrez le numero svp</label>
-                                                    <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_numero_permis}}" name="numeroPermis" placeholder="Entrez l'activité" id="idnumeroPermis" >
-                                                    <i class="form-group__bar"></i>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label>Entrez le numero svp</label>
+                                                        <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_numero_permis}}" name="numeroPermis" placeholder="Entrez l'activité" id="idnumeroPermis" >
+                                                        <i class="form-group__bar"></i>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Catégorie du permis</label>
-                                                    <select class="select2" multiple data-minimum-results-for-search="Infinity" name="categoriePermis[]" id="idcategoriePermis">
-                                                        
-                                                    </select>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label>Catégorie du permis</label>
+                                                        <select class="select2" multiple data-minimum-results-for-search="Infinity" name="categoriePermis[]" id="idcategoriePermis">
+                                                            @foreach($categoriePermis as $categoriePermis)
+                                                            <option value="{{$categoriePermis['idCategorie']}}">{{$categoriePermis['categorie_libelle']}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <h5>Santé</h5>
@@ -324,12 +374,13 @@
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
+                                        <div class="row col-sm-12">
                                             <div class="col-sm-2">
                                                 <div class="form-group">
                                                     <label>Groupe sanguin</label>
                                                     <select class="select2" name="groupeSanguin" data-minimum-results-for-search="Infinity">
                                                         @foreach($groupesanguin as $groupesanguin)
-                                                        <option value="{{$groupesanguin->idGroupeSanguin}}">{{$groupesanguin->libelleGroupeSanguin}}</option>
+                                                            <option value="{{$groupesanguin->idGroupeSanguin}}">{{$groupesanguin->libelleGroupeSanguin}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -339,11 +390,13 @@
                                                     <label>Maladie chronique</label>
                                                     <select class="select2" multiple data-minimum-results-for-search="Infinity" name="maladieVolontaire[]">
                                                         @foreach($affections as $affection)
-                                                        <option value="{{$affection->idaffection}}">{{$affection->affection_libelle}}</option>
+                                                            <option value="{{$affection->idaffection}}">{{$affection->affection_libelle}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
+                                        </div>
+
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Antécédent médicale du volontaire: (Pour chaque detail, veuillez passer à la ligne svp)</label>
@@ -358,6 +411,7 @@
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
+                                        <div class="row col-sm-12">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Ville d'habitation</label>
@@ -378,6 +432,8 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="row col-sm-12">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Telephone 1:</label>
@@ -397,6 +453,7 @@
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
+                                        </div>
                                             <h5>Filiation</h5>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
@@ -404,18 +461,19 @@
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
-                                            <div class="row col-sm-6">
+                                            <div class="row col-sm-12">
+                                                <div class="row col-sm-6">
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Nom du père:</label>
-                                                        <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_nom_pere}}" name="nomPereVolontaire" placeholder="Entrez le nom du contact" required="">
+                                                        <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_nom_pere}}" name="nomPereVolontaire" placeholder="Entrez le nom du contact" >
                                                         <i class="form-group__bar"></i>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Prenom du père:</label>
-                                                        <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_prenom_pere}}" name="prenomPereVolontaire" placeholder="Entrez le prenom du contact" required="">
+                                                        <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_prenom_pere}}" name="prenomPereVolontaire" placeholder="Entrez le prenom du contact" >
                                                         <i class="form-group__bar"></i>
                                                     </div>
                                                 </div>
@@ -431,25 +489,25 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label class="custom-control custom-checkbox">
-                                                            <input id="radio1" type="checkbox" value="decede" <?php if($volontaire->personne_etat_pere == "decede") echo "checked" ?> name="etatPere" class="custom-control-input">
-                                                            <span class="custom-control-indicator"></span>
-                                                            <span class="custom-control-description">Si décédé, cochez svp</span>
+                                                        <input id="radio1" type="checkbox" value="decede" <?php if($volontaire->personne_etat_pere == "decede") echo "checked" ?> name="etatPere" class="custom-control-input">
+                                                        <span class="custom-control-indicator"></span>
+                                                        <span class="custom-control-description">Si décédé, cochez svp</span>
                                                     </label>
-                                                    
+
                                                 </div>
                                             </div>
-                                            <div class="row col-sm-6">
+                                                <div class="row col-sm-6">
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Nom de la mère:</label>
-                                                        <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_nom_mere}}" name="nomMereVolontaire" placeholder="Entrez le nom du contact" required="">
+                                                        <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_nom_mere}}" name="nomMereVolontaire" placeholder="Entrez le nom du contact" >
                                                         <i class="form-group__bar"></i>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Prenom de la mère:</label>
-                                                        <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_prenom_mere}}" name="prenomMereVolontaire" placeholder="Entrez le prenom du contact" required="">
+                                                        <input type="text" class="form-control form-control-md" value="{{$volontaire->personne_prenom_mere}}" name="prenomMereVolontaire" placeholder="Entrez le prenom du contact" >
                                                         <i class="form-group__bar"></i>
                                                     </div>
                                                 </div>
@@ -458,27 +516,29 @@
                                                         <label>Pays de nationalite de la mère</label>
                                                         <select class="select2" name="nationaliteMere" id="nationaliteMere">
                                                             @foreach($paysNat as $pays)
-                                                            <option value="{{$pays->PAYS_CODE}}" <?php if($volontaire->personne_nationalite_mere == $pays->PAYS_CODE) echo "selected" ?>>{{$pays->PAYS_NOM}}</option>
+                                                                <option value="{{$pays->PAYS_CODE}}" <?php if($volontaire->personne_nationalite_mere == $pays->PAYS_CODE) echo "selected" ?>>{{$pays->PAYS_NOM}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label class="custom-control custom-checkbox">
-                                                            <input id="radio1" type="checkbox" value="decede" <?php if($volontaire->personne_etat_mere == "decede") echo "checked" ?> name="etatMere" class="custom-control-input">
-                                                            <span class="custom-control-indicator"></span>
-                                                            <span class="custom-control-description">Si décédé, cochez svp</span>
+                                                        <input id="radio1" type="checkbox" value="decede" <?php if($volontaire->personne_etat_mere == "decede") echo "checked" ?> name="etatMere" class="custom-control-input">
+                                                        <span class="custom-control-indicator"></span>
+                                                        <span class="custom-control-description">Si décédé, cochez svp</span>
                                                     </label>
-                                                    
+
                                                 </div>
+                                            </div>
                                             </div>
                                             <h5>Personne à contacter en cas d'urgences</h5>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <input type="hidden" class="form-control form-control-md"   placeholder="">
+                                                    <input type="hidden" class="form-control form-control-md" placeholder="">
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
+                                        <div class="row col-sm-12">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Nom:</label>
@@ -493,6 +553,8 @@
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="row col-sm-12">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Contacts:</label>
@@ -507,6 +569,8 @@
                                                     <i class="form-group__bar"></i>
                                                 </div>
                                             </div>
+                                        </div>
+
                                             <br>
                                             <h5>Image du volontaire</h5>
                                             <div class="col-sm-12">
@@ -540,7 +604,7 @@
                                     <input type="hidden">
                                 </div>
 
-                            </div> 
+                            </div>
                         </div>
                     </form>
 
@@ -575,28 +639,28 @@
         <div class="ie-warning">
         <h1>Warning!!</h1>
         <p>You are using an outdated version of Internet Explorer, please upgrade to any of the following web browsers to access this website.</p>
-        
+
         <div class="ie-warning__downloads">
         <a href="http://www.google.com/chrome">
         <img src="img/browsers/chrome.png" alt="">
         </a>
-        
+
         <a href="https://www.mozilla.org/en-US/firefox/new">
         <img src="img/browsers/firefox.png" alt="">
         </a>
-        
+
         <a href="http://www.opera.com">
         <img src="img/browsers/opera.png" alt="">
         </a>
-        
+
         <a href="https://support.apple.com/downloads/safari">
         <img src="img/browsers/safari.png" alt="">
         </a>
-        
+
         <a href="https://www.microsoft.com/en-us/windows/microsoft-edge">
         <img src="img/browsers/edge.png" alt="">
         </a>
-        
+
         <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
         <img src="img/browsers/ie.png" alt="">
         </a>

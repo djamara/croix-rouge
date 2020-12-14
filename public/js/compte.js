@@ -8,16 +8,6 @@ $(function () {
      closeBtn: true,
      timer: 0
      });*/
-$("#paysNaiss").val('CIV');
-$("#paysNationalite").val('CIV');
-$("#nationaliteMere").val('CIV');
-$("#nationalitePere").val('CIV');
-
-activerZoneMatricule();
-activerZonePermis();
-//addVolontaire();
-
-//    $.notify("Hello World");
     toastr.options = {
         "closeButton": true,
         "debug": false,
@@ -31,8 +21,8 @@ activerZonePermis();
 
     toastr.success('Bienvenue dans l\'interface de création de volontaire', 'BIENVENUE'); //le test du plugin de l'alerte
 
-    hideZoneVilCommune();
-    $('#formVolontaire').bootstrapValidator({
+
+    $('#gererCompte').bootstrapValidator({
 
         message: 'This value is not valid',
         live: 'enabled',
@@ -43,27 +33,35 @@ activerZonePermis();
         },
         fields: {
 
-            nomVolontaire: {
-                message: 'Veuillez svp saisir le nom',
+            login: {
+                message: 'Veuillez svp saisir le login svp',
                 feedbackIcons: true,
                 trigger: 'keyup',
                 validators: {
                     notEmpty: {
-                        message: 'Veuillez svp saisir le nom'
+                        message: 'Veuillez svp saisir le login svp'
+                    }
+                    /*regexp: {
+                     regexp: /^[a-zA-Z0-9_]+$/,
+                     message: 'The username can only consist of alphabetical, number and underscore'
+                     }*/
+                }
+            },
+            motdepasse: {
+                message: 'Veuillez svp saisir le mot de passe',
+                feedbackIcons: true,
+                trigger: 'keyup',
+                validators: {
+                    notEmpty: {
+                        message: 'Veuillez svp saisir le mot de passe svp'
                     },
-                    /*regexp: {
-                     regexp: /^[a-zA-Z0-9_]+$/,
-                     message: 'The username can only consist of alphabetical, number and underscore'
-                     }*/
-                }
-            },
-            prenomVolontaire: {
-                message: 'Veuillez svp saisir le prenom',
-                feedbackIcons: true,
-                trigger: 'keyup',
-                validators: {
-                    notEmpty: {
-                        message: 'Veuillez svp saisir le prenom'
+                    stringLength: {
+                        min:8,
+                        message: 'Le mot de passe doit contenir au moins 8 caractères'
+                    },
+                    identical: {
+                        field: 'cfmotdepasse',
+                        message: ' Confirmez le mot de passe svp'
                     }
                     /*regexp: {
                      regexp: /^[a-zA-Z0-9_]+$/,
@@ -71,89 +69,24 @@ activerZonePermis();
                      }*/
                 }
             },
-            dateNaissVolontaire: {
-                message: 'Veuillez svp saisir la date de naissance',
+            cfmotdepasse: {
+                message: 'Veuillez svp saisir le mot de passe',
                 feedbackIcons: true,
                 trigger: 'keyup',
                 validators: {
                     notEmpty: {
-                        message: 'Veuillez svp saisir la date de naissance'
+                        message: 'Veuillez svp saisir le mot de passe svp'
+                    },
+                    identical: {
+                        field: 'motdepasse',
+                        message: ' Confirmez le mot de passe svp'
                     }
+                    /*regexp: {
+                     regexp: /^[a-zA-Z0-9_]+$/,
+                     message: 'The username can only consist of alphabetical, number and underscore'
+                     }*/
                 }
-            },
-            numPieceVolontaire: {
-                message: 'Veuillez svp saisir le numero de la pièce',
-                feedbackIcons: true,
-                trigger: 'keyup',
-                validators: {
-                    notEmpty: {
-                        message: 'Veuillez svp saisir le numero de la pièce'
-                    }
-                }
-            },
-            tel1Volontaire: {
-                message: 'Veuillez svp saisir le numero de la pièce',
-                feedbackIcons: true,
-                trigger: 'keyup',
-                validators: {
-                    notEmpty: {
-                        message: 'Veuillez svp saisir le numero de la pièce'
-                    }
-                }
-            },
-            nomPersUrgence: {
-                message: "Veuillez svp saisir le nom du contact d'urgence",
-                feedbackIcons: true,
-                trigger: 'keyup',
-                validators: {
-                    notEmpty: {
-                        message: "Veuillez svp saisir le nom du contact d'urgence"
-                    }
-                }
-            },
-            prenomPersUrgence: {
-                message: "Veuillez svp saisir le prenom du contact d'urgence",
-                feedbackIcons: true,
-                trigger: 'keyup',
-                validators: {
-                    notEmpty: {
-                        message: "Veuillez svp saisir le prenom du contact d'urgence"
-                    }
-                }
-            },
-            telPersUrgence: {
-                message: "Veuillez svp saisir le contact de la personne d'urgence",
-                feedbackIcons: true,
-                trigger: 'keyup',
-                validators: {
-                    notEmpty: {
-                        message: "Veuillez svp saisir le contact de la personne d'urgence"
-                    }
-                }
-            },
-            /*imageVolontaire: {
-             message: "Veuillez svp joindre le contact de la personne d'urgence",
-             feedbackIcons: true,
-             trigger: 'keyup',
-             validators: {
-             notEmpty: {
-             message: "Veuillez svp saisir le contact de la personne d'urgence"
-             }
-             }
-             }*/
-
-
-
-            /*qualifVolontaire:{
-             message:'Veuillez svp saisir la qualification volontaire',
-             feedbackIcons: true,
-             trigger: 'keyup',
-             validators:{
-             notEmpty: {
-             message: 'Veuillez svp saisir le numero de la pièce'
-             }
-             }
-             }*/
+            }
         }
     }).on('success.form.bv', function (e) {
 // Prevent form submission
@@ -185,7 +118,7 @@ activerZonePermis();
         //alert($(':input').val());
 
         inseretData();
-        if($('#formVolontaire').attr('action') === "/inserer_Volontaire"){
+        if($('#gererCompte').attr('action') === "/inserer_Volontaire"){
             inseretFileData();
         }
     });
@@ -200,10 +133,10 @@ function inseretData() {
      }
      });*/
     $.ajax({
-        url: $('#formVolontaire').attr('action'),
+        url: $('#gererCompte').attr('action'),
 //          url: $('$form').attr('action'),
         type: 'POST',
-        data: $('#formVolontaire').serialize(),
+        data: $('#gererCompte').serialize(),
         /*mimeType: "multipart/form-data",
          cache: false,
          contentType: false,
@@ -230,10 +163,10 @@ function inseretData() {
                     "showMethod": "fadeIn",
                     "hideMethod": "fadeOut",
                     "onHidden": function () {
-                        if($('#formVolontaire').attr('action') === "/inserer_Volontaire"){
+                        if($('#formVolontaire').attr('action') === "/inserer_compte"){
                             addVolontaire();
                         }else{
-                            window.location.href = '/Liste_Volontaire';
+                            window.location.href = '/listeComptes';
                         }
                     }
                 },
@@ -465,15 +398,6 @@ function selectPiece(){
     }
 }
 
-function activerZoneMatricule(){
-
-    if(! $("#idEtreNouveau").is(':Checked')){
-        //$('#idnumeroMatricule').val("");
-        $('#idnumeroMatricule').attr('disabled',false);
-    }else{
-        $('#idnumeroMatricule').attr('disabled',true);
-    }
-}
 function activerZonePermis(){
 
     if(! $("#idAvoirPermis").is(':Checked')){

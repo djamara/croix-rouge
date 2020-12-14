@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\modeles\Comite;
+use App\modeles\Personne;
 use Illuminate\Http\Request;
 use PHPJasper\PHPJasper;
 
@@ -17,14 +19,20 @@ class PersonneControler extends Controller {
 
         //$personne = \App\modeles\Personne::first();
         //$personne = \App\modeles\Personne::find(\DB::table('personne')->max('personne.idpersonne'));
-        $id = \App\modeles\Personne::max('idpersonne');
+        /*$id = \App\modeles\Personne::max('idpersonne');*/
+
+        $codelocal = Comite::where('idcomite','=',$comite)->first();
+
+        $id = Personne::where('comiteActuel','=',$comite)->where('personne_nouvel_adherent','OUI')->count();
 //      $personne = DB::table('personne')->latest()->first();
         $id = $id + 1;
-        $this->Matricule = "CRCI-" . date("Y") . "-C" . $comite . "-" . $id;
+        $this->Matricule = "CRCI-" . date("Y") .'-'. $codelocal->comite_code . "-" . sprintf('%04d',$id) ;
         return $this->Matricule;
     }
 
     public function afficherVue() {
+
+       //dd($this->genererMatricule(80));
 
         $allComites = \App\modeles\Comite::all();
         $allvilles = \App\modeles\Ville::all();
@@ -123,13 +131,22 @@ class PersonneControler extends Controller {
 
 
         $personne = new \App\modeles\Personne;
-        $this->Matricule = $this->genererMatricule($comite); //
+         //
+
+        $personne->personne_numero_fiche = $numeroFiche;//enregistrer le numero de la fiche
+        $personne->personne_nouvel_adherent = $EtreNouveau;//enregistrer si c'est nouvel adherent ou pas
+
+        if(isset($EtreNouveau) && $EtreNouveau == "NON"){
+            $personne->personne_immat = $numeroMatricule;
+        }else{
+            $this->Matricule = $this->genererMatricule($comite);
+            $personne->personne_immat = $this->Matricule; //random_int(1000, 2000); //inserer immat
+        }
 
         $personne->comiteActuel = $comite; //inserer le comité
         $personne->personne_civilite = $civilite; //inserer les civilités
         $personne->personne_nom = $nomVolontaire; // inserer le nom
         $personne->personne_prenom = $prenomVolontaire; //inserer le prenom
-        $personne->personne_immat = $this->Matricule; //random_int(1000, 2000); //inserer immat
         $personne->personne_date_naiss = $dateNaissVolontaire; //date de naissance
         $personne->personne_pays_naiss = $paysNaiss; //pays_de_naissance
         $personne->personne_pays_nationalite = $nationalite; //pays_de_nationalite
@@ -149,19 +166,20 @@ class PersonneControler extends Controller {
         $personne->personne_telephone_2 = $tel2Volontaire; //telephone 2
         $personne->personne_email = $emailVolontaire; //email
         //
-        $personne->TypePiece = $typePiece; //type de la piece 
-        $personne->NumerPiece = $numPieceVolontaire; //numero de la piece 
+        $personne->TypePiece = $typePiece; //type de la piece
+        $personne->NumerPiece = $numPieceVolontaire; //numero de la piece
 
         $personne->fonctionCR_idfonctionCR = $fonctionCR;
         $personne->profession_idprofession = $profVolontaire; //profession
         if (!empty($groupeSanguin))
             $personne->groupeSanguin = $groupeSanguin; //groupe sanguin
 
-            
-//affectation de etat_pere et etat_mere
-        $AvoirPermis = $AvoirPermis == null ? "" : $AvoirPermis;
-        $etatMere = $etatMere == null ? "" : $etatMere;
-        $etatPere = $etatPere == null ? "" : $etatPere;
+
+        //affectation de etat_pere et etat_mere
+        $AvoirPermis = (isset($AvoirPermis) && $AvoirPermis != null) ? $AvoirPermis : 'NON';
+        $numeroPermis = (isset($numeroPermis) && $numeroPermis != null) ? $numeroPermis : '';
+        $etatMere = (isset($etatMere)&& $etatMere != null) ? $etatMere : "";
+        $etatPere = (isset($etatPere) && $etatPere == null) ? $etatPere : "" ;
 
         $personne->personne_nom_urgence = $nomPersUrgence; //nom urgence
         $personne->personne_prenom_urgence = $prenomPersUrgence; //prenom urgence
@@ -326,7 +344,7 @@ class PersonneControler extends Controller {
                                 ->whereColumn('idcomite', 'comiteActuel');
                     }
                 ])->where('personne_top_valide','=',1)->get();
-                
+
                 return view('admin/tableVolontaire', ["personnes" => $personnes]);
     }
 
@@ -356,10 +374,10 @@ class PersonneControler extends Controller {
 
     public function modifier_Volontaire(Request $request) {
 
-        
+
         //if (!isset($request->input('ImageVolontaire')) && !isset($request->input('ImagePieceVolontaire'))) {
         extract($request->all());
-        
+
         //var_dump($request->input('donnees'));
         //$parametre = $request->all();
         //echo json_encode($request->all());
@@ -370,9 +388,20 @@ class PersonneControler extends Controller {
 
 
         $personne = new \App\modeles\Personne;
-//        $this->Matricule = $this->genererMatricule($comite); 
+//        $this->Matricule = $this->genererMatricule($comite);
         $personne = $personne->all()->where("personne_immat", $personne_immat)->first();
 
+        $personne->personne_numero_fiche = $numeroFiche;//enregistrer le numero de la fiche
+        $personne->personne_nouvel_adherent = $EtreNouveau;//enregistrer si c'est nouvel adherent ou pas
+
+        /*
+         if(isset($EtreNouveau) && $EtreNouveau == "NON"){
+            $personne->personne_immat = $numeroMatricule;
+        }else{
+            $this->Matricule = $this->genererMatricule($comite);
+            $personne->personne_immat = $this->Matricule; //random_int(1000, 2000); //inserer immat
+        }*/
+        $personne->personne_immat = $numeroMatricule;
         //var_dump($personne);
 
         $personne->comiteActuel = $comite; //inserer le comité
@@ -399,8 +428,8 @@ class PersonneControler extends Controller {
         $personne->personne_telephone_2 = $tel2Volontaire; //telephone 2
         $personne->personne_email = $emailVolontaire; //email
         //
-        $personne->TypePiece = $typePiece; //type de la piece 
-        $personne->NumerPiece = $numPieceVolontaire; //numero de la piece 
+        $personne->TypePiece = $typePiece; //type de la piece
+        $personne->NumerPiece = $numPieceVolontaire; //numero de la piece
 
         $personne->fonctionCR_idfonctionCR = $fonctionCR;
         $personne->profession_idprofession = $profVolontaire; //profession
@@ -413,12 +442,12 @@ class PersonneControler extends Controller {
         $personne->personne_email_urgence = $emailPersUrgence; //email urgence
         //personne->personne_profil = 1; //profil volontaire
 
-        
+
         $AvoirPermis = (isset($AvoirPermis) && $AvoirPermis != null) ? $AvoirPermis : 'NON';
         $numeroPermis = (isset($numeroPermis) && $numeroPermis != null) ? $numeroPermis : '';
         $etatMere = (isset($etatMere)&& $etatMere != null) ? $etatMere : "";
         $etatPere = (isset($etatPere) && $etatPere == null) ? $etatPere : "" ;
-        
+
         $personne->personne_avoir_permis = $AvoirPermis;
         $personne->personne_numero_permis = $numeroPermis;
         $personne->personne_nom_pere = $nomPereVolontaire;
@@ -447,6 +476,7 @@ class PersonneControler extends Controller {
           }
           } */
 
+        $personne_immat = $numeroMatricule;
         //SUPPRIMER LES CATEGOERIES DE PERMIS
         $personneCategorie = new \App\modeles\personneCategPermis();
         $retour = $personneCategorie->where("personne_immat", $personne_immat)->delete($personneCategorie->toArray());
@@ -532,8 +562,8 @@ class PersonneControler extends Controller {
         $personne->personne_telephone_2 = $tel2Volontaire; //telephone 2
         $personne->personne_email = $emailVolontaire; //email
         //
-        $personne->TypePiece = $typePiece; //type de la piece 
-        $personne->NumerPiece = $numPieceVolontaire; //numero de la piece 
+        $personne->TypePiece = $typePiece; //type de la piece
+        $personne->NumerPiece = $numPieceVolontaire; //numero de la piece
 
         $personne->fonctionCR_idfonctionCR = $fonctionCR;
         $personne->profession_idprofession = $profVolontaire; //profession
@@ -639,23 +669,24 @@ class PersonneControler extends Controller {
     }
 
     public function generateRapport($persnummat) {
-        
-        
+
+
         /*chdir("C:\\Users\User\Documents\projet-laravel\CROIX-ROUGE\croixRouge\public\");*/
         //var_dump(getcwd());
-        
-        
+
+       /* \App\modeles\Images::where('personne_idpersonne','CRCI-2020-C79-47')->where('image_legende','PHOTOVOLONTAIRE')->get() */
+
         $input = 'C:\Users\User\Documents\projet-laravel\CROIX-ROUGE\croixRouge\public\jasperfile/fiche_croix_rouge_volontaire.jrxml';
-        
+
         $jasper = new PHPJasper;
         $jasper->compile($input)->execute();
-        
+
         //$input = '/jasperfile/fiche_croix_rouge_volontaire.jrxml';
         $output = 'C:\Users\User\Documents\projet-laravel\CROIX-ROUGE\croixRouge\public\rapports\/';
-        
-        
+
+
         $jdbc_dir = "C:/Users/User/Documents/projet-laravel/CROIX-ROUGE/croixRouge/vendor/geekcom/phpjasper/bin/jasperstarter/jdbc";
-        
+
         $options = [
             'format' => ['pdf'],
             'locale' => 'en',
@@ -675,9 +706,13 @@ class PersonneControler extends Controller {
             ]
         ];
 
+        //generer le code QR avant
+        $this->genererQrcode();
+
+        // ensuite on execute le jasper
         $jasper = new PHPJasper;
 
-//    $rep = $jasper->process($input,$output,$options)->printOutput();
+        //$rep = $jasper->process($input,$output,$options)->printOutput();
         $rep = $jasper->process($input, $output, $options)->execute();
 
         //if (file_exists($output.'fiche_croix_rouge_volontaire.pdf')) {
@@ -687,34 +722,45 @@ class PersonneControler extends Controller {
                     $tabParam = array("persImat"=>'fiche_immat_'.$persnummat.'.pdf');
                     return view('view',$tabParam);
                 } else {
-                    
+
                 }
             }
         //}
     }
-    
+
+   public function genererQrcode(){
+        \QrCode::size(500)
+            ->format('svg')
+            ->generate('www.7itmind.com/rapport/idrisse.pdf', public_path('jasperfile/qrcode1.svg'));
+    }
+
     function removeVolontaire(Request $request){
-        
+
         extract($request->all());
-        
+
         //var_dump($idVolontaire);
-        
+
         $personne = new \App\modeles\Personne;
-        
+
         $personne = $personne->all()->where("idpersonne", $idVolontaire)->first();
-        
+
         $personne->personne_top_valide = 0;
-        
+
         if($personne->where("idpersonne", $idVolontaire)->update($personne->toArray())){
-            
+
             echo 'succes';
         }
         else{
-            
+
             echo 'echec';
         }
-        
-        
+
+
+    }
+
+    public function showFiche(Request $request){
+
+        return view('rapport.fiche');
     }
 
 }

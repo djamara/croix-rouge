@@ -58,18 +58,30 @@ Route::get('/gallerie', function () {
 
 
 Route::get('/generateQR', function () {
-  
+
     \QrCode::size(500)
             ->format('svg')
-            ->generate('www.7itmind.com/rapport/idrisse.pdf', public_path('images/qrcode1.svg'));
-   
+            ->generate('www.7itmind.com/rapport/idrisse.pdf', public_path('jasperfile/qrcode1.svg'));
+
   return view('qrCode');
-    
+
 });
 
 Route::get('/generateRapport/{id}','PersonneControler@generateRapport');
 
+Route::get('/showFiche','PersonneControler@showFiche');
+
+Route::get('/createCompte','UserLoginController@createCompte');
+
+Route::get('/afficherCompte/{idcompte}','UserLoginController@afficherCompte');
+
 Route::post('/removeVolontaire','PersonneControler@removeVolontaire');
+
+Route::post('/inserer_compte','UserLoginController@insererCompte');
+
+Route::post('/modifier_compte','UserLoginController@modifierCompte');
+
+Route::get('/listeComptes','UserLoginController@listeComptes');
 
 Route::get('/home',function(){
     return View('welcome');

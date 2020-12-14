@@ -32,7 +32,7 @@
 
                         <div class="listview__content">
                             <div class="listview__heading">
-                                Idriss Coulibaly <small>12:01 </small>
+                                Croix Rouge <small>12:01 </small>
                             </div>
                             <p>Pour vous rappeler le point de presse MR le president</p>
                         </div>
@@ -261,8 +261,8 @@
             <div class="user__info" data-toggle="dropdown">
                 <img class="user__img" src="{{asset('demo/img/profile-pics/8.jpg')}}" alt="">
                 <div>
-                    <div class="user__name">Idriss Coulibaly</div>
-                    <div class="user__email">idrisseCoul@gmail.com</div>
+                    <div class="user__name">login:</div>
+                    <div class="user__email">email:</div>
                 </div>
             </div>
 
@@ -305,18 +305,20 @@
                     <li><a href="#">Etat de la caisse</a></li>
                 </ul>
             </li>-->
+
             <li class="navigation__sub">
-                <a href="#"><i class="zmdi zmdi-view-list"></i>Comités local</a>
+                <a href="#"><i class="zmdi zmdi-wrench"></i>Administration</a>
 
                 <ul>
                     <!--<li><a href="html-table.html">Inserer un comité local</a></li>-->
-                    <li><a href="Liste_Comite">Liste des comités locaux</a></li>
-                    <!--<li><a href="data-table.html">Etat de la caisse</a></li>-->
+                    <li><a disabled href="{{url('createCompte')}}">Gestion des comptes</a></li>
+                    <li><a disabled href="{{url('listeComptes')}}">Liste des comptes</a></li>
+                    <li><a href="{{url('Liste_Comite')}}">Liste des comités locaux</a></li>
                 </ul>
             </li>
-<!--            <li class="navigation__sub">
+            <li class="navigation__sub">
                 <a href="#"><i class="zmdi zmdi-view-list"></i>Archivage numerique</a>
-            </li>-->
+            </li>
 
             <!--<li><a href="calendar.html"><i class="zmdi zmdi-calendar"></i> Calendrier d'évènements</a></li>-->
 

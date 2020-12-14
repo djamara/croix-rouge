@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -23,7 +23,7 @@ $(function () {
     toastr.success('Bienvenue dans eCROIX-ROUGE', 'BIENVENUE'); //le test du plugin de l'alerte
 
     $('#login-nav').bootstrapValidator({
-        
+
         message: 'This value is not valid',
         live: 'enabled',
         feedbackIcons: {
@@ -48,27 +48,27 @@ $(function () {
                 }
         }
     }).on('success.form.bv',function(e){
-        
+
         // Prevent form submission
         e.preventDefault();
-        
+
         //le traitement ajax
         login();
     })
 })
 
 function login(){
-    
+
     $.ajax({
-        
+
         url: $('#login-nav').attr('action'),
         data: $('#login-nav').serialize(),
         type: 'POST',
-        
+
         success: function (data, textStatus, jqXHR) {
-            
+
             if(data == 'pasdedonnees'){
-                
+
                  toastr.options = {
                         "closeButton": true,
                         "debug": false,
@@ -88,10 +88,33 @@ function login(){
                              //window.location.href = '/';
                         }
                     },
-                      toastr.warning('Données incorrectes ! Accès refusé ', 'VERIFICATION DES DONNÉES'); 
+                      toastr.warning('Données incorrectes ! Accès refusé ', 'VERIFICATION DES DONNÉES');
             }
-            else{
-                
+            else if(data=='connecté'){
+
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "progressBar": true,
+                    "preventDuplicates": false,
+                    "positionClass": "toast-top-right",
+                    "onclick": null,
+                    "showDuration": "400",
+                    "hideDuration": "1500",
+                    "timeOut": "7000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut",
+                    "onHidden": function () {
+                        //window.location.href = '/';
+                    }
+                },
+                    toastr.warning('Nous avons detecté une connexion sur un autre périphérique ! Accès refusé ', 'VERIFICATION DE CONNEXION');
+            }
+            else if(data=='succes'){
+
                  toastr.options = {
                         "closeButton": true,
                         "debug": false,
@@ -112,12 +135,35 @@ function login(){
                         }
                     },
                       toastr.success('Données sont correctes ! Accès accordé ', 'VERIFICATION DES DONNÉES');
-            
+
             }
-            
+            else{
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "progressBar": true,
+                    "preventDuplicates": false,
+                    "positionClass": "toast-top-right",
+                    "onclick": null,
+                    "showDuration": "400",
+                    "hideDuration": "1000",
+                    "timeOut": "7000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut",
+                    "onHidden": function () {
+
+                    }
+                },
+                    toastr.error("Un problème est survenue au niveau du serveur\n\
+                                    Veuillez contacter l'administrateur", 'VERIFICATION DES DONNÉES');
+            }
+
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            
+
              toastr.options = {
                         "closeButton": true,
                         "debug": false,
@@ -134,7 +180,7 @@ function login(){
                         "showMethod": "fadeIn",
                         "hideMethod": "fadeOut",
                         "onHidden": function () {
-                            
+
                         }
                     },
                       toastr.error("Un problème est survenue au niveau du serveur\n\

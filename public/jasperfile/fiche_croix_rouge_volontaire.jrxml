@@ -15,19 +15,22 @@
 	personne.personne_pays_naiss, villes.VIL_NOM AS personne_ville_naiss, commune.commune_libelle AS personne_commune_naiss, personne.personne_civilite, typepiece.libelleTypePiece, personne.NumerPiece, personne.personne_ville_habitation, personne.personne_commune_habitation, groupesanguin.libelleGroupeSanguin, personne.personne_telephone_1 AS numWhatsApp, personne.personne_telephone_2 AS numTel, personne.personne_email, 
 	(SELECT GROUP_CONCAT(diplome.diplome_libelle)  FROM diplome, personne_diplome
 WHERE diplome.iddiplome=personne_diplome.diplome_iddiplome AND personne_diplome.persImmat=numMat) AS diplomes,
-personne.personne_niveau_etude, personne.personne_qualification, personne.personne_activite, personne.personne_numero_permis, (SELECT GROUP_CONCAT(categoriepermis.categorie_libelle)  FROM categoriepermis, personne_categoriepermis
+personne.personne_niveau_etude, personne.personne_qualification, personne.personne_activite, personne.personne_numero_permis, 
+(SELECT GROUP_CONCAT(categoriepermis.categorie_libelle)  FROM categoriepermis, personne_categoriepermis
 WHERE categoriepermis.idCategorie=personne_categoriepermis.idcategorie AND personne_categoriepermis.personne_immat =numMat) AS permis, personne.personne_nom_urgence, personne.personne_prenom_urgence, personne.personne_tel_urgence, personne.personne_email_urgence, personne.personne_ville_urgence, personne.personne_commune_urgence, personne.personne_quartier_urgence,
 (SELECT pays_nationalite.PAYS_NOM FROM pays_nationalite, personne WHERE pays_nationalite.PAYS_CODE=personne.personne_pays_nationalite AND personne.personne_immat =numMat) AS nationnalite,
 (SELECT commune.commune_libelle FROM commune, personne WHERE commune.idcommune=personne.personne_commune_habitation AND personne.personne_immat=numMat) AS communeHabitation,
-(SELECT villes.VIL_NOM FROM villes, personne WHERE villes.VIL_IDENTIFIANT=personne.personne_ville_habitation AND personne.personne_immat=numMat) AS villeHabitation
 
-from personne
+(SELECT villes.VIL_NOM FROM villes, personne WHERE villes.VIL_IDENTIFIANT=personne.personne_ville_habitation AND personne.personne_immat=numMat) AS villeHabitation,
+(SELECT image_libelle FROM image WHERE image.image_legende = 'PHOTOVOLONTAIRE' AND image.personne_idpersonne = numMat) AS photo
+FROM personne
 left join pays_nationalite ON pays_nationalite.PAYS_CODE=personne.personne_pays_naiss
 LEFT JOIN groupesanguin ON groupesanguin.idGroupeSanguin=personne.groupeSanguin
 LEFT JOIN commune ON commune.idcommune=personne.personne_commune_naiss
 LEFT JOIN typepiece ON typepiece.idTypePiece=personne.TypePiece
 LEFT JOIN villes ON villes.VIL_IDENTIFIANT=personne.personne_ville_naiss
-WHERE personne.personne_immat= $P{numMat}]]>
+LEFT JOIN image ON image.personne_idpersonne = personne.personne_immat
+WHERE personne.personne_immat= $P{numMat}  LIMIT 1]]>
 	</queryString>
 	<field name="numMat" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="numMat"/>
@@ -151,6 +154,9 @@ WHERE personne.personne_immat= $P{numMat}]]>
 	</field>
 	<field name="villeHabitation" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="villeHabitation"/>
+	</field>
+	<field name="photo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="photo"/>
 	</field>
 	<background>
 		<band height="802">
@@ -512,9 +518,11 @@ WHERE personne.personne_immat= $P{numMat}]]>
 					<textFieldExpression><![CDATA["Type de pièce : <b>"+$F{libelleTypePiece}+"</b>"]]></textFieldExpression>
 				</textField>
 			</frame>
-			<image>
-				<reportElement positionType="FixRelativeToBottom" x="454" y="78" width="115" height="111" uuid="c0ab3af8-5761-46ca-9d4d-ce8d4ea8e7d3"/>
-				<imageExpression><![CDATA[$P{imageSource}+"Coulibaly.jpeg"]]></imageExpression>
+			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle">
+				<reportElement positionType="FixRelativeToBottom" stretchType="ElementGroupHeight" x="441" y="78" width="115" height="111" uuid="c0ab3af8-5761-46ca-9d4d-ce8d4ea8e7d3">
+					<printWhenExpression><![CDATA[$F{photo} != null]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{imageSource}+$F{photo}]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="455" y="207" width="100" height="90" uuid="03117569-465b-4d81-b6e2-65ce9ea406e7"/>

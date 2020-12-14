@@ -13,15 +13,17 @@ class User extends Authenticatable
     protected $table = 'users';
     protected $primarykey = 'idUsers';
     public $incrementing = true;
-    public $timestamp = false;
+    public $timestamp = true;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
+    /*protected $fillable = [
         'persImmat', 'login', 'password',
-    ];
+    ]; */
+
+    protected $guarded = ['idUsers'];
 
     /**
      * The attributes that should be hidden for arrays.
